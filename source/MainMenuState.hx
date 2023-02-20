@@ -29,7 +29,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var EngineVersion:String = '2.0'; //This is also used for Discord RPC
+	public static var EngineVersion:String = '3.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
 	public static var osEngineVersion:String = '3.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
@@ -45,6 +45,7 @@ class MainMenuState extends MusicBeatState
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
+		'kickstarter',
 		'options'
 	];
 
@@ -261,6 +262,9 @@ class MainMenuState extends MusicBeatState
 			{
 				if (optionShit[curSelected] == 'donate') {
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
+				}
+				if (optionShit[curSelected] == 'kickstarter') {
+					CoolUtil.browserLoad('https://www.kickstarter.com/projects/funkin/friday-night-funkin-the-full-ass-game');
 				} else if (optionShit[curSelected] == customOption) {
 					CoolUtil.browserLoad(customOptionLink);
 				}

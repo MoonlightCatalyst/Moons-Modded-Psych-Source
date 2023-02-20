@@ -228,6 +228,7 @@ class PlayState extends MusicBeatState
 
 	var dialogue:Array<String> = ['blah blah blah', 'coolswag'];
 	var dialogueJson:DialogueFile = null;
+	var dancingLeft:Bool = false;
 
 	var dadbattleBlack:BGSprite;
 	var dadbattleLight:BGSprite;
@@ -3155,31 +3156,72 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
+		switch(ClientPrefs.iconBounce)
+		{
+			case 'Default':
+				var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+				iconP1.scale.set(mult, mult);
+				iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP2.scale.set(mult, mult);
-		iconP2.updateHitbox();
+				var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+				iconP2.scale.set(mult, mult);
+				iconP2.updateHitbox();
 
-		var iconOffset:Int = 26;
+				var iconOffset:Int = 26;
 
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+
+			case 'Golden Apple':
+				iconP1.centerOffsets();
+				iconP2.centerOffsets();
+
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
+
+				var iconOffset:Int = 26;
+
+				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
+
+			default:
+				var iconOffset:Int = 26;
+
+				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+
+		}
 
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
-
-		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+		if (iconP1.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent >80)
+				iconP1.animation.curAnim.curFrame = 2;
+			else
+				iconP1.animation.curAnim.curFrame = 0;
+		} 
+		else {
+			if (healthBar.percent < 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else
+				iconP1.animation.curAnim.curFrame = 0;
+		}
+		if (iconP2.animation.frames == 3) {
+			if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent < 20)
+				iconP2.animation.curAnim.curFrame = 2;
+			else 
+				iconP2.animation.curAnim.curFrame = 0;
+		} else {
+			if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 1;
+			else 
+				iconP2.animation.curAnim.curFrame = 0;
+		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -4191,7 +4233,7 @@ class PlayState extends MusicBeatState
 	public var totalPlayed:Int = 0;
 	public var totalNotesHit:Float = 0.0;
 
-	public var showCombo:Bool = false;
+	public var showCombo:Bool = true;
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
 
@@ -4215,7 +4257,6 @@ class PlayState extends MusicBeatState
 			Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2);
 		}
 	}
-
 	private function popUpScore(note:Note = null):Void
 	{
 		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
@@ -4260,6 +4301,7 @@ class PlayState extends MusicBeatState
 
 		var pixelShitPart1:String = "";
 		var pixelShitPart2:String = '';
+		var numScore:FlxSprite = new FlxSprite();
 
 		if (PlayState.isPixelStage)
 		{
@@ -4326,15 +4368,11 @@ class PlayState extends MusicBeatState
 
 		var daLoop:Int = 0;
 		var xThing:Float = 0;
-		if (showCombo)
-		{
-			insert(members.indexOf(strumLineNotes), comboSpr);
-		}
-		if (!ClientPrefs.comboStacking)
-		{
-			if (lastCombo != null) lastCombo.kill();
-			lastCombo = comboSpr;
-		}
+		//if (!ClientPrefs.comboStacking)
+		//{
+		//	if (lastCombo != null) lastCombo.kill();
+		//	lastCombo = comboSpr;
+		//}
 		if (lastScore != null)
 		{
 			while (lastScore.length > 0)
@@ -4373,9 +4411,21 @@ class PlayState extends MusicBeatState
 			numScore.velocity.x = FlxG.random.float(-5, 5) * playbackRate;
 			numScore.visible = !ClientPrefs.hideHud;
 
-			//if (combo >= 10 || combo == 0)
-			if(showComboNum)
+			if (ClientPrefs.ratingCameraType == "camGame") {
+				comboSpr.cameras = [camGame];
+				rating.cameras = [camGame];
+				numScore.cameras = [camGame];
+			}
+			else if (ClientPrefs.ratingCameraType == "camHUD") {
+				comboSpr.cameras = [camHUD];
+				rating.cameras = [camHUD];
+				numScore.cameras = [camHUD];
+			}
+
+			if (combo >= 10) {
 				insert(members.indexOf(strumLineNotes), numScore);
+				insert(members.indexOf(strumLineNotes), comboSpr);
+			}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2 / playbackRate, {
 				onComplete: function(tween:FlxTween)
@@ -4877,6 +4927,31 @@ class PlayState extends MusicBeatState
 		var skin:String = 'noteSplashes';
 		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
 
+/*		if(ClientPrefs.splashTex != "Default") {
+		var skin:String = 'noteSplashes';
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+		}
+
+		if(ClientPrefs.splashTex != "Forever") {
+		var skin:String = 'noteSplashesForever';
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+		}
+
+		if(ClientPrefs.splashTex != "Base Game") {
+		var skin:String = 'noteSplashesBase';
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+		}
+
+		if(ClientPrefs.splashTex != "Impostor") {
+		var skin:String = 'noteSplashesAmong';
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+		}
+
+		if(ClientPrefs.splashTex != "Indie Cross") {
+		var skin:String = 'noteSplashesIndie';
+		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+		}*/
+
 		var hue:Float = 0;
 		var sat:Float = 0;
 		var brt:Float = 0;
@@ -5154,6 +5229,63 @@ class PlayState extends MusicBeatState
 
 		iconP1.scale.set(1.2, 1.2);
 		iconP2.scale.set(1.2, 1.2);
+
+		dancingLeft = !dancingLeft;
+
+		if (ClientPrefs.iconBounce == "OS") {
+			if (dancingLeft){
+				iconP1.angle = 8; iconP2.angle = 8; // maybe i should do it with tweens, but i'm lazy // i'll make it in -1.0.0, i promise
+			} else { 
+				iconP1.angle = -8; iconP2.angle = -8;
+			}
+		}
+
+		if(ClientPrefs.iconBounce != "None")
+			{
+				iconP1.scale.set(1.2, 1.2);
+				iconP2.scale.set(1.2, 1.2);
+	
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
+			}
+			if(ClientPrefs.iconBounce == "Golden Apple")
+			{
+				var funny:Float = (healthBar.percent * 0.01) + 0.01;
+	
+				//health icon bounce but epic
+				if (curBeat % gfSpeed == 0)
+				{
+					curBeat % (gfSpeed * 2) == 0 ? {
+						iconP1.scale.set(1.1, 0.8);
+						iconP2.scale.set(1.1, 1.3);
+	
+						FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+						FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					} : {
+						iconP1.scale.set(1.1, 1.3);
+						iconP2.scale.set(1.1, 0.8);
+	
+						FlxTween.angle(iconP2, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+						FlxTween.angle(iconP1, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+					}
+	
+					FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+					FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
+	
+					iconP1.updateHitbox();
+					iconP2.updateHitbox();
+				}
+			}
+			if(ClientPrefs.iconBounce == "Strident Crisis")
+			{
+				var funny:Float = (healthBar.percent * 0.01) + 0.01;
+				
+				iconP1.setGraphicSize(Std.int(iconP1.width + (50 * funny)),Std.int(iconP2.height - (25 * funny)));
+				iconP2.setGraphicSize(Std.int(iconP2.width + (50 * (2 - funny))),Std.int(iconP2.height - (25 * (2 - funny))));
+
+				iconP1.updateHitbox();
+				iconP2.updateHitbox();
+			}
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();

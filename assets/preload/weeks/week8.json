@@ -1,4 +1,16 @@
 {
+	"storyName": "Your New Week",
+	"difficulties": "normal",
+	"hideFreeplay": false,
+	"weekBackground": "stage",
+	"weekBefore": "week7",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": true,
 	"songs": [
 		[
 			"test",
@@ -8,25 +20,22 @@
 				193,
 				253
 			]
+		],
+		[
+			"hot-dilf",
+			"dad",
+			[
+				146,
+				113,
+				253
+			]
 		]
 	],
-	"hiddenUntilUnlocked": false,
-	"hideFreeplay": false,
-	"weekBackground": "stage",
-	"difficulties": "normal",
 	"weekCharacters": [
 		"dad",
 		"bf",
 		"gf"
 	],
-	"storyName": "Your New Week",
-	"weekName": "Custom Week",
-	"freeplayColor": [
-		146,
-		113,
-		253
-	],
-	"hideStoryMode": true,
-	"weekBefore": "tutorial",
-	"startUnlocked": true
+	"hiddenUntilUnlocked": false,
+	"weekName": "Custom Week"
 }

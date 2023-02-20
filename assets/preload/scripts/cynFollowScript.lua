@@ -1,45 +1,153 @@
---[[ setting stuffs ]]
-local following = true
-local offsets = {["dad"] = 15, ["boyfriend"] = 15}
-local manual = {["dad"] = {0, 0}, ["boyfriend"] = {0, 0},
-	["enabled"] = false
-}
+local DadX = 0
+local DadY = 0
 
---[[ internal stuffs ]]
-local anims = {["singL"] = true, ["singD"] = false, ["singU"] = false, ["singR"] = true}
-local singing = {["dad"] = false, ["boyfriend"] = false}
-local function get_pos(char)
-	if manual["enabled"] then return manual[char] else
-		local mid, pos = {getMidpointX(char), getMidpointY(char)}, getProperty(char .. ".cameraPosition")
-		local offset = getProperty((mustHitSection and char or "opponent") .. "CameraOffset")
-		return {mid[1] + (mustHitSection and -100 or 150) + (mustHitSection and -pos[1] or pos[1]) + offset[1],
-		mid[2] - 100 + pos[2] + offset[2]}
-	end
+local BfX = 0
+local BfY = 0
+
+local GfX = 0
+local GfY = 0
+
+local BfOfs = 15
+local GfOfs = 15
+local DadOfs = 15
+
+local BfOfsX = 0
+local BfOfsY = 0
+
+local GfOfsX = 0
+local GfOfsY = 0
+
+local DadOfsX = 0
+local DadOfsY = 0
+
+local enableSystem = true
+local cameraFollowing = true
+
+local currentTarget = ''
+local currentSection = nil
+local firstSection = false
+
+--[[If you want to know the credits:
+i got a ideia of the script by Washo789, 
+the script is made by BF Myt.]]--
+function onBeatHit()
+    if curBeat % 4 == 0 and currentSection == nil then
+        currentSection = ''
+    end
 end
-local function follow(char)
-	local anim, pos, offset = getProperty(char .. ".animation.curAnim.name"):sub(1, 5), get_pos(char), offsets[char]
-	local pos_clone, horizontal = {pos[1], pos[2]}, anims[anim]
-	if following then if horizontal then pos_clone[1] = pos_clone[1] + (anim == "singL" and -offset or offset)
-		elseif horizontal == false then pos_clone[2] = pos_clone[2] + (anim == "singU" and -offset or offset) end
-	end
-	setProperty("camFollow.x", pos_clone[1]); setProperty("camFollow.y", pos_clone[2])
+function onUpdate()
+    if enableSystem == true and getProperty('isCameraOnForcedPos') == false then
+        if currentSection ~= nil then
+            if gfSection ~= true then
+                if mustHitSection == false  then
+                    if currentSection ~= 'dad' then
+                        currentTarget = 'dad'
+                        currentSection = 'dad'
+                    end
+                else
+                    if currentSection ~= 'boyfriend' then
+                        currentTarget = 'boyfriend'
+                        currentSection = 'boyfriend'
+                    end
+                end
+            else
+                if currentSection ~= 'gf' then
+                    currentTarget = 'gf'
+                    currentSection = 'gf'
+                end
+            end
+        end
+        if currentTarget == 'boyfriend' then
+            BfX = getMidpointX('boyfriend') - 100 - getProperty('boyfriend.cameraPosition[0]') + getProperty('boyfriendCameraOffset[0]') + BfOfsX
+            BfY = getMidpointY('boyfriend') - 100 + getProperty('boyfriend.cameraPosition[1]') + getProperty('boyfriendCameraOffset[1]') + BfOfsY
+    
+            if string.find(getProperty('boyfriend.animation.curAnim.name'),'singLEFT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',BfX-BfOfs,BfY)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('boyfriend.animation.curAnim.name'),'singDOWN',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',BfX,BfY+BfOfs)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('boyfriend.animation.curAnim.name'),'singRIGHT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',BfX+BfOfs,BfY)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('boyfriend.animation.curAnim.name'),'singUP',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',BfX,BfY-BfOfs)
+                cameraFollowing = true
+            else
+                if cameraFollowing == true then
+                    triggerEvent('Camera Follow Pos',BfX,BfY)
+                    triggerEvent('Camera Follow Pos','','')
+                    cameraFollowing = false
+                end
+            end
+    
+        elseif currentTarget == 'dad' then
+            DadX = getMidpointX('dad') + 150 + getProperty('dad.cameraPosition[0]') + getProperty('opponentCameraOffset[0]') + DadOfsX
+            DadY = getMidpointY('dad') - 100 + getProperty('dad.cameraPosition[1]') + getProperty('opponentCameraOffset[1]') + DadOfsY
+    
+            if string.find(getProperty('dad.animation.curAnim.name'),'singLEFT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',DadX-DadOfs,DadY)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('dad.animation.curAnim.name'),'singDOWN',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',DadX,DadY+DadOfs)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('dad.animation.curAnim.name'),'singUP',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',DadX,DadY-DadOfs)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('dad.animation.curAnim.name'),'singRIGHT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',DadX+DadOfs,DadY)
+                cameraFollowing = true
+    
+            else
+                if cameraFollowing == true then
+                    triggerEvent('Camera Follow Pos',DadX,DadY)
+                    triggerEvent('Camera Follow Pos','','')
+                    cameraFollowing = false
+                end
+            end
+        elseif currentTarget == 'gf' then
+            GfX = getMidpointX('gf') + getProperty('gf.cameraPosition[0]') + getProperty('girlfriendCameraOffset[0]') + GfOfsX
+            GfY = getMidpointY('gf') + getProperty('gf.cameraPosition[1]') + getProperty('girlfriendCameraOffset[1]') + GfOfsY
+            if string.find(getProperty('gf.animation.curAnim.name'),'singLEFT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',GfX-GfOfs,GfY)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('gf.animation.curAnim.name'),'singDOWN',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',GfX,GfY + GfOfs)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('gf.animation.curAnim.name'),'singUP',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',GfX,GfY - GfOfs)
+                cameraFollowing = true
+    
+            elseif string.find(getProperty('gf.animation.curAnim.name'),'singRIGHT',0,true) ~= nil then
+                triggerEvent('Camera Follow Pos',GfX+GfOfs,GfY)
+                cameraFollowing = true
+    
+            else
+                if cameraFollowing == true then
+                    triggerEvent('Camera Follow Pos',GfX,GfY)
+                    triggerEvent('Camera Follow Pos','','')
+                    cameraFollowing = false
+                end
+            end
+        end
+        setProperty('isCameraOnForcedPos',false)
+    else
+        if cameraFollowing == true then
+            cameraFollowing = false
+        end
+    end
 end
-function onStartCountdown() setProperty("isCameraOnForcedPos", true); follow("dad") end
-function onBeatHit() if curBeat % 4 == 0 then follow(mustHitSection and "boyfriend" or "dad") end end
-local function check_idle(char) local anim = getProperty(char .. ".animation.curAnim.name")
-	if anim == "idle" then if singing[char] then follow(char) end singing[char] = false end
+function onMoveCamera(focus)
+    if firstSection == false then
+        currentTarget = focus
+        firstSection = true
+    end
 end
-function onTimerCompleted(tag)
-	if mustHitSection then if tag == "follow_boyfriend_idle" then check_idle("boyfriend") end
-	elseif tag == "follow_dad_idle" then check_idle("dad") end
-end
-local function follow_note(note_type, sustained)
-	if note_type ~= "No Animation" then 
-		local char = mustHitSection and "boyfriend" or "dad"
-		if not sustained then follow(char) end
-		singing[char] = true
-		runTimer("follow_" .. char .. "_idle", (stepCrochet * getProperty(char .. ".singDuration") + 30) / 1000)
-	end
-end
-function goodNoteHit(id, direction, note_type, sustained) follow_note(note_type, sustained) end
-function opponentNoteHit(id, direction, note_type, sustained) follow_note(note_type, sustained) end

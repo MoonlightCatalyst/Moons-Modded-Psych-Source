@@ -104,9 +104,34 @@ class VisualsUISubState extends BaseOptionsMenu
 			'pauseMusic',
 			'string',
 			'Tea Time',
-			['None', 'Breakfast', 'Tea Time', 'Indie Cross', 'Funky Stuff', 'Fresh Remix', 'Lunar Eclipse', 'Configurator']);
+			['None', 'Breakfast', 'Tea Time', 'Indie Cross', 'Funky Stuff', 'Fresh Remix', 'Lunar Eclipse', 'Configurator', 'Death Toll', 'Beast Toll']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
+
+		var option:Option = new Option('Rating Camera:',
+			"What type of camera type do you prefer \n the ratings to be on?",
+			'ratingCameraType',
+			'string',
+			'camHUD',
+			['camHUD', 'camGame']);
+		addOption(option);
+
+		var option:Option = new Option('Icon Bounce:',
+			'How should your icons bounce?',
+			'iconBounce',
+			'string',
+			'Default',
+			['Default', 'Golden Apple', 'OS', 'Strident Crisis']);
+		addOption(option);
+
+		/*var option:Option = new Option('Note Splash Texture:',
+			'What note splash style do \n you want to use?',
+			'splashTex',
+			'string',
+			'Default',
+			['Default', 'Forever', 'Base Game', 'Diamonds', 'Impostor', 'Indie Cross']);
+		addOption(option);
+		*/
 		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',

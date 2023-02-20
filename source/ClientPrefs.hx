@@ -12,6 +12,9 @@ class ClientPrefs {
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = false;
 	public static var flashing:Bool = true;
+	public static var iconBounce:String = 'Default';
+	public static var ratingCameraType:String = 'camHUD';
+	public static var splashTex:String = 'Default';
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
@@ -106,6 +109,9 @@ class ClientPrefs {
 		FlxG.save.data.framerate = framerate;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
+		FlxG.save.data.iconBounce = iconBounce;
+		FlxG.save.data.ratingCameraType = ratingCameraType;
+		FlxG.save.data.splashTex = splashTex;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
@@ -146,6 +152,18 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
+		}
+		if(FlxG.save.data.iconBounce != null)
+		{
+			iconBounce = FlxG.save.data.iconBounce;
+		}
+		if(FlxG.save.data.ratingCameraType != null)
+		{
+			ratingCameraType = FlxG.save.data.ratingCameraType;
+		}
+		if(FlxG.save.data.splashTex != null)
+		{
+			splashTex = FlxG.save.data.splashTex;
 		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;

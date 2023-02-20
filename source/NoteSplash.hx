@@ -14,7 +14,27 @@ class NoteSplash extends FlxSprite
 		super(x, y);
 
 		var skin:String = 'noteSplashes';
-		if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) skin = PlayState.SONG.splashSkin;
+
+		/*if(ClientPrefs.splashTex == "Default") {
+		skin = 'noteSplashes';
+		}
+
+		else if(ClientPrefs.splashTex == "Forever") {
+		skin = 'noteSplashesForever';
+		}
+
+		else if(ClientPrefs.splashTex == "Base Game") {
+		skin = 'noteSplashesBase';
+		}
+
+		else if(ClientPrefs.splashTex == "Impostor") {
+		skin = 'noteSplashesAmong';
+		}
+
+		else if(ClientPrefs.splashTex == "Indie Cross") {
+		skin = 'noteSplashesIndie';
+		}
+		*/
 
 		loadAnims(skin);
 		
@@ -37,6 +57,7 @@ class NoteSplash extends FlxSprite
 		if(textureLoaded != texture) {
 			loadAnims(texture);
 		}
+
 		colorSwap.hue = hueColor;
 		colorSwap.saturation = satColor;
 		colorSwap.brightness = brtColor;
