@@ -56,3 +56,17 @@ function onTimerCompleted(tag, loops, loopsLeft)
 		doTweenX('MoveOutFour', 'JukeBoxSubText', -450, 1.5, 'CircInOut')
 	end
 end
+
+function onUpdate()
+	if getPropertyFromClass('ClientPrefs', 'songIntroScript', true) then
+		setProperty('JukeBoxTag.visible', true)
+		setProperty('JukeBox.visible', true)
+		setProperty('JukeBoxText.visible', true)
+		setProperty('JukeBoxSubText.visible', true)
+	else
+		setProperty('JukeBoxTag.visible', false)
+		setProperty('JukeBox.visible', false)
+		setProperty('JukeBoxText.visible', false)
+		setProperty('JukeBoxSubText.visible', false)
+	end
+end

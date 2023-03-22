@@ -55,7 +55,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
-
+/*
+		var option:Option = new Option('Opponent Static Notes',
+			'If unchecked, opponent notes will not\nstay static when hitting a note',
+			'opptStaticArrows',
+			'bool',
+			false);
+		addOption(option);
+*/
 		var option:Option = new Option('Opponent Notes',
 			'If unchecked, opponent notes get hidden.',
 			'opponentStrums',

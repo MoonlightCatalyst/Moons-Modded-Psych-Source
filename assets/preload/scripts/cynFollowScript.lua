@@ -36,7 +36,7 @@ function onBeatHit()
     end
 end
 function onUpdate()
-    if enableSystem == true and getProperty('isCameraOnForcedPos') == false then
+    if enableSystem == true and getProperty('isCameraOnForcedPos') == false and getPropertyFromClass('ClientPrefs', 'camMovement', true) then
         if currentSection ~= nil then
             if gfSection ~= true then
                 if mustHitSection == false  then

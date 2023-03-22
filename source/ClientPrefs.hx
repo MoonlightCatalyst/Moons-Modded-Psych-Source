@@ -13,12 +13,17 @@ class ClientPrefs {
 	public static var showFPS:Bool = false;
 	public static var flashing:Bool = true;
 	public static var iconBounce:String = 'Default';
+	public static var ratingStyle:String = 'Default';
 	public static var ratingCameraType:String = 'camHUD';
 	public static var splashTex:String = 'Default';
+	public static var camMovement:Bool = false;
+	public static var songIntroScript:Bool = false;
+	public static var holdAnims:Bool = false;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
+	public static var opptStaticArrows:Bool = false;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
@@ -106,10 +111,15 @@ class ClientPrefs {
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
+		FlxG.save.data.opptStaticArrows = opptStaticArrows;
 		FlxG.save.data.framerate = framerate;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
 		FlxG.save.data.iconBounce = iconBounce;
+		FlxG.save.data.ratingStyle = ratingStyle;
+		FlxG.save.data.camMovement = camMovement;
+		FlxG.save.data.songIntroScript = songIntroScript;
+		FlxG.save.data.holdAnims = holdAnims;
 		FlxG.save.data.ratingCameraType = ratingCameraType;
 		FlxG.save.data.splashTex = splashTex;
 		FlxG.save.data.camZooms = camZooms;
@@ -157,6 +167,22 @@ class ClientPrefs {
 		{
 			iconBounce = FlxG.save.data.iconBounce;
 		}
+		if(FlxG.save.data.camMovement != null)
+		{
+			camMovement = FlxG.save.data.camMovement;
+		}
+		if(FlxG.save.data.holdAnims != null)
+		{
+			holdAnims = FlxG.save.data.holdAnims;
+		}
+		if(FlxG.save.data.songIntroScript != null)
+		{
+			songIntroScript = FlxG.save.data.songIntroScript;
+		}
+		if(FlxG.save.data.ratingStyle != null)
+		{
+			ratingStyle = FlxG.save.data.ratingStyle;
+		}
 		if(FlxG.save.data.ratingCameraType != null)
 		{
 			ratingCameraType = FlxG.save.data.ratingCameraType;
@@ -188,6 +214,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.shaders != null) {
 			shaders = FlxG.save.data.shaders;
+		}
+		if(FlxG.save.data.opptStaticArrows != null) {
+			opptStaticArrows = FlxG.save.data.opptStaticArrows;
 		}
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;

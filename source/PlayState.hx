@@ -75,7 +75,8 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import vlc.MP4Handler;
+import hxcodec.VideoHandler;
+import hxcodec.VideoSprite;
 #end
 
 using StringTools;
@@ -244,6 +245,7 @@ class PlayState extends MusicBeatState
 	var blammedLightsBlack:FlxSprite;
 	var phillyWindowEvent:BGSprite;
 	var trainSound:FlxSound;
+	var shoot:FlxSound;
 
 	var phillyGlowGradient:PhillyGlow.PhillyGlowGradient;
 	var phillyGlowParticles:FlxTypedGroup<PhillyGlow.PhillyGlowParticle>;
@@ -1592,7 +1594,7 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-		  public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
+		public function addShaderToCamera(cam:String,effect:ShaderEffect){//STOLE FROM ANDROMEDA
 	  
 	  
 	  
@@ -1725,7 +1727,7 @@ class PlayState extends MusicBeatState
 			return;
 		}
 
-		var video:MP4Handler = new MP4Handler();
+		var video:VideoSprite = new VideoSprite();
 		video.playVideo(filepath);
 		video.finishCallback = function()
 		{
@@ -3184,6 +3186,45 @@ class PlayState extends MusicBeatState
 				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 
+			case 'OS':
+				var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP1.scale.set(mult, mult);
+				iconP1.updateHitbox();
+
+				var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP2.scale.set(mult, mult);
+				iconP2.updateHitbox();
+
+				var iconOffset:Int = 26;
+
+				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+			case 'OS':
+				var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP1.scale.set(mult, mult);
+				iconP1.updateHitbox();
+
+				var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+				iconP2.scale.set(mult, mult);
+				iconP2.updateHitbox();
+
+				var iconOffset:Int = 26;
+
+				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+
+				case 'Strident Crisis':
+					iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.8)),Std.int(FlxMath.lerp(150, iconP1.height, 0.8)));
+					iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.8)),Std.int(FlxMath.lerp(150, iconP2.height, 0.8)));
+
+					iconP1.updateHitbox();
+					iconP2.updateHitbox();
+
+					var iconOffset:Int = 26;
+
+					iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+					iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
+
 			default:
 				var iconOffset:Int = 26;
 
@@ -3271,6 +3312,9 @@ class PlayState extends MusicBeatState
 
 					if(ClientPrefs.timeBarType != 'Song Name')
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
+
+					if(ClientPrefs.timeBarType == 'Elapsed, Left')
+						timeTxt.text = '${FlxStringUtil.formatTime(Conductor.songPosition / 1000)} / ${FlxStringUtil.formatTime(songLength / 1000)}';
 				}
 			}
 
@@ -4416,10 +4460,15 @@ class PlayState extends MusicBeatState
 				rating.cameras = [camGame];
 				numScore.cameras = [camGame];
 			}
-			else if (ClientPrefs.ratingCameraType == "camHUD") {
+			if (ClientPrefs.ratingCameraType == "camHUD") {
 				comboSpr.cameras = [camHUD];
 				rating.cameras = [camHUD];
 				numScore.cameras = [camHUD];
+			}
+			else if (ClientPrefs.ratingCameraType == "camOther") {
+				comboSpr.cameras = [camOther];
+				rating.cameras = [camOther];
+				numScore.cameras = [camOther];
 			}
 
 			if (combo >= 10) {
@@ -4685,6 +4734,15 @@ class PlayState extends MusicBeatState
 			doDeathCheck(true);
 		}
 
+		switch(daNote.noteType) {
+			case 'Warning Note': //Hurt note
+				if(boyfriend.animOffsets.exists('hurt')) {
+						boyfriend.playAnim('hurt', true);
+						boyfriend.specialAnim = true;
+				
+				}
+		}
+
 		//For testing purposes
 		//trace(daNote.missHealth);
 		songMisses++;
@@ -4880,6 +4938,17 @@ class PlayState extends MusicBeatState
 						gf.playAnim('cheer', true);
 						gf.specialAnim = true;
 						gf.heyTimer = 0.6;
+					}
+				}
+				if(note.noteType == 'Warning Note') {
+					if(boyfriend.animOffsets.exists('dodge')) {
+						boyfriend.playAnim('dodge', true);
+						boyfriend.specialAnim = true;
+						boyfriend.heyTimer = 0.6;
+						shoot = new FlxSound().loadEmbedded(Paths.sound('shoot'));
+						FlxG.sound.list.add(shoot);
+						shoot.play(true);
+						triggerEventNote('Screen Shake', '0.20, 0.02', '');
 					}
 				}
 			}
@@ -5239,6 +5308,9 @@ class PlayState extends MusicBeatState
 				iconP1.angle = -8; iconP2.angle = -8;
 			}
 		}
+
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
 
 		if(ClientPrefs.iconBounce != "None")
 			{

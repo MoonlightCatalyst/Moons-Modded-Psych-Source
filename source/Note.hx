@@ -145,6 +145,18 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+				case 'Warning Note':
+					reloadNote('WARNING');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					lowPriority = true;
+
+					if(isSustainNote) {
+						missHealth = 1;
+					} else {
+						missHealth = 1;
+					}
 				case 'Alt Animation':
 					animSuffix = '-alt';
 				case 'No Animation':
