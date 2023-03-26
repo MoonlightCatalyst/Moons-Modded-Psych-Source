@@ -246,6 +246,7 @@ class PlayState extends MusicBeatState
 	var phillyWindowEvent:BGSprite;
 	var trainSound:FlxSound;
 	var shoot:FlxSound;
+	var death:FlxSound;
 
 	var phillyGlowGradient:PhillyGlow.PhillyGlowGradient;
 	var phillyGlowParticles:FlxTypedGroup<PhillyGlow.PhillyGlowParticle>;
@@ -4949,6 +4950,16 @@ class PlayState extends MusicBeatState
 						FlxG.sound.list.add(shoot);
 						shoot.play(true);
 						triggerEventNote('Screen Shake', '0.20, 0.02', '');
+					}
+				}
+				if(note.noteType == 'Ex Note') {
+					if(boyfriend.animOffsets.exists('hurt')) {
+						boyfriend.playAnim('hurt', true);
+						boyfriend.specialAnim = true;
+						boyfriend.heyTimer = 0.6;
+						death = new FlxSound().loadEmbedded(Paths.sound('death'));
+						FlxG.sound.list.add(death);
+						death.play(true);
 					}
 				}
 			}

@@ -145,6 +145,22 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+				case 'Ex Note':
+					ignoreNote = mustPress;
+					reloadNote('EX');
+					colorSwap.hue = 0;
+					colorSwap.saturation = 0;
+					colorSwap.brightness = 0;
+					lowPriority = true;
+
+					if(isSustainNote) {
+						missHealth = 0;
+						hitHealth = -2;
+					} else {
+						missHealth = 0;
+						hitHealth = -2;
+					}
+					hitCausesMiss = false;
 				case 'Warning Note':
 					reloadNote('WARNING');
 					colorSwap.hue = 0;

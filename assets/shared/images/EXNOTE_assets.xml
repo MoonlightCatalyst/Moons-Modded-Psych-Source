@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="DEATHNOTE_assets.png">
+<!-- Created with Kades Custom Converter -->
+<SubTexture name="blue0000" x="0" y="0" width="343" height="196" frameX="90" frameY="32" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0001" x="344" y="0" width="495" height="243" frameX="166" frameY="71" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0002" x="840" y="0" width="565" height="249" frameX="201" frameY="77" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0003" x="1406" y="0" width="635" height="255" frameX="236" frameY="83" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0004" x="2042" y="0" width="565" height="249" frameX="201" frameY="77" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0005" x="2608" y="0" width="495" height="243" frameX="166" frameY="71" frameWidth="635" frameHeight="255"/>
+<SubTexture name="blue0006" x="3104" y="0" width="425" height="237" frameX="131" frameY="65" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0000" x="3530" y="0" width="343" height="196" frameX="90" frameY="32" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0001" x="0" y="256" width="495" height="243" frameX="166" frameY="71" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0002" x="496" y="256" width="565" height="249" frameX="201" frameY="77" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0003" x="1062" y="256" width="635" height="255" frameX="236" frameY="83" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0004" x="1698" y="256" width="565" height="249" frameX="201" frameY="77" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0005" x="2264" y="256" width="495" height="243" frameX="166" frameY="71" frameWidth="635" frameHeight="255"/>
+<SubTexture name="green0006" x="2760" y="256" width="425" height="237" frameX="131" frameY="65" frameWidth="635" frameHeight="255"/>
+<SubTexture name="purple0000" x="3186" y="256" width="343" height="201" frameX="90" frameY="32" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0001" x="3530" y="256" width="495" height="248" frameX="166" frameY="71" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0002" x="0" y="512" width="565" height="254" frameX="201" frameY="77" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0003" x="566" y="512" width="635" height="260" frameX="236" frameY="83" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0004" x="1202" y="512" width="565" height="254" frameX="201" frameY="77" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0005" x="1768" y="512" width="495" height="248" frameX="166" frameY="71" frameWidth="635" frameHeight="260"/>
+<SubTexture name="purple0006" x="2264" y="512" width="425" height="242" frameX="131" frameY="65" frameWidth="635" frameHeight="260"/>
+<SubTexture name="red0000" x="2690" y="512" width="343" height="200" frameX="90" frameY="32" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0001" x="3034" y="512" width="495" height="247" frameX="166" frameY="71" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0002" x="3530" y="512" width="565" height="253" frameX="201" frameY="77" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0003" x="0" y="773" width="635" height="259" frameX="236" frameY="83" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0004" x="636" y="773" width="565" height="253" frameX="201" frameY="77" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0005" x="1202" y="773" width="495" height="247" frameX="166" frameY="71" frameWidth="635" frameHeight="259"/>
+<SubTexture name="red0006" x="1698" y="773" width="425" height="241" frameX="131" frameY="65" frameWidth="635" frameHeight="259"/>
+</TextureAtlas>
