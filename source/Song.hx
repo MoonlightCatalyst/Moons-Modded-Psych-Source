@@ -29,6 +29,9 @@ typedef SwagSong =
 	var arrowSkin:String;
 	var splashSkin:String;
 	var validScore:Bool;
+	var characterTrails:Bool;
+	var bfTrails:Bool;
+	var swapStrumLines:Bool;
 }
 
 class Song
@@ -45,6 +48,9 @@ class Song
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
+	public var characterTrails:Bool = false;
+	public var bfTrails:Bool = false;
+	public var swapStrumLines:Bool = false;
 
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
 	{

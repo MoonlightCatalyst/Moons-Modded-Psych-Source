@@ -116,42 +116,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Default', 'OG', 'Kade Old', 'Kade New', 'impostor', 'void']);
 		addOption(option);
 */
-		var option:Option = new Option('Rating Camera:',
-			"What type of camera type do you prefer \n the ratings to be on?",
-			'ratingCameraType',
-			'string',
-			'camHUD',
-			['camHUD', 'camGame', 'camOther']);
-		addOption(option);
-
-		var option:Option = new Option('Icon Bounce:',
-			'How should your icons bounce?',
-			'iconBounce',
-			'string',
-			'Default',
-			['Default', 'Golden Apple', 'OS', 'Strident Crisis']);
-		addOption(option);
-
-		var option:Option = new Option('Camera Movement',
-			"If unchecked, the camera wont move when hitting notes",
-			'camMovement',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Fixed Sustain Animations',
-			"If unchecked, the player hold animation fix will not take effect",
-			'holdAnims',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Song intro card',
-			"If unchecked, the intro card will not appear when starting songs",
-			'songIntroScript',
-			'bool',
-			false);
-		addOption(option);
 
 		/*var option:Option = new Option('Note Splash Texture:',
 			'What note splash style do \n you want to use?',

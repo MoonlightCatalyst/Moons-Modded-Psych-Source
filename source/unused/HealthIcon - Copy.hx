@@ -26,7 +26,7 @@ class HealthIcon extends FlxSprite
 		super.update(elapsed);
 
 		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
+			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
 	}
 
 	public function swapOldIcon() {
@@ -54,19 +54,8 @@ class HealthIcon extends FlxSprite
 				iconOffsets[0] = (width - 150) / 2;
 				iconOffsets[1] = (width - 150) / 2;
 			}
-
-			if(ClientPrefs.iconBounce == 'Golden Apple') {
-				//updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'Default') {
-				updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'OS') {
-				updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'Strident Crisis') {
-				updateHitbox();
-			}
+			
+			updateHitbox();
 			if (width2 == 450) {
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
 			} else {
@@ -80,13 +69,6 @@ class HealthIcon extends FlxSprite
 				antialiasing = false;
 			}
 		}
-	}
-
-	override function updateHitbox()
-	{
-		super.updateHitbox();
-		offset.x = iconOffsets[0];
-		offset.y = iconOffsets[1];
 	}
 
 	public function getCharacter():String {

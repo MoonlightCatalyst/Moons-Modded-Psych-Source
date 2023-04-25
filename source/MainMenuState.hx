@@ -29,9 +29,9 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var engineVersion:String = '4.0'; //This is also used for Discord RPC
+	public static var engineVersion:String = '5.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
-	public static var funEngineVersion:String = '4.0'; //This is also used for Discord RPC
+	public static var funEngineVersion:String = '5.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -97,6 +97,24 @@ class MainMenuState extends MusicBeatState
         bg.antialiasing = ClientPrefs.globalAntialiasing;
         add(bg);
 
+		if(ClientPrefs.themedmainmenubg == true) {
+
+            var themedBg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+            themedBg.scrollFactor.set(0, yScroll);
+            themedBg.setGraphicSize(Std.int(bg.width));
+            themedBg.updateHitbox();
+            themedBg.screenCenter();
+            themedBg.antialiasing = ClientPrefs.globalAntialiasing;
+            add(themedBg);
+
+            var hours:Int = Date.now().getHours();
+            if(hours > 18) {
+                themedBg.color = 0x545f8a; // 0x6939ff
+            } else if(hours > 8) {
+                themedBg.loadGraphic(Paths.image('menuBG'));
+            }
+        }
+
         camFollow = new FlxObject(0, 0, 1, 1);
         camFollowPos = new FlxObject(0, 0, 1, 1);
         add(camFollow);
@@ -138,7 +156,6 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			//menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -147,6 +164,16 @@ class MainMenuState extends MusicBeatState
 			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 			//curoffset = curoffset + 20;
+			if (ClientPrefs.buttonsStuff == "Centered") {
+				menuItem.screenCenter(X);
+			}
+			else if (ClientPrefs.buttonsStuff == "Left") {
+				curoffset = curoffset + 0;
+			}
+			else if (ClientPrefs.buttonsStuff == "Right") {
+//				menuItem.x = 700;
+				menuItem.x = FlxG.width - menuItem.width - 240;
+			}
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
@@ -159,7 +186,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		var versionShit:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 44, 0, "Fun Engine v" + funEngineVersion + " - Modded Psych Engine", 12);
+		var versionShit:FlxText = new FlxText(FlxG.width * 0.7, FlxG.height - 44, 0, "Based Engine v" + funEngineVersion + " - Modded Psych Engine", 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);

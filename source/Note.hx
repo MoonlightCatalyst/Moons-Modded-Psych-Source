@@ -286,6 +286,29 @@ class Note extends FlxSprite
 			skin = PlayState.SONG.arrowSkin;
 			if(skin == null || skin.length < 1) {
 				skin = 'NOTE_assets';
+				if (prefix == '') {
+					if(ClientPrefs.noteSkinSettings == 'Clasic') {
+						skin = 'notes/NOTE_assets';
+					} else if (ClientPrefs.noteSkinSettings == 'Circle') {
+						skin = 'notes/NOTE_assets_circle';
+					} else if (ClientPrefs.noteSkinSettings == 'Hex') {
+						skin = 'notes/NOTE_assets_Hex';
+					} else if (ClientPrefs.noteSkinSettings == 'Holofunk') {
+						skin = 'notes/NOTE_assets_Holofunk';
+					} else if (ClientPrefs.noteSkinSettings == 'Stepmania') {
+						skin = 'notes/NOTE_assets_Stepmania';
+					} else if (ClientPrefs.noteSkinSettings == '3d') {
+						skin = 'notes/NOTE_assets_3D';
+					} else if (ClientPrefs.noteSkinSettings == '3d-old') {
+						skin = 'notes/NOTE_assets_3D_Old';
+					} else if (ClientPrefs.noteSkinSettings == '3d-gapple') {
+						skin = 'notes/NOTE_assets_3D_gapple';
+					} else if (ClientPrefs.noteSkinSettings == '3d-Gapple-old') {
+						skin = 'notes/NOTE_assets_3D_gapple_Old';
+					} else {
+						skin = 'notes/NOTE_assets';// for preventing crashes
+					}
+				}
 			}
 		}
 

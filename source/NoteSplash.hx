@@ -15,27 +15,6 @@ class NoteSplash extends FlxSprite
 
 		var skin:String = 'noteSplashes';
 
-		/*if(ClientPrefs.splashTex == "Default") {
-		skin = 'noteSplashes';
-		}
-
-		else if(ClientPrefs.splashTex == "Forever") {
-		skin = 'noteSplashesForever';
-		}
-
-		else if(ClientPrefs.splashTex == "Base Game") {
-		skin = 'noteSplashesBase';
-		}
-
-		else if(ClientPrefs.splashTex == "Impostor") {
-		skin = 'noteSplashesAmong';
-		}
-
-		else if(ClientPrefs.splashTex == "Indie Cross") {
-		skin = 'noteSplashesIndie';
-		}
-		*/
-
 		loadAnims(skin);
 		
 		colorSwap = new ColorSwap();
@@ -47,11 +26,40 @@ class NoteSplash extends FlxSprite
 
 	public function setupNoteSplash(x:Float, y:Float, note:Int = 0, texture:String = null, hueColor:Float = 0, satColor:Float = 0, brtColor:Float = 0) {
 		setPosition(x - Note.swagWidth * 0.95, y - Note.swagWidth);
-		alpha = 0.6;
+		if(ClientPrefs.splashTex == "Forever") {
+			alpha = 1;
+		}
+		else if(ClientPrefs.splashTex == "Base Game") {
+			alpha = 0.6;
+		}
+		else if(ClientPrefs.splashTex == "Impostor") {
+			alpha = 0.6;
+		}
+		else if(ClientPrefs.splashTex == "Indie Cross") {
+			alpha = 0.6;
+		}
 
 		if(texture == null) {
 			texture = 'noteSplashes';
 			if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) texture = PlayState.SONG.splashSkin;
+				if(ClientPrefs.splashTex == "Default") {
+						texture = 'noteSplashes/noteSplashes';
+					}
+					else if(ClientPrefs.splashTex == "Base Game") {
+						texture = 'noteSplashes/noteSplashesBase';
+					}
+					else if(ClientPrefs.splashTex == "Impostor") {
+						texture = 'noteSplashes/noteSplashesAmong';
+					}
+					else if(ClientPrefs.splashTex == "Indie Cross") {
+						texture = 'noteSplashes/noteSplashesIndie';
+					}
+					else if(ClientPrefs.splashTex == "Forever") {
+						texture = 'noteSplashes/noteSplashesForever';
+					}
+					else if(ClientPrefs.splashTex == "Leather") {
+						texture = 'noteSplashes/noteSplashesLeather';
+					}
 		}
 
 		if(textureLoaded != texture) {

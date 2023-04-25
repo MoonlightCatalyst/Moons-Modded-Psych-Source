@@ -67,7 +67,7 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'Warning Note',
-//		'Ex Note',
+		'Ex Note',
 		'GF Sing',
 		'No Animation'
 	];
@@ -216,6 +216,8 @@ class ChartingState extends MusicBeatState
 				song: 'Test',
 				notes: [],
 				events: [],
+				characterTrails: false,
+				bfTrails: false,
 				bpm: 150.0,
 				needsVoices: true,
 				arrowSkin: '',
@@ -225,7 +227,8 @@ class ChartingState extends MusicBeatState
 				gfVersion: 'gf',
 				speed: 1,
 				stage: 'stage',
-				validScore: false
+				validScore: false,
+				swapStrumLines: false
 			};
 			addSection();
 			PlayState.SONG = _song;
@@ -465,6 +468,25 @@ class ChartingState extends MusicBeatState
 			saveEvents();
 		});
 
+		var check_swapNote = new FlxUICheckBox(loadAutosaveBtn.x - 120, loadAutosaveBtn.y, null, null, "Swap Strumline Position", 100);
+		check_swapNote.checked = _song.swapStrumLines;
+		check_swapNote.callback = function()
+		{
+			_song.swapStrumLines = check_swapNote.checked;
+		};
+		var check_Trails = new FlxUICheckBox(check_swapNote.x, check_swapNote.y+30, null, null, "Opponent Trail", 100);
+		check_Trails.checked = _song.characterTrails;
+		check_Trails.callback = function()
+		{
+			_song.characterTrails = check_Trails.checked;
+		};
+		var check_bfTrails = new FlxUICheckBox(check_Trails.x, check_Trails.y+30, null, null, "Boyfriend Trail", 100);
+		check_bfTrails.checked = _song.bfTrails;
+		check_bfTrails.callback = function()
+		{
+			_song.bfTrails = check_bfTrails.checked;
+		};
+
 		var clear_events:FlxButton = new FlxButton(320, 310, 'Clear events', function()
 			{
 				openSubState(new Prompt('This action will clear current progress.\n\nProceed?', 0, clearEvents, null,ignoreWarnings));
@@ -617,6 +639,9 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(saveButton);
 		tab_group_song.add(saveEvents);
 		tab_group_song.add(reloadSong);
+		tab_group_song.add(check_swapNote);
+		tab_group_song.add(check_Trails);
+		tab_group_song.add(check_bfTrails);
 		tab_group_song.add(reloadSongJson);
 		tab_group_song.add(loadAutosaveBtn);
 		tab_group_song.add(loadEventJson);

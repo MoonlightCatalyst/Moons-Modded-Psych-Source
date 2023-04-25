@@ -37,6 +37,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 typedef TitleData =
@@ -236,6 +237,7 @@ class TitleState extends MusicBeatState
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
+	var titlestatebg:FlxBackdrop;
 
 	function startIntro()
 	{
@@ -329,6 +331,17 @@ class TitleState extends MusicBeatState
 				gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		}
 		gfDance.antialiasing = ClientPrefs.globalAntialiasing;
+
+		if(ClientPrefs.backdropTitle == true) {
+
+			titlestatebg = new FlxBackdrop(Paths.image('loading'), 0.2, 0, true, true);
+			titlestatebg.velocity.set(200, 110);
+			titlestatebg.updateHitbox();
+			titlestatebg.alpha = 0.5;
+			titlestatebg.screenCenter(X);
+			add(titlestatebg);
+			titlestatebg.shader = swagShader.shader;
+		}
 
 		add(gfDance);
 		gfDance.shader = swagShader.shader;
