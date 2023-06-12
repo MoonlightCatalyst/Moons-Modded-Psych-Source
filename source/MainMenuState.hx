@@ -29,7 +29,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var engineVersion:String = '5.0'; //This is also used for Discord RPC
+	public static var engineVersion:String = '0.6.0'; //This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
 	public static var funEngineVersion:String = '5.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
@@ -97,24 +97,6 @@ class MainMenuState extends MusicBeatState
         bg.antialiasing = ClientPrefs.globalAntialiasing;
         add(bg);
 
-		if(ClientPrefs.themedmainmenubg == true) {
-
-            var themedBg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-            themedBg.scrollFactor.set(0, yScroll);
-            themedBg.setGraphicSize(Std.int(bg.width));
-            themedBg.updateHitbox();
-            themedBg.screenCenter();
-            themedBg.antialiasing = ClientPrefs.globalAntialiasing;
-            add(themedBg);
-
-            var hours:Int = Date.now().getHours();
-            if(hours > 18) {
-                themedBg.color = 0x545f8a; // 0x6939ff
-            } else if(hours > 8) {
-                themedBg.loadGraphic(Paths.image('menuBG'));
-            }
-        }
-
         camFollow = new FlxObject(0, 0, 1, 1);
         camFollowPos = new FlxObject(0, 0, 1, 1);
         add(camFollow);
@@ -135,8 +117,12 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
-		var scale:Float = 0.7;
-		/*if(optionShit.length > 6) {
+		var scale:Float = 1;
+/*
+		if (ClientPrefs.fancyMenu == true) {
+			scale = 0.7
+		}
+		if(optionShit.length > 6) {
 			scale = 6 / optionShit.length;
 		}*/
 
@@ -147,32 +133,54 @@ class MainMenuState extends MusicBeatState
 
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(curoffset, (i * 140) + offset);
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
-			menuItem.ID = i;
-			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
-			menuItem.scrollFactor.set(0, scr);
-			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
-			menuItem.updateHitbox();
-			//curoffset = curoffset + 20;
-			if (ClientPrefs.buttonsStuff == "Centered") {
+			if (ClientPrefs.fancyMenu == true) {
+				var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
+				var menuItem:FlxSprite = new FlxSprite(curoffset, (i * 140) + offset);
+				menuItem.scale.x = scale;
+				menuItem.scale.y = scale;
+				scale = 0.7;
+				menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
+				menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
+				menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
+				menuItem.animation.play('idle');
+				menuItem.ID = i;
+				menuItems.add(menuItem);
+				var scr:Float = (optionShit.length - 4) * 0.135;
+				if(optionShit.length < 6) scr = 0;
+				menuItem.scrollFactor.set(0, scr);
+				menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+				//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+				menuItem.updateHitbox();
+				//curoffset = curoffset + 20;
+				if (ClientPrefs.buttonsStuff == "Centered") {
+					menuItem.screenCenter(X);
+				}
+				else if (ClientPrefs.buttonsStuff == "Left") {
+					curoffset = curoffset + 0;
+				}
+				else if (ClientPrefs.buttonsStuff == "Right") {
+//					menuItem.x = 700;
+					menuItem.x = FlxG.width - menuItem.width - 240;
+				}
+			}
+			else if (ClientPrefs.fancyMenu == false) {
+				var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
+				var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
+				menuItem.scale.x = scale;
+				menuItem.scale.y = scale;
+				menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
+				menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
+				menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
+				menuItem.animation.play('idle');
+				menuItem.ID = i;
 				menuItem.screenCenter(X);
-			}
-			else if (ClientPrefs.buttonsStuff == "Left") {
-				curoffset = curoffset + 0;
-			}
-			else if (ClientPrefs.buttonsStuff == "Right") {
-//				menuItem.x = 700;
-				menuItem.x = FlxG.width - menuItem.width - 240;
+				menuItems.add(menuItem);
+				var scr:Float = (optionShit.length - 4) * 0.135;
+				if(optionShit.length < 6) scr = 0;
+				menuItem.scrollFactor.set(0, scr);
+				menuItem.antialiasing = ClientPrefs.globalAntialiasing;
+				//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+				menuItem.updateHitbox();
 			}
 		}
 
@@ -306,45 +314,23 @@ class MainMenuState extends MusicBeatState
 					{
 						if (curSelected != spr.ID)
 						{
-							/*
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
+							if (ClientPrefs.fancyMenu == true) {
+								FlxTween.tween(spr, {x: -500}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween) {
 									spr.kill();
-								}
-							});
-							*/
-							FlxTween.tween(spr, {x: -500}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween) {
-								spr.kill();
-							}});
+								}});
+							}
+							else if (ClientPrefs.fancyMenu == false) {
+								FlxTween.tween(spr, {alpha: 0}, 0.4, {
+									ease: FlxEase.quadOut,
+									onComplete: function(twn:FlxTween)
+									{
+										spr.kill();
+									}
+								});
+							}
 						}
 						else
 						{
-							/*
-							FlxTween.tween(spr, {x: 500}, 1, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(tween: FlxTween) {	no more tweenings
-								var daChoice:String = optionShit[curSelected];
-
-
-								switch (daChoice)
-								{
-									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end			
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
-								}
-							}});
-							*/
 							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 
 							{
@@ -385,7 +371,9 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			//spr.screenCenter(X);
+			if (ClientPrefs.fancyMenu == false) {
+				spr.screenCenter(X);
+			}
 		});
 	}
 
@@ -401,21 +389,29 @@ class MainMenuState extends MusicBeatState
 		menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.animation.play('idle');
-			//spr.updateHitbox();
-			spr.scale.x = 0.7;
-			spr.scale.y = 0.7;
+			if (ClientPrefs.fancyMenu == true) {
+				spr.scale.x = 0.7;
+				spr.scale.y = 0.7;
+			}
+			else if (ClientPrefs.fancyMenu == false) {
+				spr.updateHitbox();
+			}
 
 			if (spr.ID == curSelected)
 			{
 				spr.animation.play('selected');
-				spr.scale.x = 1.0;
-				spr.scale.y = 1.0;
+				if (ClientPrefs.fancyMenu == true) {
+					spr.scale.x = 1.0;
+					spr.scale.y = 1.0;
+				}
 				var add:Float = 0;
 				if(menuItems.length > 4) {
 					add = menuItems.length * 8;
 				}
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
-				//spr.centerOffsets();
+				if (ClientPrefs.fancyMenu == false) {
+					spr.centerOffsets();
+				}
 			}
 		});
 	}

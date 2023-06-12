@@ -76,43 +76,40 @@ class ExtrasState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Title Menu Background', //fuck you OS I'm stealing this too :troll:
+		var option:Option = new Option('Freeplay colored timebar',
+			"Do you want the timebar to be colored\nbased on the freeplay color?",
+			'freeplayColor',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Title Menu Background',
 			"Do you want the title screen to have\na background?",
 			'backdropTitle',
 			'bool',
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Discord Presence', //fuck you OS I'm stealing this too :troll:
+		var option:Option = new Option('Fancy Menu Layout',
+			"How should your main menu look?",
+			'fancyMenu',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('Discord Presence', 
 			"Do you want to have a detailed discord presence\nwhen playing a song?",
 			'discordShit',
 			'bool',
 			false);
 		addOption(option);
 
-/* shit stopped working (Fuck you OS engine)
-		var option:Option = new Option('Themed Main Menu Background',
-			'If checked, the background color of the main menu depends on the time of day.',
-			'themedmainmenubg',
-			'bool',
-			false);
-		option.defaultValue = false;
-		addOption(option);
-/*
-		var option:Option = new Option('Rating Style:',
-			'How should your ratings look?',
-			'ratingStyle',
-			'string',
-			'Default',
-			['Default', 'OG', 'Kade Old', 'Kade New', 'impostor', 'void']);
-		addOption(option);
-*/
-		var option:Option = new Option('Note Skin', //Definitly not just stealing from OS now :troll:
+		var option:Option = new Option('Note Skin',
 			"What note skin do you prefer for playing?",
 			'noteSkinSettings',
 			'string',
 			'Classic',
-			['Classic', 'Circle', '3d', 'Hex', 'Holofunk', 'Stepmania']);
+			['Classic', 'Circle', '3d', 'Hex', 'Holofunk', 'Stepmania', 'Future', 'Chip']);
 		addOption(option);
 
 		var option:Option = new Option('Note Splash Texture:',
@@ -120,7 +117,7 @@ class ExtrasState extends BaseOptionsMenu
 			'splashTex',
 			'string',
 			'Default',
-			['Default', 'Base Game', 'Impostor', 'Indie Cross', 'Forever']);
+			['Default', 'Base Game', 'Impostor', 'Indie Cross', 'Forever', 'Sonic.exe']);
 		addOption(option);
 		
 		var option:Option = new Option('Rating Camera:',
@@ -128,7 +125,7 @@ class ExtrasState extends BaseOptionsMenu
 			'ratingCameraType',
 			'string',
 			'camHUD',
-			['camHUD', 'camGame', 'camOther']);
+			['camHUD', 'camGame']);
 		addOption(option);
 
 		var option:Option = new Option('Icon Bounce:',
@@ -136,7 +133,7 @@ class ExtrasState extends BaseOptionsMenu
 			'iconBounce',
 			'string',
 			'Default',
-			['Default', /*'Golden Apple',*/ 'OS', 'Strident Crisis']);
+			['Default', 'Golden Apple', 'OS', 'Stretchy']);
 		addOption(option);
 
 		var option:Option = new Option('Menu Button Placement:',
@@ -146,20 +143,7 @@ class ExtrasState extends BaseOptionsMenu
 			'Left',
 			['Centered', 'Left', 'Right']);
 		addOption(option);
-
-		/*
-		var option:Option = new Option('Opponent Lane Underlay Visibility',
-			'Sets visibility of opponent\'s lane underlay.',
-			'opponentUnderlaneVisibility',
-			'percent',
-			0);
-		addOption(option);	
-		option.scrollSpeed = 1;
-		option.minValue = 0.0;
-		option.maxValue = 1;
-		option.changeValue = 0.1;
-		option.decimals = 1;
-*/
+		
 		var option:Option = new Option('Lane Underlay Visibility',
 			'Sets visibility of lane underlay.',
 			'underlaneVisibility',

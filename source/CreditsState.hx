@@ -86,6 +86,8 @@ class CreditsState extends MusicBeatState
 			['Moonlight_Catalyst',		'moonlight_catalyst',		'I make too many psych engine Lua ports',								'https://www.youtube.com/channel/UCmvsORFe7ZldiG4budmzELA',	'9764B7'],
 			[''],
 			['Extra Credits'],
+			['Ron', 'altron', 'Made the custom rating images', 'https://www.youtube.com/channel/UC9AFe1qpWrC4XP3PPy2dr7A', 'F8AF00'],
+			['SMB', 'SMB', 'Enhanced the Freeplay Search Bar', 'https://twitter.com/SMB64585', 'FF0000'],
 			['Betopia',		'nothing',		'Freeplay Search bar creator',								'https://www.youtube.com/channel/UCfjyz9xRhZiRbLMteQloVeg',	'FFFFFF'],
 			['haoneRG',		'nothing',		'Credits Editor creator',								'https://twitter.com/haone_rg',	'FFFFFF'],
 			[''],

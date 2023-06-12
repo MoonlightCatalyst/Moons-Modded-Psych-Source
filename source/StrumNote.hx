@@ -37,25 +37,23 @@ class StrumNote extends FlxSprite
 		var skin:String = 'NOTE_assets';
 		if (PlayState.SONG.arrowSkin == null || PlayState.SONG.arrowSkin.length <= 1) {
 			if(ClientPrefs.noteSkinSettings == 'Clasic') {
-				skin = 'notes/NOTE_assets';
+				skin = 'NOTE_assets';
 			} else if (ClientPrefs.noteSkinSettings == 'Circle') {
-				skin = 'notes/NOTE_assets_circle';
+				skin = 'NOTE_assets_circle';
 			} else if (ClientPrefs.noteSkinSettings == 'Hex') {
-				skin = 'notes/NOTE_assets_Hex';
+				skin = 'NOTE_assets_Hex';
 			} else if (ClientPrefs.noteSkinSettings == 'Holofunk') {
-				skin = 'notes/NOTE_assets_Holofunk';
+				skin = 'NOTE_assets_Holofunk';
 			} else if (ClientPrefs.noteSkinSettings == 'Stepmania') {
-				skin = 'notes/NOTE_assets_Stepmania';
+				skin = 'NOTE_assets_Stepmania';
 			} else if (ClientPrefs.noteSkinSettings == '3d') {
-				skin = 'notes/NOTE_assets_3D';
-			} else if (ClientPrefs.noteSkinSettings == '3d-old') {
-				skin = 'notes/NOTE_assets_3D_Old';
-			} else if (ClientPrefs.noteSkinSettings == '3d-gapple') {
-				skin = 'notes/NOTE_assets_3D_gapple';
-			} else if (ClientPrefs.noteSkinSettings == '3d-Gapple-old') {
-				skin = 'notes/NOTE_assets_3D_gapple_Old';
+				skin = 'NOTE_assets_3D';
+			} else if (ClientPrefs.noteSkinSettings == 'Future') {
+				skin = 'NOTE_assets_future';
+			} else if (ClientPrefs.noteSkinSettings == 'Chip') {
+				skin = 'NOTE_assets_chip';
 			} else {
-				skin = 'notes/NOTE_assets';// for preventing crashes
+				skin = 'NOTE_assets';// for preventing crashes
 			}
 		}
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;

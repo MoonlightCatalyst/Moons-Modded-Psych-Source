@@ -55,18 +55,8 @@ class HealthIcon extends FlxSprite
 				iconOffsets[1] = (width - 150) / 2;
 			}
 
-			if(ClientPrefs.iconBounce == 'Golden Apple') {
-				//updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'Default') {
-				updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'OS') {
-				updateHitbox();
-			}
-			else if(ClientPrefs.iconBounce == 'Strident Crisis') {
-				updateHitbox();
-			}
+			updateHitbox();
+
 			if (width2 == 450) {
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
 			} else {

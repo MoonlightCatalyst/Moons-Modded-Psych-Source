@@ -17,11 +17,14 @@ class ClientPrefs {
 	public static var ratingCameraType:String = 'camHUD';
 	public static var splashTex:String = 'Default';
 	public static var noteSkinSettings:String = 'Classic';
+	public static var healthOverlay:String = 'None';
 	public static var buttonsStuff:String = 'Left';
 	public static var underlaneVisibility:Float = 0;
 	public static var opponentUnderlaneVisibility:Float = 0;
 	public static var camMovement:Bool = false;
+	public static var fancyMenu:Bool = false;
 	public static var discordShit:Bool = false;
+	public static var freeplayColor:Bool = false;
 	public static var songIntroScript:Bool = false;
 	public static var themedmainmenubg:Bool = false;
 	public static var holdAnims:Bool = false;
@@ -128,7 +131,9 @@ class ClientPrefs {
 		FlxG.save.data.iconBounce = iconBounce;
 		FlxG.save.data.ratingStyle = ratingStyle;
 		FlxG.save.data.camMovement = camMovement;
+		FlxG.save.data.fancyMenu = fancyMenu;
 		FlxG.save.data.discordShit = discordShit;
+		FlxG.save.data.freeplayColor = freeplayColor;
 		FlxG.save.data.songIntroScript = songIntroScript;
 		FlxG.save.data.holdAnims = holdAnims;
 		FlxG.save.data.comboSprite = comboSprite;
@@ -137,6 +142,7 @@ class ClientPrefs {
 		FlxG.save.data.underlaneVisibility = underlaneVisibility;
 		FlxG.save.data.themedmainmenubg = themedmainmenubg;
 		FlxG.save.data.noteSkinSettings = noteSkinSettings;
+		FlxG.save.data.healthOverlay = healthOverlay;
 		FlxG.save.data.removePerfects = removePerfects;
 		FlxG.save.data.buttonsStuff = buttonsStuff;
 		FlxG.save.data.ratingCameraType = ratingCameraType;
@@ -190,9 +196,17 @@ class ClientPrefs {
 		{
 			camMovement = FlxG.save.data.camMovement;
 		}
+		if(FlxG.save.data.fancyMenu != null)
+		{
+			fancyMenu = FlxG.save.data.fancyMenu;
+		}
 		if(FlxG.save.data.discordShit != null)
 		{
 			discordShit = FlxG.save.data.discordShit;
+		}
+		if(FlxG.save.data.freeplayColor != null)
+		{
+			freeplayColor = FlxG.save.data.freeplayColor;
 		}
 		if(FlxG.save.data.holdAnims != null)
 		{
@@ -224,6 +238,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.noteSkinSettings != null) {
 			noteSkinSettings = FlxG.save.data.noteSkinSettings;
+		}
+		if(FlxG.save.data.healthOverlay != null) {
+			healthOverlay = FlxG.save.data.healthOverlay;
 		}
 		if(FlxG.save.data.buttonsStuff != null) {
 			buttonsStuff = FlxG.save.data.buttonsStuff;

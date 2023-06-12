@@ -265,9 +265,6 @@ class PlayState extends MusicBeatState
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
 
-	var trailunderdad:FlxTrail;
-	var trailunderbf:FlxTrail;
-
 	var upperBoppers:BGSprite;
 	var bottomBoppers:BGSprite;
 	var santa:BGSprite;
@@ -281,6 +278,13 @@ class PlayState extends MusicBeatState
 	var tankGround:BGSprite;
 	var tankmanRun:FlxTypedGroup<TankmenBG>;
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
+
+	//cum
+	var camLerp:Float = 1;
+	var bgDim:FlxSprite;
+	var fullDim = false;
+	var noticeTime = 0;
+	var dimGo:Bool = false;
 
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
@@ -370,6 +374,9 @@ class PlayState extends MusicBeatState
 			'NOTE_UP',
 			'NOTE_RIGHT'
 		];
+
+		rotCam = false;
+		camera.angle = 0;
 
 		//Ratings
 		ratingsData.push(new Rating('sick')); //default rating
@@ -1026,17 +1033,6 @@ class PlayState extends MusicBeatState
 				gf.visible = false;
 		}
 
-		if (SONG.characterTrails) {
-			trailunderdad = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
-			insert(members.indexOf(dadGroup) - 1, trailunderdad);
-			//var trailundergf = new FlxTrail(gf, null, 4, 24, 0.3, 0.069); //nice
-			//insert(members.indexOf(gfGroup) - 1, trailundergf);			will fix it somedays :D
-		}
-		if (SONG.bfTrails) {
-			trailunderbf = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
-			insert(members.indexOf(boyfriendGroup) - 1, trailunderbf);
-		} 
-
 		switch(curStage)
 		{
 			case 'limo':
@@ -1134,6 +1130,12 @@ class PlayState extends MusicBeatState
 			timeTxt.size = 24;
 			timeTxt.y += 3;
 		}
+
+		bgDim = new FlxSprite().makeGraphic(4000, 4000, FlxColor.BLACK);
+		bgDim.scrollFactor.set(0);
+		bgDim.screenCenter();
+		bgDim.alpha = 0;
+		add(bgDim);
 
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
@@ -3042,6 +3044,12 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 
+	//oooOOooOoO
+	public static var rotCam = false;
+	var rotCamSpd:Float = 1;
+	var rotCamRange:Float = 10;
+	var rotCamInd = 0;
+
 	override public function update(elapsed:Float)
 	{
 		/*if (FlxG.keys.justPressed.NINE)
@@ -3180,6 +3188,25 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		if (rotCam)
+		{
+			rotCamInd ++;
+			camera.angle = Math.sin(rotCamInd / 100 * rotCamSpd) * rotCamRange;
+		}
+		else
+		{
+			rotCamInd = 0;
+		}
+
+		if (dimGo)
+		{
+			if (bgDim.alpha < 0.5) bgDim.alpha += 0.01;
+		}
+		else
+		{
+			if (bgDim.alpha > 0) bgDim.alpha -= 0.01;
+		}
+
 		if(!inCutscene) {
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
@@ -3261,14 +3288,16 @@ class PlayState extends MusicBeatState
 				iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 				iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 
-				case 'Strident Crisis':
-					iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.8)),Std.int(FlxMath.lerp(150, iconP1.height, 0.8)));
-					iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.8)),Std.int(FlxMath.lerp(150, iconP2.height, 0.8)));
-
-					iconP1.updateHitbox();
-					iconP2.updateHitbox();
-
+				case 'Stretchy':
+					var thingy = 0.88; //(144 / Main.fps.currentFPS) * 0.88;
+					//still gotta make this fps consistent crap
 					var iconOffset:Int = 26;
+
+					iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, thingy)),Std.int(FlxMath.lerp(150, iconP1.height, thingy)));
+					iconP1.updateHitbox();
+
+					iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, thingy)),Std.int(FlxMath.lerp(150, iconP2.height, thingy)));
+					iconP2.updateHitbox();
 
 					iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 					iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
@@ -4013,16 +4042,16 @@ class PlayState extends MusicBeatState
 						}
 				}
 				reloadHealthBarColors();
-				if (SONG.characterTrails) {
-					remove(trailunderdad);
-					trailunderdad = new FlxTrail(dad, null, 4, 24, 0.3, 0.069); //nice
-					insert(members.indexOf(dadGroup) - 1, trailunderdad);
-				}
-				if (SONG.bfTrails) {
-					remove(trailunderbf);
-					trailunderbf = new FlxTrail(boyfriend, null, 4, 24, 0.3, 0.069); //nice
-					insert(members.indexOf(boyfriendGroup) - 1, trailunderbf);
-				}
+
+			case 'Camera rotate on':
+				rotCam = true;
+				rotCamSpd = Std.parseFloat(value1);
+				rotCamRange = Std.parseFloat(value2);
+			case 'Camera rotate off':
+				rotCam = false;
+				camera.angle = 0;
+			case 'Toggle bg dim':
+				dimGo = !dimGo;
 
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
@@ -5103,13 +5132,16 @@ class PlayState extends MusicBeatState
 			splash.setupNoteSplash(x += 30, y += 30, data, skin, hue, sat, brt);
 		}
 		else if (ClientPrefs.splashTex == "Indie Cross") {
-			splash.setupNoteSplash(x += 30, y += 30, data, skin, hue, sat, brt);
+			splash.setupNoteSplash(x += 40, y += 30, data, skin, hue, sat, brt);
 		}
 		else if (ClientPrefs.splashTex == "Forever") {
 			splash.setupNoteSplash(x += 60, y += 60, data, skin, hue, sat, brt);
 		}
 		else if (ClientPrefs.splashTex == "Leather") {
 			splash.setupNoteSplash(x += 30, y += 30, data, skin, hue, sat, brt);
+		}
+		else if (ClientPrefs.splashTex == "Sonic.exe") {
+			splash.setupNoteSplash(x += 50, y += 90, data, skin, hue, sat, brt);
 		}
 		grpNoteSplashes.add(splash);
 	}
@@ -5402,7 +5434,7 @@ class PlayState extends MusicBeatState
 					curBeat % (gfSpeed * 2) == 0 ? {
 						iconP1.scale.set(1.1, 0.8);
 						iconP2.scale.set(1.1, 1.3);
-	
+						
 						FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 						FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
 					} : {
@@ -5417,16 +5449,16 @@ class PlayState extends MusicBeatState
 					FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed, {ease: FlxEase.quadOut});
 				}
 			}
-			if(ClientPrefs.iconBounce == "Strident Crisis")
-			{
-				var funny:Float = (healthBar.percent * 0.01) + 0.01;
-				
-				iconP1.setGraphicSize(Std.int(iconP1.width + (50 * funny)),Std.int(iconP2.height - (25 * funny)));
-				iconP2.setGraphicSize(Std.int(iconP2.width + (50 * (2 - funny))),Std.int(iconP2.height - (25 * (2 - funny))));
+			if(ClientPrefs.iconBounce == "Stretchy")
+				{
+					var funny:Float = Math.max(Math.min(healthBar.value,1.9),0.1);//Math.clamp(healthBar.value,0.02,1.98);//Math.min(Math.min(healthBar.value,1.98),0.02);
+					
+					iconP2.setGraphicSize(Std.int(iconP2.width + (50 * funny)),Std.int(iconP2.height - (25 * funny)));
+					iconP1.setGraphicSize(Std.int(iconP1.width + (50 * ((2 - funny) + 0.1))),Std.int(iconP1.height - (25 * ((2 - funny) + 0.1))));
 
-				iconP1.updateHitbox();
-				iconP2.updateHitbox();
-			}
+					iconP1.updateHitbox();
+					iconP2.updateHitbox();
+				}
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{

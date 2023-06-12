@@ -4,31 +4,33 @@
 local minBrightness = 0.35
 
 function onCreatePost()
-    addHaxeLibrary('WeekData')
-    runHaxeCode[[
-        // this just gets the songs week data, somehow does not break when the song isnt in a week
-        game.setOnLuas('songWeekData',
-            WeekData.weeksLoaded.get(WeekData.weeksList[PlayState.storyWeek]).songs
-            .filter(s -> Paths.formatToSongPath(s[0]) == Paths.formatToSongPath(PlayState.SONG.song))[0]
-        );
-    ]]
+    if getPropertyFromClass('ClientPrefs', 'freeplayColor', true) then
+        addHaxeLibrary('WeekData')
+        runHaxeCode[[
+            // this just gets the songs week data, somehow does not break when the song isnt in a week
+            game.setOnLuas('songWeekData',
+                WeekData.weeksLoaded.get(WeekData.weeksList[PlayState.storyWeek]).songs
+                .filter(s -> Paths.formatToSongPath(s[0]) == Paths.formatToSongPath(PlayState.SONG.song))[0]
+            );
+        ]]
 
-    if songWeekData then
-        colors = songWeekData[3]
-        if not colors or #colors < 3 then
-            colors = {146, 113, 253} -- from FreeplayState
-        end
-        ermFixColor(colors)
-
-        -- technically minBrightness should be minLightness cause this is hsl and not hsb but who cares
-        hslcolors = {luacolors.RGBtoHSL(unpack(colors))}
-        if hslcolors[3] / 255 < minBrightness then
-            hslcolors[3] = minBrightness * 255
-            colors = {luacolors.HSLtoRGB(unpack(hslcolors))}
+        if songWeekData then
+            colors = songWeekData[3]
+            if not colors or #colors < 3 then
+                colors = {146, 113, 253} -- from FreeplayState
+            end
             ermFixColor(colors)
-        end
 
-        setTimeBarColors(('%02x%02x%02x'):format(unpack(colors)), '000000')
+            -- technically minBrightness should be minLightness cause this is hsl and not hsb but who cares
+            hslcolors = {luacolors.RGBtoHSL(unpack(colors))}
+            if hslcolors[3] / 255 < minBrightness then
+                hslcolors[3] = minBrightness * 255
+                colors = {luacolors.HSLtoRGB(unpack(hslcolors))}
+                ermFixColor(colors)
+            end
+
+            setTimeBarColors(('%02x%02x%02x'):format(unpack(colors)), '000000')
+        end
     end
 end
 

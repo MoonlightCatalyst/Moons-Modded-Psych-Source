@@ -13,7 +13,7 @@ class NoteSplash extends FlxSprite
 	public function new(x:Float = 0, y:Float = 0, ?note:Int = 0) {
 		super(x, y);
 
-		var skin:String = 'noteSplashes';
+		var skin:String = 'noteSplashes/noteSplashes';
 
 		loadAnims(skin);
 		
@@ -29,6 +29,9 @@ class NoteSplash extends FlxSprite
 		if(ClientPrefs.splashTex == "Forever") {
 			alpha = 1;
 		}
+		else if(ClientPrefs.splashTex == "Sonic.exe") {
+			alpha = 1;
+		}
 		else if(ClientPrefs.splashTex == "Base Game") {
 			alpha = 0.6;
 		}
@@ -40,7 +43,7 @@ class NoteSplash extends FlxSprite
 		}
 
 		if(texture == null) {
-			texture = 'noteSplashes';
+			texture = 'noteSplashes/noteSplashes';
 			if(PlayState.SONG.splashSkin != null && PlayState.SONG.splashSkin.length > 0) texture = PlayState.SONG.splashSkin;
 				if(ClientPrefs.splashTex == "Default") {
 						texture = 'noteSplashes/noteSplashes';
@@ -59,6 +62,9 @@ class NoteSplash extends FlxSprite
 					}
 					else if(ClientPrefs.splashTex == "Leather") {
 						texture = 'noteSplashes/noteSplashesLeather';
+					}
+					else if(ClientPrefs.splashTex == "Sonic.exe") {
+						texture = 'noteSplashes/noteSplashesBlood';
 					}
 		}
 
