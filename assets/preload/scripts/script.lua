@@ -2,13 +2,14 @@ function onCreatePost()
 	for i = 0, getProperty('unspawnNotes.length')-1 do
       --Check if the note is an Sustain Note
         if getPropertyFromGroup('unspawnNotes', i, 'isSustainNote') then
-            if getPropertyFromClass('ClientPrefs', 'holdAnims', true) then
+            if getPropertyFromClass('backend.ClientPrefs', 'data.holdAnims', true) then
 			    setPropertyFromGroup('unspawnNotes', i, 'noAnimation', true);
             else
                 setPropertyFromGroup('unspawnNotes', i, 'noAnimation', false);
             end
         end
     end
+    setTimeBarColors('B200FF', '404040')
 end
 
 
@@ -30,12 +31,5 @@ function opponentNoteHit(id, direction, noteType, isSustainNote)
         else
             setProperty('dad.holdTimer', 0);
         end
-    end
-end
-
-function onUpdatePost()
-    
-    if dadName == 'bf' then
-        triggerEvent('Change Character', 'dad', 'bf-opponent')
     end
 end
