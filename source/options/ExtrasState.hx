@@ -1,31 +1,8 @@
 package options;
 
-#if desktop
-import Discord.DiscordClient;
-#end
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import lime.utils.Assets;
-import flixel.FlxSubState;
-import flash.text.TextField;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.util.FlxSave;
-import haxe.Json;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import Controls;
-
-using StringTools;
+import objects.Note;
+import objects.StrumNote;
+import objects.Alphabet;
 
 class ExtrasState extends BaseOptionsMenu
 {
@@ -34,128 +11,120 @@ class ExtrasState extends BaseOptionsMenu
 		title = 'Extras';
 		rpcTitle = 'Extras Menu'; //for Discord Rich Presence
 
+		/* //disabling for now
 		var option:Option = new Option('Opponent Note Hit Glow',
 			"If unchecked, the opponent strums will not play\nthe glow animation when hitting a note",
-			'opptStaticArrows',
-			'bool',
-			true);
+			'playHitAnim',
+			'bool');
 		addOption(option);
-
+		*/
 		var option:Option = new Option('Camera Movement',
 			"If unchecked, the camera wont move when hitting notes",
 			'camMovement',
-			'bool',
-			false);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Fixed Sustain Animations',
 			"If unchecked, the player hold animation fix will not take effect",
 			'holdAnims',
-			'bool',
-			false);
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Song intro card',
 			"If unchecked, the intro card will not appear when starting songs",
 			'songIntroScript',
-			'bool',
-			false);
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Dark Mode',
+			'Do you want to have Psych in Dark Mode?\n(No Flashes, Dark menu bg etc)\n(Wont work on some states because of some texts)',
+			'darkMode',
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Discord Status',
+			'Do you want your discord status to\nbe more advanced when playing a song?',
+			'advancedDiscord',
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Combo Sprite',
-			"If unchecked, The combo sprite will NOT appear",
+			'Do you want the combo sprite to be shown?',
 			'comboSprite',
-			'bool',
-			false);
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Smooth Health Bar',
+			'Do you want your healthbar to be smooth?',
+			'smoothHealth',
+			'bool');
 		addOption(option);
 
 		var option:Option = new Option('Watermark',
 			"If unchecked, There will NOT be a watermark in the\nbottom left of the screen during songs",
 			'watermark',
-			'bool',
-			false);
+			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Freeplay colored timebar',
-			"Do you want the timebar to be colored\nbased on the freeplay color?",
-			'freeplayColor',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Title Menu Background',
-			"Do you want the title screen to have\na background?",
+		var option:Option = new Option('Title BG',
+			"If checked, the title screen will have a background\nMay overlay the background set in gfDanceTitle.json",
 			'backdropTitle',
-			'bool',
-			false);
+			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Fancy Menu Layout',
-			"How should your main menu look?",
-			'fancyMenu',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Discord Presence', 
-			"Do you want to have a detailed discord presence\nwhen playing a song?",
-			'discordShit',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Note Skin',
-			"What note skin do you prefer for playing?",
-			'noteSkinSettings',
+		var option:Option = new Option('Strum Animation:',
+			"How do you want the opponent stums\nto play their animation?",
+			'strumAnim',
 			'string',
-			'Classic',
-			['Classic', 'Circle', '3d', 'Hex', 'Holofunk', 'Stepmania', 'Future', 'Chip']);
+			['BPM Based', 'Full Anim', 'None']);
 		addOption(option);
 
-		var option:Option = new Option('Note Splash Texture:',
-			'What note splash style do \n you want to use?',
-			'splashTex',
+		var option:Option = new Option('Menu Song:',
+			"What song do you want to play\nwhen in the main menu?",
+			'menuSong',
 			'string',
-			'Default',
-			['Default', 'Base Game', 'Impostor', 'Indie Cross', 'Forever', 'Sonic.exe']);
+			['Default', 'Tricky', 'Shaggy', 'Impostor', 'IC', 'DnB', 'Gapple']);
 		addOption(option);
 		
-		var option:Option = new Option('Rating Camera:',
-			"What type of camera type do you prefer \n the ratings to be on?",
-			'ratingCameraType',
+		var option:Option = new Option('Rating Type:',
+			"What camera do you want your ratings to be on?\nOr do you want them to be invisible?",
+			'ratingType',
 			'string',
-			'camHUD',
-			['camHUD', 'camGame']);
+			['camHUD', 'camGame', 'Invisible']);
+		addOption(option);
+
+		var option:Option = new Option('Rating Texture:',
+			"How do you want your ui to look?",
+			'ratingTex',
+			'string',
+			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid']);
 		addOption(option);
 
 		var option:Option = new Option('Icon Bounce:',
-			'How should your icons bounce?',
-			'iconBounce',
+			"How do you want the icons to bop?",
+			'iconBops',
 			'string',
-			'Default',
-			['Default', 'Golden Apple', 'OS', 'Stretchy']);
+			['Psych', 'None', 'Base', 'Dave and Bambi', 'Golden Apple', 'Bouncy', 'OS']);
 		addOption(option);
 
 		var option:Option = new Option('Menu Button Placement:',
 			'How do you want the menu buttons\nto be places?',
-			'buttonsStuff',
+			'menuButtons',
 			'string',
-			'Left',
-			['Centered', 'Left', 'Right']);
+			['Middle', 'Left', 'Right']);
 		addOption(option);
-		
+
 		var option:Option = new Option('Lane Underlay Visibility',
 			'Sets visibility of lane underlay.',
 			'underlaneVisibility',
-			'percent',
-			0);
+			'percent');
 		addOption(option);	
 		option.scrollSpeed = 1;
 		option.minValue = 0.0;
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
-
+		
 		super();
 	}
 }

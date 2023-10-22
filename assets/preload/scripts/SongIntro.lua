@@ -58,7 +58,7 @@ function onTimerCompleted(tag, loops, loopsLeft)
 end
 
 function onUpdate()
-	if getPropertyFromClass('ClientPrefs', 'songIntroScript', true) then
+	if getPropertyFromClass('backend.ClientPrefs', 'data.songIntroScript', true) then
 		setProperty('JukeBoxTag.visible', true)
 		setProperty('JukeBox.visible', true)
 		setProperty('JukeBoxText.visible', true)
