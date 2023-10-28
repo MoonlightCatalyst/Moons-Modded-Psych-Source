@@ -87,20 +87,10 @@ class FreeplayState extends MusicBeatState
 		}
 		Mods.loadTopMod();
 
-		if (ClientPrefs.data.darkMode == false)
-		{
-			bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-			bg.antialiasing = ClientPrefs.data.antialiasing;
-			add(bg);
-			bg.screenCenter();
-		}
-		else if (ClientPrefs.data.darkMode == true)
-		{
-			bg = new FlxSprite().loadGraphic(Paths.image('menuDesatDark'));
-			bg.antialiasing = ClientPrefs.data.antialiasing;
-			add(bg);
-			bg.screenCenter();
-		}
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg.antialiasing = ClientPrefs.data.antialiasing;
+		add(bg);
+		bg.screenCenter();
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -394,7 +384,7 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume = 0;
 					
 			destroyFreeplayVocals();
-			#if MODS_ALLOWED
+			#if (MODS_ALLOWED && cpp)
 			DiscordClient.loadModRPC();
 			#end
 		}

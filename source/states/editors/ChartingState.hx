@@ -57,13 +57,10 @@ class ChartingState extends MusicBeatState
 		'Alt Animation',
 		'Hey!',
 		'Hurt Note',
-		'Warning Note',
-		'Ex Note',
 		'GF Sing',
 		'No Animation'
 	];
 	public var ignoreWarnings = false;
-	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	var curNoteTypes:Array<String> = [];
 	var undos = [];
 	var redos = [];
@@ -140,8 +137,6 @@ class ChartingState extends MusicBeatState
 
 	var playbackSpeed:Float = 1;
 
-	var lastNoteData:Float;
-	var lastNoteStrum:Float;
 	var vocals:FlxSound = null;
 
 	var leftIcon:HealthIcon;
@@ -338,7 +333,7 @@ class ChartingState extends MusicBeatState
 		\nHold Shift to move 4x faster
 		\nHold Control and click on an arrow to select it
 		\nZ/X - Zoom in/out
-		\nHold Right Click - Places notes by dragging mouse
+		\n
 		\nEsc - Test your chart inside Chart Editor
 		\nEnter - Play your chart
 		\nQ/E - Decrease/Increase Note Sustain Length
@@ -1674,49 +1669,7 @@ class ChartingState extends MusicBeatState
 			dummyArrow.visible = false;
 		}
 
-		if (FlxG.mouse.pressedRight) {
-			var curNoteStrum = getStrumTime(dummyArrow.y, false) + sectionStartTime();
-			var curNoteData = Math.floor((FlxG.mouse.x - GRID_SIZE) / GRID_SIZE);
-			if ((curNoteStrum == lastNoteStrum) && (curNoteData == lastNoteData)) {
-				//trace("there's another arrow :c"); no one wants to see this in console, so this is a comment now
-			} else {
-				if (FlxG.mouse.overlaps(curRenderedNotes))
-				{
-					curRenderedNotes.forEachAlive(function(note:Note)
-					{
-						if (FlxG.mouse.overlaps(note))
-						{
-							if (FlxG.keys.pressed.CONTROL)
-							{
-								selectNote(note);
-							}
-							else if (FlxG.keys.pressed.ALT)
-							{
-								selectNote(note);
-								curSelectedNote[3] = noteTypeIntMap.get(currentType);
-								updateGrid();
-							}
-							else
-							{
-								//trace('tryin to delete note...');
-								deleteNote(note);
-							}
-						}
-					});
-				}
-				else
-				{
-					if (FlxG.mouse.x > gridBG.x
-						&& FlxG.mouse.x < gridBG.x + gridBG.width
-						&& FlxG.mouse.y > gridBG.y
-						&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
-					{
-						FlxG.log.add('added note');
-						addNote();
-					}
-				}
-			}
-		} else if (FlxG.mouse.justPressed && !FlxG.keys.pressed.V)
+		if (FlxG.mouse.justPressed)
 		{
 			if (FlxG.mouse.overlaps(curRenderedNotes))
 			{
@@ -1731,7 +1684,7 @@ class ChartingState extends MusicBeatState
 						else if (FlxG.keys.pressed.ALT)
 						{
 							selectNote(note);
-							curSelectedNote[3] = noteTypeIntMap.get(currentType);
+							curSelectedNote[3] = curNoteTypes[currentType];
 							updateGrid();
 						}
 						else
@@ -1829,7 +1782,7 @@ class ChartingState extends MusicBeatState
 				autosaveSong();
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				FlxG.mouse.visible = false;
 				return;
 			}
@@ -2291,8 +2244,8 @@ class ChartingState extends MusicBeatState
 		gridBlackLine.antialiasing = false;
 		gridLayer.add(gridBlackLine);
 
-		for (i in 1...4) {
-			var beatsep:FlxSprite = new FlxSprite(gridBG.x, (GRID_SIZE * (4 * curZoom)) * i).makeGraphic(1, 1, 0x44FF0000);
+		for (i in 1...Std.int(getSectionBeats())) {
+			var beatsep:FlxSprite = new FlxSprite(gridBG.x, (GRID_SIZE * (4 * zoomList[curZoom])) * i).makeGraphic(1, 1, 0x44FF0000);
 			beatsep.scale.x = gridBG.width;
 			beatsep.updateHitbox();
 			if(vortex) gridLayer.add(beatsep);

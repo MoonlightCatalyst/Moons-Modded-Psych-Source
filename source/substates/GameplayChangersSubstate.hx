@@ -70,47 +70,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		var option:GameplayOption = new GameplayOption('Botplay', 'botplay', 'bool', false);
 		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Opponent Health Drain', 'opponentdrain', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Health Drain Level: ', 'drainlevel', 'float', 1);
-		option.scrollSpeed = 2;
-		option.minValue = -1;
-		option.maxValue = 10;
-		option.changeValue = 0.1;
-		option.displayFormat = '%vX';
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Random Mode', 'randommode', 'bool', false);
-		optionsArray.push(option);
-			
-		var option:GameplayOption = new GameplayOption('Flip Mode', 'flip', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('One Key', 'onekey', 'bool', false);
-		optionsArray.push(option);
-
-		//shit from JS "engine"
-		/* 
-		var option:GameplayOption = new GameplayOption('Play as Opponent', 'opponentplay', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Stair Mode', 'stairmode', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Wave Mode', 'wavemode', 'bool', false);
-		optionsArray.push(option);
-
-		var option:GameplayOption = new GameplayOption('Jack Amount: ', 'jacks', 'float', 0);
-		option.scrollSpeed = 6;
-		option.minValue = 0;
-		option.maxValue = 100;
-		option.changeValue = 1;
-		option.displayFormat = '%v';
-		optionsArray.push(option);
-
-		*/
 	}
 
 	public function getOptionByName(name:String)

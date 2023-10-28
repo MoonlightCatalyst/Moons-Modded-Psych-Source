@@ -67,30 +67,10 @@ class SaveVariables {
 		'opponentplay' => false
 	];
 
-	//Extra Options Stuff
-	public var ratingType:String = 'camHUD';
-	public var hudType:String = 'Psych';
-	public var iconBops:String = 'Psych';
-	public var menuButtons:String = 'Middle';
-	public var menuSong:String = 'Default';
-	public var ratingTex:String = 'Default';
-	public var strumAnim:String = 'BPM Based';
-	
-	public var underlaneVisibility:Float = 0;
+	//extras
+	public var missSounds:Bool = false;
 
-	public var backdropTitle:Bool = false;
-	public var comboSprite:Bool = false;
-	public var freeplayColor:Bool = false;
-	public var watermark:Bool = false;
-	public var smoothHealth:Bool = false;
-	public var darkMode:Bool = false;
-	public var loadingScreen:Bool = false;
-	public var camMovement:Bool = false;
-	public var holdAnims:Bool = false;
-	public var songIntroScript:Bool = false;
-	public var advancedDiscord:Bool = false;
-
-	//back to normal options
+	//back to normal
 	public var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public var ratingOffset:Int = 0;
 	public var sickWindow:Int = 45;
@@ -190,8 +170,7 @@ class ClientPrefs {
 			//trace('saved variable: $key');
 			Reflect.setField(FlxG.save.data, key, Reflect.field(data, key));
 		}
-		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
-		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+		#if ACHIEVEMENTS_ALLOWED Achievements.save(); #end
 		FlxG.save.flush();
 
 		//Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
@@ -206,6 +185,7 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(data == null) data = new SaveVariables();
 		if(defaultData == null) defaultData = new SaveVariables();
+		#if ACHIEVEMENTS_ALLOWED Achievements.load(); #end
 
 		for (key in Reflect.fields(data)) {
 			if (key != 'gameplaySettings' && Reflect.hasField(FlxG.save.data, key)) {

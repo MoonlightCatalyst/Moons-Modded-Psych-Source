@@ -181,32 +181,6 @@ class Note extends FlxSprite
 					hitCausesMiss = true;
 					hitsound = 'cancelMenu';
 					hitsoundChartEditor = false;
-					case 'Ex Note':
-					ignoreNote = mustPress;
-					reloadNote('EX');
-					rgbShader.enabled = false;
-					// note colors
-					lowPriority = true;
-
-					if(isSustainNote) {
-						missHealth = 0;
-						hitHealth = -2;
-					} else {
-						missHealth = 0;
-						hitHealth = -2;
-					}
-					hitCausesMiss = false;
-				case 'Warning Note':
-					reloadNote('WARNING');
-					// note colors
-					lowPriority = true;
-					rgbShader.enabled = false;
-
-					if(isSustainNote) {
-						missHealth = 1;
-					} else {
-						missHealth = 1;
-					}
 				case 'Alt Animation':
 					animSuffix = '-alt';
 				case 'No Animation':

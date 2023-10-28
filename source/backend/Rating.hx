@@ -49,29 +49,4 @@ class Rating
 		ratingsData.push(rating);
 		return ratingsData;
 	}
-
-	/* //saving this for later when I actually need to change the rating images
-	{
-		var ratingsData:Array<Rating> = [new Rating('ratings/${ClientPrefs.data.ratingTex}/sick')]; //highest rating goes first
-
-		var rating:Rating = new Rating('ratings/${ClientPrefs.data.ratingTex}/good');
-		rating.ratingMod = 0.67;
-		rating.score = 200;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
-
-		var rating:Rating = new Rating('ratings/${ClientPrefs.data.ratingTex}/bad');
-		rating.ratingMod = 0.34;
-		rating.score = 100;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
-
-		var rating:Rating = new Rating('ratings/${ClientPrefs.data.ratingTex}/shit');
-		rating.ratingMod = 0;
-		rating.score = 50;
-		rating.noteSplash = false;
-		ratingsData.push(rating);
-		return ratingsData;
-	}
-	*/
 }

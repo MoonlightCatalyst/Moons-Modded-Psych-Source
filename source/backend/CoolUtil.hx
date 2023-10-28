@@ -106,15 +106,30 @@ class CoolUtil
 		return dumbArray;
 	}
 
-	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
-		return Math.max(min, Math.min(max, value));
-	}
-
 	inline public static function browserLoad(site:String) {
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
 		FlxG.openURL(site);
+		#end
+	}
+
+	inline public static function openFolder(folder:String, absolute:Bool = false) {
+		#if sys
+			#if linux
+			// TO DO: get linux command
+			//Sys.command('explorer.exe $folder');
+			#else
+			if(!absolute) folder =  Sys.getCwd() + '$folder';
+
+			folder = folder.replace('/', '\\');
+			if(folder.endsWith('/')) folder.substr(0, folder.length - 1);
+
+			Sys.command('explorer.exe $folder');
+			trace('explorer.exe $folder');
+			#end
+		#else
+			FlxG.error("Platform is not supported for CoolUtil.openFolder");
 		#end
 	}
 

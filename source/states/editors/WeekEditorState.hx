@@ -438,7 +438,7 @@ class WeekEditorState extends MusicBeatState
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		}
 
@@ -797,7 +797,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			ClientPrefs.toggleVolumeKeys(true);
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 
 			if(controls.UI_UP_P) changeSelection(-1);
