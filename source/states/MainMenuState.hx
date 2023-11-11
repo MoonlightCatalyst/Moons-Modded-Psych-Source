@@ -27,6 +27,7 @@ class MainMenuState extends MusicBeatState
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
+		'discord',
 		'options'
 	];
 
@@ -123,6 +124,10 @@ class MainMenuState extends MusicBeatState
 		var leDate = Date.now();
 		if (leDate.getDay() == 5 && leDate.getHours() >= 18)
 			Achievements.unlock('friday_night_play');
+
+		#if MODS_ALLOWED
+		Achievements.reloadList();
+		#end
 		#end
 
 		super.create();
@@ -166,6 +171,10 @@ class MainMenuState extends MusicBeatState
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
+				if (optionShit[curSelected] == 'discord')
+				{
+					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
+				}
 				else
 				{
 					selectedSomethin = true;
@@ -202,11 +211,11 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new ModsMenuState());
 									#end
 									case 'awards':
-										LoadingState.loadAndSwitchState(new AchievementsMenuState());
+										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
-										LoadingState.loadAndSwitchState(new OptionsState());
+										MusicBeatState.switchState(new OptionsState());
 										OptionsState.onPlayState = false;
 										if (PlayState.SONG != null)
 										{
