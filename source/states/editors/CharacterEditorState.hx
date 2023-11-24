@@ -489,8 +489,6 @@ class CharacterEditorState extends MusicBeatState
 	var healthColorStepperG:FlxUINumericStepper;
 	var healthColorStepperB:FlxUINumericStepper;
 
-	var animatedIconCheckBox:FlxUICheckBox;
-
 	function addCharacterUI() {
 		var tab_group = new FlxUI(null, UI_box);
 		tab_group.name = "Character";
@@ -521,8 +519,6 @@ class CharacterEditorState extends MusicBeatState
 		singDurationStepper = new FlxUINumericStepper(15, healthIconInputText.y + 45, 0.1, 4, 0, 999, 1);
 
 		scaleStepper = new FlxUINumericStepper(15, singDurationStepper.y + 40, 0.1, 1, 0.05, 10, 1);
-
-		animatedIconCheckBox = new FlxUICheckBox(singDurationStepper.x + 80, healthIconInputText.y, null, null, "Animated Icon", 80);
 
 		flipXCheckBox = new FlxUICheckBox(singDurationStepper.x + 80, singDurationStepper.y, null, null, "Flip X", 50);
 		flipXCheckBox.checked = char.flipX;
@@ -572,7 +568,6 @@ class CharacterEditorState extends MusicBeatState
 		tab_group.add(decideIconColor);
 		tab_group.add(healthIconInputText);
 		tab_group.add(singDurationStepper);
-		tab_group.add(animatedIconCheckBox);
 		tab_group.add(scaleStepper);
 		tab_group.add(flipXCheckBox);
 		tab_group.add(noAntialiasingCheckBox);

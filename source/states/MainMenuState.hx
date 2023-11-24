@@ -25,9 +25,10 @@ class MainMenuState extends MusicBeatState
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
 		'discord',
+		'credits',
+		'fart',
+		#if !switch 'donate', #end
 		'options'
 	];
 
@@ -174,6 +175,11 @@ class MainMenuState extends MusicBeatState
 				if (optionShit[curSelected] == 'discord')
 				{
 					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
+				}
+				if (optionShit[curSelected] == 'fart')
+				{
+					FlxG.sound.play(Paths.sound('fartsoundlol'));
+					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 				}
 				else
 				{
