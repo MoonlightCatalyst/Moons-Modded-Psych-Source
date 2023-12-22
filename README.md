@@ -126,3 +126,5 @@ _____________________________________
 * You can reset your Score on Freeplay/Story Mode by pressing Reset button.
 * You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
 * You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
+
+Hiiiiiii (From Moonlight)
