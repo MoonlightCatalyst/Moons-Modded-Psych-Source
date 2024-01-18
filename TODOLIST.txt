@@ -1,0 +1,4 @@
+List of stuff Moon needs to add before releasing 0.7.2/3 update:
+
+Freeplay search bar as a togglable option
+Events

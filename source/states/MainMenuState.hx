@@ -9,6 +9,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
+	public static var engineVersion:String = '0.7.3'; // This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.7.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
@@ -20,6 +21,9 @@ class MainMenuState extends MusicBeatState
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
+		'discord',
+		'gallery',
+		'fart',
 		#if !switch 'donate', #end
 		'options'
 	];
@@ -36,7 +40,7 @@ class MainMenuState extends MusicBeatState
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Main Menu", null);
 		#end
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -45,13 +49,24 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		bg.scrollFactor.set(0, yScroll);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		add(bg);
+		if(!ClientPrefs.data.darkMode) {
+			var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+			bg.antialiasing = ClientPrefs.data.antialiasing;
+			bg.scrollFactor.set(0, yScroll);
+			bg.setGraphicSize(Std.int(bg.width * 1.175));
+			bg.updateHitbox();
+			bg.screenCenter();
+			add(bg);
+		}
+		else if(ClientPrefs.data.darkMode) {
+			var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBGDark'));
+			bg.antialiasing = ClientPrefs.data.antialiasing;
+			bg.scrollFactor.set(0, yScroll);
+			bg.setGraphicSize(Std.int(bg.width * 1.175));
+			bg.updateHitbox();
+			bg.screenCenter();
+			add(bg);
+		}
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -69,6 +84,11 @@ class MainMenuState extends MusicBeatState
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
+		if (ClientPrefs.data.darkMode)
+		{	
+			remove(magenta);
+		}
+
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
@@ -84,9 +104,21 @@ class MainMenuState extends MusicBeatState
 				scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.updateHitbox();
-			menuItem.screenCenter(X);
+			if(ClientPrefs.data.menuButtons == "Middle") {
+				menuItem.screenCenter(X);
+			}
+			else if(ClientPrefs.data.menuButtons == "Left") {
+				menuItem.x = 100;
+			}
+			else if(ClientPrefs.data.menuButtons == "Right") {
+				menuItem.x = FlxG.width - menuItem.width - 100;
+			}
 		}
 
+		var moonVer:FlxText = new FlxText(12, FlxG.height - 64, 0, "MMPE v" + engineVersion, 12);
+		moonVer.scrollFactor.set();
+		moonVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		add(moonVer);
 		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		psychVer.scrollFactor.set();
 		psychVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -141,13 +173,23 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				FlxG.sound.play(Paths.sound('confirmMenu'));
 				if (optionShit[curSelected] == 'donate')
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
+				if (optionShit[curSelected] == 'discord')
+				{
+					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
+				}
+				if (optionShit[curSelected] == 'fart')
+				{
+					FlxG.sound.play(Paths.sound('fartsoundlol'));
+					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+				}
 				else
 				{
+					FlxG.sound.play(Paths.sound('confirmMenu'));
+
 					selectedSomethin = true;
 
 					if (ClientPrefs.data.flashing)
@@ -174,6 +216,8 @@ class MainMenuState extends MusicBeatState
 
 							case 'credits':
 								MusicBeatState.switchState(new CreditsState());
+							case 'gallery':
+								MusicBeatState.switchState(new Gallery());
 							case 'options':
 								MusicBeatState.switchState(new OptionsState());
 								OptionsState.onPlayState = false;
@@ -217,7 +261,9 @@ class MainMenuState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 		menuItems.members[curSelected].animation.play('idle');
 		menuItems.members[curSelected].updateHitbox();
-		menuItems.members[curSelected].screenCenter(X);
+		if(ClientPrefs.data.menuButtons == "Middle") {
+			menuItems.members[curSelected].screenCenter(X);
+		}
 
 		curSelected += huh;
 
@@ -228,7 +274,9 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.members[curSelected].animation.play('selected');
 		menuItems.members[curSelected].centerOffsets();
-		menuItems.members[curSelected].screenCenter(X);
+		if(ClientPrefs.data.menuButtons == "Middle") {
+			menuItems.members[curSelected].screenCenter(X);
+		}
 
 		camFollow.setPosition(menuItems.members[curSelected].getGraphicMidpoint().x,
 			menuItems.members[curSelected].getGraphicMidpoint().y - (menuItems.length > 4 ? menuItems.length * 8 : 0));

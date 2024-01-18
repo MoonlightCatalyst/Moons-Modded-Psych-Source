@@ -75,6 +75,47 @@ import states.TitleState;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
+
+	//MMPE V0.7.2/3h options
+
+	public var ratingType:String = 'camHUD'; //done
+	public var iconBops:String = 'Psych'; //done
+	public var menuButtons:String = 'Middle'; //done
+	public var menuSong:String = 'Default'; //later
+	public var ratingTex:String = 'Default'; //done
+	public var strumAnim:String = 'BPM Based'; //done 
+	
+	public var underlaneVisibility:Float = 0; //done
+
+	public var backdropTitle:Bool = false; //done
+	public var comboSprite:Bool = false; //done
+	public var watermark:Bool = false; //done
+	public var smoothHealth:Bool = false; //done
+	public var darkMode:Bool = false;
+	public var camMovement:Bool = false; //done
+	public var holdAnims:Bool = false; //done
+	public var songIntroScript:Bool = false; //done
+	public var advancedDiscord:Bool = false; //done
+
+	public var ldm:Bool = false; //done
+	public var missSounds:Bool = false; //done
+	public var badSounds:Bool = false; //done
+//	public var randomMenuThings:Bool = false;
+
+	/*THINGS TO ADD THAT AREN'T OPTIONS BEFORE COMPILING
+
+	Gallery - done
+	Noteskins/Splashes - done
+	More Pause Menu Songs - done
+	Add the Extras menu in the options - done
+	Winning Icons - done
+	Custom Note Settings - done
+	Note settings (when pressing ctrl in storymode/freeplay) --done
+	Add Events - later or tomorrow
+	Andromeda Shader Shit --done
+
+	Add the remaining images/icons/allat before compiling
+	*/
 }
 
 class ClientPrefs {

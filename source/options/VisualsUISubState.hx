@@ -81,7 +81,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What should the Time Bar display?",
 			'timeBarType',
 			'string',
-			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
+			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled', 'Elapsed, Left']);
 		addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
@@ -126,7 +126,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
 			'string',
-			['None', 'Breakfast', 'Tea Time']);
+			['None', 'Breakfast', 'Tea Time', 'Indie Cross', 'Funky Stuff', 'Fresh Remix', 'Lunar Eclipse', 'Configurator', 'Death Toll']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		
@@ -206,7 +206,7 @@ class VisualsUISubState extends BaseOptionsMenu
 
 	override function destroy()
 	{
-		if(changedMusic && !OptionsState.onPlayState) FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
+		if(changedMusic && !OptionsState.onPlayState) FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 		super.destroy();
 	}
 
