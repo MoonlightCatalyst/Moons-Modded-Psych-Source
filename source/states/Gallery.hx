@@ -55,9 +55,9 @@ class Gallery extends MusicBeatState
         */
 
         // Set up image paths and descriptions
-        imagePaths = ["gallery/local swords = Swords", "gallery/unholyseksradical", "gallery/cry_about_it", "gallery/funkay", "gallery/goober", "gallery/unholyonemoretime", "gallery/keoiki", "gallery/lookbeforeyouask"];
-        imageDescriptions = ["local swords = Swords", "unholyseksradical", "Cry about it", "Very funkay", "Mlem", "unholy once again", "guh", "before you ask"];
-        imageTitle = ["Swords", "unholyseksradical", "Smash Bros", "Funkay", "Goofy Goober", "back for round two", "keoiki", "Look"];
+        imagePaths = ["gallery/local swords = Swords", "gallery/unholyseksradical", "gallery/cry_about_it", "gallery/funkay", "gallery/goober", "gallery/unholyonemoretime", "gallery/keoiki", "gallery/lookbeforeyouask", "gallery/mulch", "gallery/ant"];
+        imageDescriptions = ["local swords = Swords", "unholyseksradical", "Cry about it", "Very funkay", "Mlem", "unholy once again", "guh", "before you ask", "MisterMulch", "by Ronny Wonny"];
+        imageTitle = ["Swords", "unholyseksradical", "Smash Bros", "Funkay", "Goofy Goober", "back for round two", "keoiki", "Look", "The one and Only", "Ant the ant"];
 
         itemGroup = new FlxTypedGroup<GalleryImage>();
         

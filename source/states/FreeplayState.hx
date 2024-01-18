@@ -88,10 +88,20 @@ class FreeplayState extends MusicBeatState
 		}
 		Mods.loadTopMod();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		add(bg);
-		bg.screenCenter();
+		if (!ClientPrefs.data.darkMode)
+		{
+			bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+			bg.antialiasing = ClientPrefs.data.antialiasing;
+			add(bg);
+			bg.screenCenter();
+		}
+		else if (ClientPrefs.data.darkMode)
+		{
+			bg = new FlxSprite().loadGraphic(Paths.image('menuDesatDark'));
+			bg.antialiasing = ClientPrefs.data.antialiasing;
+			add(bg);
+			bg.screenCenter();
+		}
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
@@ -564,7 +574,7 @@ class FreeplayState extends MusicBeatState
 
 		FlxG.autoPause = ClientPrefs.data.autoPause;
 		if (!FlxG.sound.music.playing)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong), 0);
 	}	
 }
 
