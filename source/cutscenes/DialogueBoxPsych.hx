@@ -1,6 +1,6 @@
 package cutscenes;
 
-import tjson.TJSON as Json;
+import haxe.Json;
 import openfl.utils.Assets;
 
 import objects.TypedAlphabet;
@@ -52,6 +52,10 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	public function new(dialogueList:DialogueFile, ?song:String = null)
 	{
 		super();
+
+		//precache sounds
+		Paths.sound('dialogue');
+		Paths.sound('dialogueClose');
 
 		if(song != null && song != '') {
 			FlxG.sound.playMusic(Paths.music(song), 0);

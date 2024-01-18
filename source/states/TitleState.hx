@@ -9,7 +9,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import tjson.TJSON as Json;
+import haxe.Json;
 
 import openfl.Assets;
 import openfl.display.Bitmap;
@@ -51,14 +51,6 @@ class TitleState extends MusicBeatState
 	var titleTextAlphas:Array<Float> = [1, .64];
 
 	var curWacky:Array<String> = [];
-	/*time and week variables
-	var newtext:String = text.replace("<username>", getUsername());
-	var curTime:Float = Date.now().getHours()%12;
-	var time:String = curTime + ( curTime == Date.now().getHours() ? " AM" : " PM");
-	var newtext:String = newtext.replace("<usertime>", time);
-	var weeks:Array<String> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Staturday'];
-	var newtext:String = newtext.replace("<weekday>", weeks[Date.now().getDay()]);
-	*/
 
 	var wackyImage:FlxSprite;
 
@@ -124,7 +116,7 @@ class TitleState extends MusicBeatState
 		Highscore.load();
 
 		// IGNORE THIS!!!
-		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
+		titleJSON = tjson.TJSON.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
 
 		#if TITLE_SCREEN_EASTER_EGG
 		if (FlxG.save.data.psychDevsEasterEgg == null) FlxG.save.data.psychDevsEasterEgg = ''; //Crash prevention
@@ -589,11 +581,11 @@ class TitleState extends MusicBeatState
 				case 13:
 					deleteCoolText();
 				case 14:
-					addMoreText('Moons');
+					addMoreText('Friday');
 				case 15:
-					addMoreText('Modded');
+					addMoreText('Night');
 				case 16:
-					addMoreText('Psych Engine'); // credTextShit.text += '\nFunkin';
+					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
 
 				case 17:
 					skipIntro();
