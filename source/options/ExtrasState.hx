@@ -12,12 +12,37 @@ class ExtrasState extends BaseOptionsMenu
 		rpcTitle = 'Extras Menu'; //for Discord Rich Presence
 
 		/* //disabling for now
-		var option:Option = new Option('Opponent Note Hit Glow',
-			"If unchecked, the opponent strums will not play\nthe glow animation when hitting a note",
-			'playHitAnim',
+
+		var option:Option = new Option('Random Menu Shenanigans',
+			"If checked, random little things will appear on the main menu",
+			'randomMenuThings',
 			'bool');
 		addOption(option);
-		*/
+
+		var option:Option = new Option('Freeplay Search Bar',
+			"If checked, there will be a search bar\nin the freeplay menu",
+			'freeplaySearch',
+			'bool');
+		addOption(option);
+*/
+		var option:Option = new Option('Low Detail Mode',
+			"If checked, the game will run in low detail mode\nor a 'performance mode' to help memory\n(STILL EXPERIMENTAL)",
+			'ldm',
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Miss Sounds',
+			"If checked, missing a note will play missed note sound effects.",
+			'missSounds',
+			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Bad Sounds',
+			"If checked, sounds will play when getting a bad rating",
+			'badSounds',
+			'bool');
+		addOption(option);
+
 		var option:Option = new Option('Camera Movement',
 			"If unchecked, the camera wont move when hitting notes",
 			'camMovement',
@@ -97,14 +122,14 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want your ui to look?",
 			'ratingTex',
 			'string',
-			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid']);
+			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D']);
 		addOption(option);
 
 		var option:Option = new Option('Icon Bounce:',
 			"How do you want the icons to bop?",
 			'iconBops',
 			'string',
-			['Psych', 'None', 'Base', 'Dave and Bambi', 'Golden Apple', 'Bouncy', 'OS']);
+			['Psych', 'None', 'OG', 'Dave and Bambi', 'Golden Apple', 'Stretchy', 'OS']);
 		addOption(option);
 
 		var option:Option = new Option('Menu Button Placement:',
@@ -124,21 +149,7 @@ class ExtrasState extends BaseOptionsMenu
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
-/*
-		var option:Option = new Option('Rating Style:',
-			"What style do you want your ratings to be like?",
-			'ratingStyle',
-			'string',
-			['Psych', 'Other']);
-		addOption(option);
-
-		var option:Option = new Option('Icon Bounce:',
-			'How should your icons bounce?',
-			'iconBounce',
-			'string',
-			['Default', 'Golden Apple', 'OS', 'Stretchy']);
-		addOption(option);
-*/
+		
 		super();
 	}
 }

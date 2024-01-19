@@ -1,10 +1,5 @@
 package states;
 
-#if MODS_ALLOWED
-import sys.FileSystem;
-import sys.io.File;
-#end
-
 import objects.AttachedSprite;
 
 class CreditsState extends MusicBeatState
@@ -25,7 +20,7 @@ class CreditsState extends MusicBeatState
 
 	override function create()
 	{
-		#if desktop
+		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
@@ -45,37 +40,47 @@ class CreditsState extends MusicBeatState
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Fork/Engine Creator'],
-			['Moonlight_Catalyst',		'moonlight_catalyst',		'Definitely not a Furry (for real)',								'https://www.youtube.com/channel/UCmvsORFe7ZldiG4budmzELA',	'9764B7'],
+			['Moonlight_Catalyst',		'moonlight_catalyst',		'Silly goober that made this fork',								'https://www.youtube.com/channel/UCmvsORFe7ZldiG4budmzELA',	'9764B7'],
 			[''],
 			['Extra Credits'],
+			['Kade Dev', 'nothing', 'Kade Engine rating sprites', 'https://gamebanana.com/members/1774971', 'FFFFFF'],
 			['Betopia', 'nothing', 'Bty noteskin (Pixel was made by Moonlight)', 'https://www.youtube.com/channel/UCfjyz9xRhZiRbLMteQloVeg', 'FFFFFF'],
-			['RonaTheRTD', 'nothing', 'RonaTheRTD noteskins and splashes', 'https://gamebanana.com/members/1634532', 'FFFFFF'],
+			['Unholywanderer04', 'nothing', 'Smooth HealthBar script creator', 'https://gamebanana.com/members/1908754', 'FFFFFF'],
 			['Ralsi', 'nothing', 'Ralsi Note Splashes', 'https://twitter.com/ralsi_', 'FFFFFF'],
+			['RonaTheRTD', 'nothing', 'RonaTheRTD noteskins and splashes', 'https://gamebanana.com/members/1634532', 'FFFFFF'],
+			['Blantados', 'nothing', 'Dad Loosing Icon', 'https://gamebanana.com/members/1775900', 'FFFFFF'],
+			['Notweuz', 'nothing', 'OS "Engine" code', 'https://gamebanana.com/members/1969031', 'FFFFFF'],
+			['Grantare', 'nothing', 'Golden Apple Icon Bounce/Ratings', 'https://gamebanana.com/members/1772565', 'FFFFFF'],
+			['Squidbowl', 'nothing', 'Gallery Creator', 'https://gamebanana.com/members/2041479', 'FFFFFF'],
+			['Red-Bun', 'nothing', 'Note Splash Pack Creator', 'https://gamebanana.com/members/1812789', 'FFFFFF'],
+			['JordanSantiagoYT', 'nothing', 'Note Gameplay Changers', 'https://gamebanana.com/members/1788007', 'FFFFFF'],
 			[''],
 			['Psych Engine Team'],
 			['Psych Engine Discord',		'discord',	"The seventh circle of Hell",							'https://discord.gg/2ka77eMXDv',	'5165F6'],
-			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
-			['Riveren',				'riveren',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/riverennn',		'B42F71'],
+			['Shadow Mario',		'shadowmario',		'Main Programmer and Head of Psych Engine',					 'https://ko-fi.com/shadowmario',		'444444'],
+			['Riveren',				'riveren',			'Main Artist/Animator of Psych Engine',						 'https://twitter.com/riverennn',		'14967B'],
 			[''],
 			['Former Engine Members'],
-			['shubs',				'shubs',			'Ex-Programmer of Psych Engine',								'https://twitter.com/yoshubs',			'5E99DF'],
-			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',								'https://twitter.com/bbsub3',			'3E813A'],
+			['bb-panzu',			'bb',				'Ex-Programmer of Psych Engine',							 'https://twitter.com/bbsub3',			'3E813A'],
+			['shubs',				'',					'Ex-Programmer of Psych Engine\nI don\'t support them.',	 '',									'A1A1A1'],
 			[''],
 			['Engine Contributors'],
-			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',		'https://twitter.com/flicky_i',			'9E29CF'],
-			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform',	'https://twitter.com/gedehari',			'E1843A'],
-			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',										'https://twitter.com/EliteMasterEric',	'FFBD40'],
-			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',							'https://twitter.com/polybiusproxy',	'DCD294'],
-			['KadeDev',				'kade',				'Fixed some cool stuff on Chart Editor\nand other PRs',			'https://twitter.com/kade0912',			'64A250'],
-			['Keoiki',				'keoiki',			'Note Splash Animations and Latin Alphabet',					'https://twitter.com/Keoiki_',			'D2D2D2'],
-			['superpowers04',		'superpowers04',	'LUA JIT Fork',													'https://twitter.com/superpowers04',	'B957ED'],
-			['Smokey',				'smokey',			'Sprite Atlas Support',											'https://twitter.com/Smokey_5_',		'483D92'],
+			['CrowPlexus',			'crowplexus',		'Input System v3, Major Help and Other PRs',				 'https://twitter.com/crowplexus',		'A1A1A1'],
+			['Keoiki',				'keoiki',			'Note Splash Animations and Latin Alphabet',				 'https://twitter.com/Keoiki_',			'D2D2D2'],
+			['SqirraRNG',			'sqirra',			'Crash Handler and Base code for\nChart Editor\'s Waveform', 'https://twitter.com/gedehari',		'E1843A'],
+			['EliteMasterEric',		'mastereric',		'Runtime Shaders support',									 'https://twitter.com/EliteMasterEric',	'FFBD40'],
+			['PolybiusProxy',		'proxy',			'.MP4 Video Loader Library (hxCodec)',						 'https://twitter.com/polybiusproxy',	'DCD294'],
+			['Tahir',				'tahir',			'Implementing & Maintaining SScript and Other PRs',			 'https://twitter.com/tahirk618',		'A04397'],
+			['iFlicky',				'flicky',			'Composer of Psync and Tea Time\nMade the Dialogue Sounds',	 'https://twitter.com/flicky_i',		'9E29CF'],
+			['KadeDev',				'kade',				'Fixed some issues on Chart Editor and Other PRs',			 'https://twitter.com/kade0912',		'64A250'],
+			['superpowers04',		'superpowers04',	'LUA JIT Fork',												 'https://twitter.com/superpowers04',	'B957ED'],
+			['CheemsAndFriends',	'face',	'Creator of FlxAnimate\n(Icon will be added later, merry christmas!)',	 'https://twitter.com/CheemsnFriendos',	'A1A1A1'],
 			[''],
 			["Funkin' Crew"],
-			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",							'https://twitter.com/ninja_muffin99',	'CF2D2D'],
-			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",								'https://twitter.com/PhantomArcade3K',	'FADC45'],
-			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",								'https://twitter.com/evilsk8r',			'5ABD4B'],
-			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
+			['ninjamuffin99',		'ninjamuffin99',	"Programmer of Friday Night Funkin'",						 'https://twitter.com/ninja_muffin99',	'CF2D2D'],
+			['PhantomArcade',		'phantomarcade',	"Animator of Friday Night Funkin'",							 'https://twitter.com/PhantomArcade3K',	'FADC45'],
+			['evilsk8r',			'evilsk8r',			"Artist of Friday Night Funkin'",							 'https://twitter.com/evilsk8r',		'5ABD4B'],
+			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",							 'https://twitter.com/kawaisprite',		'378FC7']
 		];
 		
 		for(i in defaultList) {
@@ -99,8 +104,15 @@ class CreditsState extends MusicBeatState
 				}
 
 				var str:String = 'credits/missing_icon';
-				if (Paths.image('credits/' + creditsStuff[i][1]) != null) str = 'credits/' + creditsStuff[i][1];
+				if(creditsStuff[i][1] != null && creditsStuff[i][1].length > 0)
+				{
+					var fileName = 'credits/' + creditsStuff[i][1];
+					if (Paths.fileExists('images/$fileName.png', IMAGE)) str = fileName;
+					else if (Paths.fileExists('images/$fileName-pixel.png', IMAGE)) str = fileName + '-pixel';
+				}
+
 				var icon:AttachedSprite = new AttachedSprite(str);
+				if(str.endsWith('-pixel')) icon.antialiasing = false;
 				icon.xAdd = optionText.width + 10;
 				icon.sprTracker = optionText;
 	
@@ -196,16 +208,16 @@ class CreditsState extends MusicBeatState
 		{
 			if(!item.bold)
 			{
-				var lerpVal:Float = FlxMath.bound(elapsed * 12, 0, 1);
+				var lerpVal:Float = Math.exp(-elapsed * 12);
 				if(item.targetY == 0)
 				{
 					var lastX:Float = item.x;
 					item.screenCenter(X);
-					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
+					item.x = FlxMath.lerp(item.x - 70, lastX, lerpVal);
 				}
 				else
 				{
-					item.x = FlxMath.lerp(item.x, 200 + -40 * Math.abs(item.targetY), lerpVal);
+					item.x = FlxMath.lerp(200 + -40 * Math.abs(item.targetY), item.x, lerpVal);
 				}
 			}
 		}
@@ -225,7 +237,7 @@ class CreditsState extends MusicBeatState
 		} while(unselectableCheck(curSelected));
 
 		var newColor:FlxColor = CoolUtil.colorFromString(creditsStuff[curSelected][4]);
-		trace('The BG color is: $newColor');
+		//trace('The BG color is: $newColor');
 		if(newColor != intendedColor) {
 			if(colorTween != null) {
 				colorTween.cancel();

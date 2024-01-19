@@ -28,7 +28,7 @@ class VisualsUISubState extends BaseOptionsMenu
 
 		// options
 
-		var noteSkins:Array<String> = Mods.mergeAllTextsNamed('images/noteSkins/list.txt', 'shared');
+		var noteSkins:Array<String> = Mods.mergeAllTextsNamed('images/noteSkins/list.txt');
 		if(noteSkins.length > 0)
 		{
 			if(!noteSkins.contains(ClientPrefs.data.noteSkin))
@@ -45,7 +45,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			noteOptionID = optionsArray.length - 1;
 		}
 		
-		var noteSplashes:Array<String> = Mods.mergeAllTextsNamed('images/noteSplashes/list.txt', 'shared');
+		var noteSplashes:Array<String> = Mods.mergeAllTextsNamed('images/noteSplashes/list.txt');
 		if(noteSplashes.length > 0)
 		{
 			if(!noteSplashes.contains(ClientPrefs.data.splashSkin))
@@ -81,7 +81,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What should the Time Bar display?",
 			'timeBarType',
 			'string',
-			['Time Left', 'Time Elapsed', 'Song Name', 'Elapsed, Left', 'Disabled']);
+			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled', 'Elapsed, Left']);
 		addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
@@ -126,7 +126,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			"What song do you prefer for the Pause Screen?",
 			'pauseMusic',
 			'string',
-			['None', 'Breakfast', 'Tea Time', 'Indie Cross', 'Funky Stuff', 'Fresh Remix', 'Lunar Eclipse', 'Configurator']);
+			['None', 'Breakfast', 'Tea Time', 'Indie Cross', 'Funky Stuff', 'Fresh Remix', 'Lunar Eclipse', 'Configurator', 'Death Toll']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
 		
@@ -138,7 +138,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		#if desktop
+		#if DISCORD_ALLOWED
 		var option:Option = new Option('Discord Rich Presence',
 			"Uncheck this to prevent accidental leaks, it will hide the Application from your \"Playing\" box on Discord",
 			'discordRPC',
@@ -206,7 +206,7 @@ class VisualsUISubState extends BaseOptionsMenu
 
 	override function destroy()
 	{
-		if(changedMusic && !OptionsState.onPlayState) FlxG.sound.playMusic(Paths.music('freakyMenu'), 1, true);
+		if(changedMusic && !OptionsState.onPlayState) FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 		super.destroy();
 	}
 

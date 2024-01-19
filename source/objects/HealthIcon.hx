@@ -68,9 +68,11 @@ class HealthIcon extends FlxSprite
 		//I finally figured this damn thing out. This is the best I can do for now since || doens't work apparently.
 		if(ClientPrefs.data.iconBops != 'Golden Apple') {
 			if(ClientPrefs.data.iconBops != 'Dave and Bambi') {
-				{
-					offset.x = iconOffsets[0];
-					offset.y = iconOffsets[1];
+				if(ClientPrefs.data.iconBops != 'OG') {
+					{
+						offset.x = iconOffsets[0];
+						offset.y = iconOffsets[1];
+					}
 				}
 			}
 		}
