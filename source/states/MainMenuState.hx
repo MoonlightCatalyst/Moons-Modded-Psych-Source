@@ -177,20 +177,19 @@ class MainMenuState extends MusicBeatState
 				{
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
-				if (optionShit[curSelected] == 'discord')
+				else if (optionShit[curSelected] == 'discord')
 				{
 					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
 				}
-				if (optionShit[curSelected] == 'fart')
+				else if (optionShit[curSelected] == 'fart')
 				{
 					FlxG.sound.play(Paths.sound('fartsoundlol'));
 					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 				}
 				else
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'));
-
 					selectedSomethin = true;
+					FlxG.sound.play(Paths.sound('confirmMenu'));
 
 					if (ClientPrefs.data.flashing)
 						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
