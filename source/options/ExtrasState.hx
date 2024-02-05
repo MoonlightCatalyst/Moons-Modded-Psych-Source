@@ -98,10 +98,10 @@ class ExtrasState extends BaseOptionsMenu
 		addOption(option);
 
 		var option:Option = new Option('Hitsound Version',
-			"How do you want the hitsounds to sound?\nRequires the hitsound volume to be higher than 0",
+			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
 			'hitsounds',
 			'string',
-			['Psych', 'Dave', 'Switch']);
+			['Psych', 'Dave', 'Switch', 'IndieC']);
 		addOption(option);
 
 		var option:Option = new Option('Strum Animation:',
