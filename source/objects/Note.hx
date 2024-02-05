@@ -124,7 +124,7 @@ class Note extends FlxSprite
 
 	public var hitsoundDisabled:Bool = false;
 	public var hitsoundChartEditor:Bool = true;
-	public var hitsound:String = 'hitsound';
+	public var hitsound:String = 'hitsounds/hitsound-' + ClientPrefs.data.hitsounds;
 
 	private function set_multSpeed(value:Float):Float {
 		resizeByRatio(value / multSpeed);

@@ -18,8 +18,13 @@ class ExtrasState extends BaseOptionsMenu
 			'randomMenuThings',
 			'bool');
 		addOption(option);
-		*/
 
+		var option:Option = new Option('Freeplay Search Bar',
+			"If checked, there will be a search bar\nin the freeplay menu",
+			'freeplaySearch',
+			'bool');
+		addOption(option);
+*/
 		var option:Option = new Option('Low Detail Mode',
 			"If checked, the game will run in low detail mode\nor a 'performance mode' to help memory\n(STILL EXPERIMENTAL)",
 			'ldm',
@@ -90,6 +95,13 @@ class ExtrasState extends BaseOptionsMenu
 			"If checked, the title screen will have a background\nMay overlay the background set in gfDanceTitle.json",
 			'backdropTitle',
 			'bool');
+		addOption(option);
+
+		var option:Option = new Option('Hitsound Version',
+			"How do you want the hitsounds to sound?\nRequires the hitsound volume to be higher than 0",
+			'hitsounds',
+			'string',
+			['Psych', 'Dave', 'Switch']);
 		addOption(option);
 
 		var option:Option = new Option('Strum Animation:',
