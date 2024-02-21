@@ -1827,6 +1827,17 @@ class PlayState extends MusicBeatState
 		setOnScripts('curDecStep', curDecStep);
 		setOnScripts('curDecBeat', curDecBeat);
 
+		if(ClientPrefs.data.ratingType == 'camGame') {
+			var playerX:Float = boyfriend.x;
+    		var playerY:Float = boyfriend.y;
+
+    		var offsetX:Float = 500; // How far to the left of the player you want the combo to appear
+    		var offsetY:Float = 300; // How far above the player you want the combo to appear
+
+			comboGroup.x = playerX - offsetX;
+    		comboGroup.y = playerY - offsetY;
+		}
+
 		if(ClientPrefs.data.ldm) {
 			camGame.visible = false;
 			iconP1.visible = false;
