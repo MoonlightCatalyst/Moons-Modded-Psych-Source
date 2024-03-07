@@ -706,6 +706,43 @@ class PlayState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		if(eventNotes.length < 1) checkEventNote();
+
+		if(ClientPrefs.data.ldm) {
+			var newCam = new FlxCamera();
+	    	newCam.bgColor = 0x00000000;
+
+        	FlxG.cameras.add(newCam,false); 
+			FlxG.cameras.remove(camGame,false);
+			FlxG.cameras.remove(camHUD,false);
+			FlxG.cameras.remove(camOther,false);
+
+			//healthBar.cameras = [newCam];
+			//healthBar.bg.cameras = [newCam];
+			timeTxt.cameras = [newCam];
+			scoreTxt.cameras = [newCam];
+
+			iconP1.visible = false;
+			iconP2.visible = false;
+			timeBar.visible = false;
+			timeBar.bg.visible = false;
+			grpNoteSplashes.visible = false;
+			camGame.visible = false;
+			camHUD.visible = false;
+
+        	for (i in 0...8) strumLineNotes.members[i].cameras = [newCam];
+        	grpNoteSplashes.cameras = [newCam];
+        	for (note in unspawnNotes) 
+        	{
+        	    note.cameras = [newCam];
+        	    if (note.isSustainNote) note.cameras = [newCam];
+        	};
+			for (strumsz in opponentStrums) {
+				strumsz.x -= 90000; //just generally offscreen
+			}
+			for (strums in playerStrums) {
+				strums.x -= 315;
+			}
+		}
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -1838,6 +1875,7 @@ class PlayState extends MusicBeatState
     		comboGroup.y = playerY - offsetY;
 		}
 
+		/* old code
 		if(ClientPrefs.data.ldm) {
 			camGame.visible = false;
 			iconP1.visible = false;
@@ -1848,9 +1886,14 @@ class PlayState extends MusicBeatState
 			camHUD.zoom = 1;
 			scoreTxt.scale.x = 1;
 			scoreTxt.scale.y = 1;
-		//	if (ClientPrefs.data.shaders) {ClientPrefs.data.shaders = false;}
 		}
-
+		*/
+		if(ClientPrefs.data.ldm) {
+			camHUD.zoom = 1;
+			camHUD.angle = 1;
+			scoreTxt.scale.x = 1;
+			scoreTxt.scale.y = 1;
+		}
 		if(botplayTxt != null && botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
