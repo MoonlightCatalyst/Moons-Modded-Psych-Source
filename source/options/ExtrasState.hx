@@ -129,7 +129,7 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want your ui to look?",
 			'ratingTex',
 			'string',
-			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D']);
+			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D', 'Sonic.exe', 'Mario Madness']);
 		addOption(option);
 
 		var option:Option = new Option('Icon Bounce:',

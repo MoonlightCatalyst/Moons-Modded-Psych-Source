@@ -256,6 +256,7 @@ class PlayState extends MusicBeatState
 	var stairs:Bool = false;
 	var waves:Bool = false;
 	var oneK:Bool = false;
+	var jackass:Bool = false;
 	var shoot:FlxSound;
 	var death:FlxSound;
 	public var polyphony:Float = 1;
@@ -348,6 +349,7 @@ class PlayState extends MusicBeatState
 		stairs = ClientPrefs.getGameplaySetting('stairmode');
 		waves = ClientPrefs.getGameplaySetting('wavemode');
 		oneK = ClientPrefs.getGameplaySetting('onekey');
+		jackass = ClientPrefs.getGameplaySetting('jackass');
 		hpDrainLevel = ClientPrefs.getGameplaySetting('drainlevel');
 		guitarHeroSustains = ClientPrefs.data.guitarHeroSustains;
 
@@ -2060,10 +2062,37 @@ class PlayState extends MusicBeatState
 		setOnScripts('cameraY', camFollow.y);
 		setOnScripts('botPlay', cpuControlled);
 		callOnScripts('onUpdatePost', [elapsed]);
+
+		if (jackass) {
+			for (note in notes.members) {
+				if (! cpuControlled) {
+				  note.blockHit = note.mustPress;
+				  var safeHit = note.strumTime - Conductor.songPosition < 10;
+				  if (note.mustPress) {
+					if (safeHit && returnKey(note.noteData)) {
+					  goodNoteHit(note);
+					//  debugPrint('hit!');
+					}
+				  }
+				}
+			}
+		}
+
 		for (i in shaderUpdates){
 			i(elapsed);
 		}
 	}
+
+	function returnKey(key) {
+		switch (key) {
+		  case 0: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_left'));
+		  case 1: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_down'));
+		  case 2: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_up'));
+		  case 3: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_right'));
+		  default: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_left'));
+		}
+		return false;
+	  }
 
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
@@ -2676,7 +2705,7 @@ class PlayState extends MusicBeatState
 					MusicBeatState.switchState(new StoryMenuState());
 
 					// if ()
-					if(!ClientPrefs.getGameplaySetting('practice') && !ClientPrefs.getGameplaySetting('botplay')) {
+					if(!ClientPrefs.getGameplaySetting('practice') && !ClientPrefs.getGameplaySetting('botplay') && !ClientPrefs.getGameplaySetting('jackass')) {
 						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 
@@ -2786,7 +2815,7 @@ class PlayState extends MusicBeatState
 		if(daRating.noteSplash && !note.noteSplashData.disabled)
 			spawnNoteSplashOnNote(note);
 
-		if(!practiceMode && !cpuControlled) {
+		if(!practiceMode && !cpuControlled && !jackass) {
 			songScore += score;
 			if(!note.ratingDisabled)
 			{
@@ -2895,6 +2924,20 @@ class PlayState extends MusicBeatState
 				ratingsData[1].image = 'ratings/gapple/good';
 				ratingsData[2].image = 'ratings/gapple/bad';
 				ratingsData[3].image = 'ratings/gapple/shit';
+			}
+			if(ClientPrefs.data.ratingTex == 'Sonic.exe')
+			{
+				ratingsData[0].image = 'ratings/sonic.exe/sick';
+				ratingsData[1].image = 'ratings/sonic.exe/good';
+				ratingsData[2].image = 'ratings/sonic.exe/bad';
+				ratingsData[3].image = 'ratings/sonic.exe/shit';
+			}
+			if(ClientPrefs.data.ratingTex == 'Mario Madness')
+			{
+				ratingsData[0].image = 'ratings/mario madness/sick';
+				ratingsData[1].image = 'ratings/mario madness/good';
+				ratingsData[2].image = 'ratings/mario madness/bad';
+				ratingsData[3].image = 'ratings/mario madness/shit';
 			}
 		}
 
