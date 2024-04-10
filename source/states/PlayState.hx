@@ -707,6 +707,8 @@ class PlayState extends MusicBeatState
 		super.create();
 		Paths.clearUnusedMemory();
 
+		timeBar.setColors(0xFFB200FF, 0xFF404040);
+
 		if(eventNotes.length < 1) checkEventNote();
 
 		if(ClientPrefs.data.ldm) {
@@ -3301,7 +3303,7 @@ class PlayState extends MusicBeatState
 		combo = 0;
 
 		health -= subtract * healthLoss;
-		if(!practiceMode) songScore -= 10;
+		if(!practiceMode && !jackass) songScore -= 10;
 		if(!endingSong) songMisses++;
 		totalPlayed++;
 		RecalculateRating(true);

@@ -9,7 +9,6 @@ function onCreatePost()
             end
         end
     end
-    setTimeBarColors('B200FF', '404040')
 end
 
 
