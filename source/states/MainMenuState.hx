@@ -9,7 +9,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var engineVersion:String = '0.7.3'; // This is also used for Discord RPC
+	public static var engineVersion:String = '0.8'; // This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.7.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
@@ -21,6 +21,7 @@ class MainMenuState extends MusicBeatState
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
+		'merch',
 		'discord',
 		'gallery',
 		'fart',
@@ -180,6 +181,10 @@ class MainMenuState extends MusicBeatState
 				else if (optionShit[curSelected] == 'discord')
 				{
 					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
+				}
+				else if (optionShit[curSelected] == 'merch')
+				{
+					CoolUtil.browserLoad('https://needlejuicerecords.com/en-ca/pages/friday-night-funkin');
 				}
 				else if (optionShit[curSelected] == 'fart')
 				{

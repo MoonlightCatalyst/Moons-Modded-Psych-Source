@@ -94,7 +94,7 @@ import states.TitleState;
 	public var smoothHealth:Bool = false;
 	public var darkMode:Bool = false;
 	public var camMovement:Bool = false;
-	public var holdAnims:Bool = false;
+	public var oldHold:Bool = false;
 	public var songIntroScript:Bool = false;
 	public var advancedDiscord:Bool = false;
 

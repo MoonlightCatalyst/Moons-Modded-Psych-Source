@@ -711,6 +711,12 @@ class PlayState extends MusicBeatState
 
 		if(eventNotes.length < 1) checkEventNote();
 
+		if(!ClientPrefs.data.oldHold) {
+			for(note in unspawnNotes){
+				note.noAnimation = note.isSustainNote;
+			}
+		}
+
 		if(ClientPrefs.data.ldm) {
 			var newCam = new FlxCamera();
 	    	newCam.bgColor = 0x00000000;
@@ -1869,13 +1875,19 @@ class PlayState extends MusicBeatState
 		setOnScripts('curDecBeat', curDecBeat);
 
 		if(ClientPrefs.data.ratingType == 'camGame') {
-			var playerX:Float = boyfriend.x;
-    		var playerY:Float = boyfriend.y;
+			var playerX:Float = gf.x;
+    		var playerY:Float = gf.y;
 
-    		var offsetX:Float = 500; // How far to the left of the player you want the combo to appear
-    		var offsetY:Float = 300; // How far above the player you want the combo to appear
+    		var offsetX:Float = 100; // How far to the left of the player you want the combo to appear
+    		var offsetY:Float = 100; // How far above the player you want the combo to appear
 
-			comboGroup.x = playerX - offsetX;
+			if(isPixelStage) {
+				offsetY = 300;
+				offsetX = 300;
+				comboGroup.x = playerX - offsetX;
+			} else {
+				comboGroup.x = playerX + offsetX;
+			}
     		comboGroup.y = playerY - offsetY;
 		}
 
@@ -2877,6 +2889,7 @@ class PlayState extends MusicBeatState
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
 
+		//I really need to figure out how to optimize this
 		if (!PlayState.isPixelStage) {
 			if(ClientPrefs.data.ratingTex == 'Default')
 			{
@@ -2940,6 +2953,13 @@ class PlayState extends MusicBeatState
 				ratingsData[1].image = 'ratings/mario madness/good';
 				ratingsData[2].image = 'ratings/mario madness/bad';
 				ratingsData[3].image = 'ratings/mario madness/shit';
+			}
+			if(ClientPrefs.data.ratingTex == 'Neo')
+			{
+				ratingsData[0].image = 'ratings/neo/sick';
+				ratingsData[1].image = 'ratings/neo/good';
+				ratingsData[2].image = 'ratings/neo/bad';
+				ratingsData[3].image = 'ratings/neo/shit';
 			}
 		}
 
