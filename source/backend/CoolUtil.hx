@@ -15,9 +15,14 @@ class CoolUtil {
 
 	inline public static function coolTextFile(path:String):Array<String> {
 		var daList:String = null;
-		#if (sys && MODS_ALLOWED) if (FileSystem.exists(path)) {
+		#if (sys && MODS_ALLOWED)
+		final formatted:Array<String> = path.split(':'); //prevent "shared:", "preload:" and other library names on file path
+		path = formatted[formatted.length - 1];
+		if (FileSystem.exists(path)) {
 			daList = File.getContent(path);
-		} #else if (Assets.exists(path)) {
+		}
+		#else
+		if (Assets.exists(path)) {
 			daList = Assets.getText(path);
 		}
 		#end
@@ -36,7 +41,7 @@ class CoolUtil {
 		return string.trim().split('\n').map((i:String) -> {i.trim();});
 	}
 
-	public static function floorDecimal(value:Float, decimals:Int):Float {
+	inline public static function floorDecimal(value:Float, decimals:Int):Float {
 		final tempMult:Float = Math.pow(10, decimals);
 		return decimals < 1 ? Math.floor(value) : Math.floor(value * tempMult) / tempMult;
 	}
@@ -71,7 +76,11 @@ class CoolUtil {
 		return [for (i in min...max) {i;}];
 	}
 
-	public static function browserLoad(site:String):Void {
+	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
+		return Math.max(min, Math.min(max, value));
+	}
+
+	inline public static function browserLoad(site:String):Void {
 		#if linux
 		Sys.command('/usr/bin/xdg-open', [site]);
 		#else
@@ -79,7 +88,7 @@ class CoolUtil {
 		#end
 	}
 
-	public static function openFolder(folder:String, absolute:Bool = false):Void {
+	public static function openFolder(folder:String, ?absolute:Bool = false):Void {
 		#if sys
 		if (!absolute) {
 			folder = Sys.getCwd() + folder;
