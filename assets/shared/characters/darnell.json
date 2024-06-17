@@ -1,10 +1,14 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				25,
 				90
 			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "Idle",
 			"indices": [
 				0,
 				1,
@@ -20,99 +24,95 @@
 				11,
 				12,
 				13
-			],
-			"fps": 24,
-			"anim": "idle",
-			"loop": false,
-			"name": "Idle"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				26,
 				91
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
-			"name": "Pose Left"
+			"fps": 24,
+			"name": "Pose Left",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				30,
-				79
+				89
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singDOWN",
-			"loop": false,
-			"name": "Pose Down"
+			"fps": 24,
+			"name": "Pose Down",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				34,
 				97
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singUP",
-			"loop": false,
-			"name": "Pose Up"
+			"fps": 24,
+			"name": "Pose Up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				26,
 				93
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "singRIGHT",
-			"loop": false,
-			"name": "Pose Right"
+			"fps": 24,
+			"name": "Pose Right",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				30,
 				90
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "can",
-			"loop": false,
-			"name": "Light Can"
+			"fps": 24,
+			"name": "Light Can",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				40,
 				110
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "kick",
-			"loop": false,
-			"name": "Kick Up"
+			"fps": 24,
+			"name": "Kick Up",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				59,
 				105
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "knee",
-			"loop": false,
-			"name": "Knee Forward"
+			"fps": 24,
+			"name": "Knee Forward",
+			"indices": []
 		},
 		{
+			"loop": false,
 			"offsets": [
 				25,
 				90
 			],
-			"indices": [],
-			"fps": 24,
 			"anim": "pissed",
-			"loop": false,
-			"name": "Gets Pissed"
+			"fps": 24,
+			"name": "Gets Pissed",
+			"indices": []
 		}
 	],
 	"vocals_file": "",
@@ -130,8 +130,8 @@
 		176
 	],
 	"camera_position": [
-		0,
-		0
+		-100,
+		-100
 	],
 	"sing_duration": 4,
 	"scale": 1,

@@ -18,6 +18,7 @@ import states.TitleState;
 	public var noteSkin:String = 'Default';
 	public var splashSkin:String = 'Psych';
 	public var splashAlpha:Float = 0.6;
+	public var holdSplashAlpha:Float = 0.6;
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
 	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
@@ -76,7 +77,7 @@ import states.TitleState;
 	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
 
-	//MMPE V0.7.2/3h options
+	//MMPE V0.7.3h options
 
 	public var ratingType:String = 'camHUD';
 	public var iconBops:String = 'Psych';
@@ -101,7 +102,6 @@ import states.TitleState;
 	public var ldm:Bool = false;
 	public var missSounds:Bool = false;
 	public var badSounds:Bool = false;
-	public var freeplaySearch:Bool = false;
 //	public var randomMenuThings:Bool = false;
 }
 
