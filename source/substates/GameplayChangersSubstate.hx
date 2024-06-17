@@ -62,10 +62,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
 
-		optionsArray.push(new GameplayOption('Instakill on Miss', 'instakill', 'bool', false));
-		optionsArray.push(new GameplayOption('Practice Mode', 'practice', 'bool', false));
-		optionsArray.push(new GameplayOption('Botplay', 'botplay', 'bool', false));
-
 		var option:GameplayOption = new GameplayOption('Opponent Health Drain', 'opponentdrain', 'bool', false);
 		optionsArray.push(option);
 
@@ -85,6 +81,13 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		var option:GameplayOption = new GameplayOption('One Key', 'onekey', 'bool', false);
 		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Note Assistant', 'jackass', 'bool', false); //automatically hits notes if key is being held down, but it hits EVERY note, including the bad ones. 
+		optionsArray.push(option);
+
+		optionsArray.push(new GameplayOption('Instakill on Miss', 'instakill', 'bool', false));
+		optionsArray.push(new GameplayOption('Practice Mode', 'practice', 'bool', false));
+		optionsArray.push(new GameplayOption('Botplay', 'botplay', 'bool', false));
 
 		//shit from JS "engine"
 		/* 

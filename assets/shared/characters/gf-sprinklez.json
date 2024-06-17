@@ -1,0 +1,234 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "idle",
+			"fps": 24,
+			"name": "idle",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				40,
+				58
+			],
+			"anim": "singUPmiss",
+			"fps": 24,
+			"name": "upMISS",
+			"indices": []
+		},
+		{
+			"offsets": [
+				62,
+				-5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "firstDeath",
+			"indices": [],
+			"name": "firstDeath"
+		},
+		{
+			"offsets": [
+				28,
+				-5
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "deathLoop",
+			"indices": [],
+			"name": "deathLoop"
+		},
+		{
+			"offsets": [
+				27,
+				-4
+			],
+			"loop": true,
+			"fps": 24,
+			"anim": "deathConfirm",
+			"indices": [],
+			"name": "deathConfirm"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "danceLeft",
+			"fps": 24,
+			"name": "gfDanceLeft",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				0,
+				0
+			],
+			"anim": "danceRight",
+			"fps": 24,
+			"name": "gfDanceRight",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-59,
+				-40
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "rightMISS",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				41,
+				-15
+			],
+			"anim": "singDOWNmiss",
+			"fps": 24,
+			"name": "downMISS",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				22,
+				28
+			],
+			"anim": "singUP",
+			"fps": 24,
+			"name": "GFup",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				33,
+				-27
+			],
+			"anim": "singDOWN",
+			"fps": 24,
+			"name": "GFdown",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				81,
+				-22
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "GFleft",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-62,
+				-37
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "GFright",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				83,
+				-10
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "left MISS",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				60,
+				-42
+			],
+			"anim": "gf pre attack",
+			"fps": 24,
+			"name": "gf pre attack",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				388,
+				-50
+			],
+			"anim": "gf attack",
+			"fps": 24,
+			"name": "gf attack",
+			"indices": []
+		},
+		{
+			"offsets": [
+				112,
+				-29
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "gf dodge",
+			"indices": [],
+			"name": "gf dodge"
+		},
+		{
+			"offsets": [
+				48,
+				-29
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "gf hit",
+			"indices": [],
+			"name": "gf hit"
+		},
+		{
+			"offsets": [
+				10,
+				-7
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "hey",
+			"indices": [],
+			"name": "hey"
+		}
+	],
+	"vocals_file": "gf",
+	"no_antialiasing": false,
+	"image": "characters/ChibiGF-V2",
+	"position": [
+		140,
+		240
+	],
+	"healthicon": "gf",
+	"flip_x": true,
+	"healthbar_colors": [
+		235,
+		100,
+		161
+	],
+	"camera_position": [
+		230,
+		40
+	],
+	"sing_duration": 6.1,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

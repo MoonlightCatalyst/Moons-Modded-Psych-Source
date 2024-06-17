@@ -49,9 +49,9 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Fixed Sustain Animations',
-			"If unchecked, the player hold animation fix will not take effect",
-			'holdAnims',
+		var option:Option = new Option('Old Sustain Animations',
+			"If checked, the characters will studder when doing HOLD notes\nlike old FNF before the WEEKEND update",
+			'oldHold',
 			'bool');
 		addOption(option);
 
@@ -97,6 +97,13 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		var option:Option = new Option('Hitsound Version',
+			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
+			'hitsounds',
+			'string',
+			['Psych', 'Dave', 'Switch', 'IndieC']);
+		addOption(option);
+
 		var option:Option = new Option('Strum Animation:',
 			"How do you want the opponent stums\nto play their animation?",
 			'strumAnim',
@@ -108,7 +115,7 @@ class ExtrasState extends BaseOptionsMenu
 			"What song do you want to play\nwhen in the main menu?",
 			'menuSong',
 			'string',
-			['Default', 'Tricky', 'Shaggy', 'Impostor', 'IC', 'DnB', 'Gapple']);
+			['Default', 'Tricky', 'Shaggy', 'Impostor', 'IC', 'DnB', 'Gapple', 'Neo']);
 		addOption(option);
 		
 		var option:Option = new Option('Rating Type:',
@@ -122,7 +129,7 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want your ui to look?",
 			'ratingTex',
 			'string',
-			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D']);
+			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D', 'Sonic.exe', 'Mario Madness', 'Neo']);
 		addOption(option);
 
 		var option:Option = new Option('Icon Bounce:',

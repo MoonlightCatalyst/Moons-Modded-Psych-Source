@@ -146,6 +146,7 @@ class Mods
 
 	public static var updatedOnState:Bool = false;
 	inline public static function parseList():ModsList {
+		//FileSystem.deleteFile('modsList.txt');
 		if(!updatedOnState) updateModList();
 		var list:ModsList = {enabled: [], disabled: [], all: []};
 

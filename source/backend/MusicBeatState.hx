@@ -33,6 +33,7 @@ class MusicBeatState extends FlxUIState
 
 		if(!skip) {
 			openSubState(new CustomFadeTransition(0.6, true));
+			//openSubState(new DiamondTransSubState(0.6, true));
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 		timePassedOnState = 0;
@@ -155,10 +156,15 @@ class MusicBeatState extends FlxUIState
 			nextState = FlxG.state;
 
 		FlxG.state.openSubState(new CustomFadeTransition(0.6, false));
+		//FlxG.state.openSubState(new DiamondTransSubState(0.6, false));
 		if(nextState == FlxG.state)
 			CustomFadeTransition.finishCallback = function() FlxG.resetState();
 		else
 			CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
+		/*
+		DiamondTransSubState.finishCallback = function() FlxG.resetState();
+		else
+			DiamondTransSubState.finishCallback = function() FlxG.switchState(nextState);*/
 	}
 
 	public static function getState():MusicBeatState {
