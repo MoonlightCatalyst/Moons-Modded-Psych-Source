@@ -79,11 +79,13 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		/*
 		var option:Option = new Option('Smooth Health Bar',
 			'Do you want your healthbar to be smooth?',
 			'smoothHealth',
 			'bool');
 		addOption(option);
+		*/
 
 		var option:Option = new Option('Watermark',
 			"If unchecked, There will NOT be a watermark in the\nbottom left of the screen during songs",
