@@ -1,3 +1,4 @@
+
 package debug;
 
 class FPSCounter extends openfl.text.TextField {
