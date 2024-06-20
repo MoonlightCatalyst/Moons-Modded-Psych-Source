@@ -11,6 +11,25 @@ import psychlua.FunkinLua;
 
 #if HSCRIPT_ALLOWED
 import tea.SScript;
+
+#if (SScript == "21.0.0"
+	|| SScript == "20.8.618"
+	|| SScript == "20.7.618"
+	|| SScript == "20.6.618"
+	|| SScript == "19.0.618"
+	|| SScript == "18.6.618"
+	|| SScript == "17.2.618"
+	|| SScript == "17.1.618"
+	|| SScript == "17.0.618" 
+	|| SScript == "11.0.618" 
+	|| SScript == "10.1.618" 
+	|| SScript == "10.0.618"
+	|| SScript == "10.0.618-beta"
+	|| SScript > "8.1.6")
+//For some reason, `> "8.1.6" doesn't work so... || go brr
+typedef TeaCall = Tea;
+#end
+
 class HScript extends SScript
 {
 	public var modFolder:String;
