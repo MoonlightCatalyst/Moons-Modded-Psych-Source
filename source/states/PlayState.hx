@@ -321,6 +321,8 @@ class PlayState extends MusicBeatState
 	var tmr2:FlxTimer;
 	//
 
+	var ogCamZoom:Float = 0;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -375,7 +377,11 @@ class PlayState extends MusicBeatState
 		hpDrainLevel = ClientPrefs.getGameplaySetting('drainlevel');
 		guitarHeroSustains = ClientPrefs.data.guitarHeroSustains;
 
-		healthTweenObj = FlxTween.tween(this, {}, 0);
+		/*
+		if(ClientPrefs.data.smoothHealth) {
+			healthTweenObj = FlxTween.tween(this, {}, 0);
+		}
+		*/
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = initPsychCamera();
@@ -624,6 +630,8 @@ class PlayState extends MusicBeatState
 		FlxG.camera.follow(camFollow, LOCKON, 0);
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.snapToTarget();
+
+		ogCamZoom = defaultCamZoom;
 
 		FlxG.worldBounds.set(0, 0, FlxG.width, FlxG.height);
 		moveCameraSection();
@@ -2277,6 +2285,7 @@ class PlayState extends MusicBeatState
 		return health;
 	}
 
+	/*
 	function healthTween(amt:Float)
 	{
 		healthTweenObj.cancel();
@@ -2285,7 +2294,7 @@ class PlayState extends MusicBeatState
 			health = v;
 		});
 	}
-
+	*/
 	function openPauseMenu()
 	{
 		FlxG.camera.followLerp = 0;
@@ -2557,7 +2566,10 @@ class PlayState extends MusicBeatState
 						triggerEvent('Camera Follow Pos', '', '', Conductor.songPosition);
 				}
 
-
+			case 'Set Cam Zoom':
+				camZooming = true;
+				defaultCamZoom = Std.parseFloat(value1);
+				if(value1 == '') {defaultCamZoom = ogCamZoom;}
 
 			case 'Change Character':
 				var charType:Int = 0;
@@ -3378,7 +3390,7 @@ class PlayState extends MusicBeatState
 		var result:Dynamic = callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('noteMiss', [daNote]);
 		if(ClientPrefs.data.missSounds) {FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));}
-		if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
+		//if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
 	}
 
 	function noteMissPress(direction:Int = 1):Void //You pressed a key when there was no notes to press for this key
@@ -3388,7 +3400,7 @@ class PlayState extends MusicBeatState
 		noteMissCommon(direction);
 		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 		callOnScripts('noteMissPress', [direction]);
-		if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
+		//if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
 	}
 
 	function noteMissCommon(direction:Int, note:Note = null)
@@ -3435,7 +3447,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
+		//if(ClientPrefs.data.smoothHealth) {healthTween(-0.0475);}
 
 		if(instakillOnMiss)
 		{
@@ -3545,7 +3557,7 @@ class PlayState extends MusicBeatState
 
 		note.wasGoodHit = true;
 
-		if(ClientPrefs.data.smoothHealth){healthTween(0.023);}
+		//if(ClientPrefs.data.smoothHealth){healthTween(0.023);}
 
 		if (ClientPrefs.data.hitsoundVolume > 0 && !note.hitsoundDisabled)
 			FlxG.sound.play(Paths.sound(note.hitsound), ClientPrefs.data.hitsoundVolume);

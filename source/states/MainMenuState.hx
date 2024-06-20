@@ -9,7 +9,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var engineVersion:String = '0.8'; // This is also used for Discord RPC
+	public static var engineVersion:String = '0.7.4h'; // This is also used for Discord RPC
 	public static var psychEngineVersion:String = '0.7.3'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
@@ -173,7 +173,7 @@ class MainMenuState extends MusicBeatState
 				}
 				else if (optionShit[curSelected] == 'discord')
 				{
-					CoolUtil.browserLoad('https://discord.com/invite/euNuVhP7SM');
+					CoolUtil.browserLoad('https://discord.gg/BW9B3nrYuF');
 				}
 				else if (optionShit[curSelected] == 'merch')
 				{

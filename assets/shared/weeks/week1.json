@@ -13,6 +13,7 @@
 	"weekBackground": "stage",
 
 	"storyName": "Daddy Dearest",
+	"difficulties": "Easy, Normal, Hard, Erect, Nightmare",
 	"weekBefore": "tutorial",
 	"weekName": "Week 1",
 	"startUnlocked": true,
