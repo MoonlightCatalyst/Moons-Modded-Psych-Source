@@ -49,25 +49,16 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		if(!ClientPrefs.data.darkMode) {
-			var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-			bg.antialiasing = ClientPrefs.data.antialiasing;
-			bg.scrollFactor.set(0, yScroll);
-			bg.setGraphicSize(Std.int(bg.width * 1.175));
-			bg.updateHitbox();
-			bg.screenCenter();
-			add(bg);
-		}
-		else if(ClientPrefs.data.darkMode) {
-			var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBGDark'));
-			bg.antialiasing = ClientPrefs.data.antialiasing;
-			bg.scrollFactor.set(0, yScroll);
-			bg.setGraphicSize(Std.int(bg.width * 1.175));
-			bg.updateHitbox();
-			bg.screenCenter();
-			add(bg);
-		}
+		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.075);
+		
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image(ClientPrefs.data.darkMode ? 'menuBGDark' : 'menuBG'));
+		bg.antialiasing = ClientPrefs.data.antialiasing;
+		bg.scrollFactor.set(0, yScroll);
+		bg.setGraphicSize(Std.int(bg.width * 1.175));
+		bg.updateHitbox();
+		bg.screenCenter();
+		bg.y -= 15;
+		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
@@ -78,9 +69,11 @@ class MainMenuState extends MusicBeatState
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
+		magenta.y -= 15;
 		magenta.visible = false;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
