@@ -2917,7 +2917,7 @@ class PlayState extends MusicBeatState
 		'good',
 		'bad',
 		'shit'
-	]''
+	];
 	public var ratingDirectories:Map<String, String> = [
 		'Default' => 'default',
 		'Kade' => 'kade',
