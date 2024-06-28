@@ -17,6 +17,7 @@ import openfl.events.Event;
 import openfl.display.StageScaleMode;
 import lime.app.Application;
 import states.TitleState;
+import openfl.display.FPS;
 
 #if linux
 import lime.graphics.Image;
@@ -147,6 +148,11 @@ class Main extends Sprite
 
 			if (FlxG.game != null)
 			resetSpriteCache(FlxG.game);
+		});
+
+		FlxG.stage.window.onClose.add(function() {
+			// closed
+			FileSystem.deleteFile('modsList.txt');
 		});
 	}
 

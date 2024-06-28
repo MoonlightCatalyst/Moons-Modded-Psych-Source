@@ -89,7 +89,7 @@ import states.TitleState;
 	
 	public var underlaneVisibility:Float = 0;
 
-	public var backdropTitle:Bool = false;
+	public var oppSplashes:Bool = false;
 	public var comboSprite:Bool = false;
 	public var watermark:Bool = false;
 	public var smoothHealth:Bool = false;

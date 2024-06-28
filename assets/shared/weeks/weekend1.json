@@ -51,7 +51,7 @@
 		113,
 		253
 	],
-	"hideStoryMode": false,
+	"hideStoryMode": true,
 	"weekBefore": "week7",
 	"startUnlocked": false
 }

@@ -225,6 +225,7 @@ class TitleState extends MusicBeatState
 		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 		gfDance.antialiasing = ClientPrefs.data.antialiasing;
 
+		/* just gonna keep it here in case I ever need to use backdrops again. Otherwise, its useless.
 		if(ClientPrefs.data.backdropTitle) {
 			var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xB78431D1, 0x0));
 			grid.velocity.set(40, 40);
@@ -232,6 +233,7 @@ class TitleState extends MusicBeatState
 			FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 			add(grid);
 		}
+		*/
 
 		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
 		if(easterEgg == null) easterEgg = ''; //html5 fix

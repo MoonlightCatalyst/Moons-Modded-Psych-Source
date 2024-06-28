@@ -5,6 +5,9 @@
 				0,
 				-9
 			],
+			"loop": false,
+			"fps": 24,
+			"anim": "danceLeft",
 			"indices": [
 				30,
 				0,
@@ -23,9 +26,6 @@
 				13,
 				14
 			],
-			"fps": 24,
-			"anim": "danceLeft",
-			"loop": false,
 			"name": "Idle"
 		},
 		{
@@ -33,6 +33,9 @@
 				0,
 				-9
 			],
+			"loop": false,
+			"fps": 24,
+			"anim": "danceRight",
 			"indices": [
 				15,
 				16,
@@ -50,9 +53,6 @@
 				28,
 				29
 			],
-			"fps": 24,
-			"anim": "danceRight",
-			"loop": false,
 			"name": "Idle"
 		},
 		{
@@ -60,10 +60,10 @@
 				-98,
 				42
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "Kidle",
-			"loop": false,
+			"indices": [],
 			"name": "KnifeIdle"
 		},
 		{
@@ -71,10 +71,10 @@
 				0,
 				42
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "raise",
-			"loop": false,
+			"indices": [],
 			"name": "KnifeRaise"
 		},
 		{
@@ -82,10 +82,10 @@
 				134,
 				41
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "lower",
-			"loop": false,
+			"indices": [],
 			"name": "KnifeLower"
 		},
 		{
@@ -93,10 +93,10 @@
 				0,
 				-16
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "laugh",
-			"loop": false,
+			"indices": [],
 			"name": "Laugh"
 		},
 		{
@@ -104,10 +104,10 @@
 				-130,
 				40
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "Cheer",
-			"loop": false,
+			"indices": [],
 			"name": "ComboCheer"
 		},
 		{
@@ -115,10 +115,10 @@
 				-50,
 				-20
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "sad",
-			"loop": false,
+			"indices": [],
 			"name": "ComboFawn"
 		}
 	],
@@ -137,8 +137,8 @@
 		77
 	],
 	"camera_position": [
-		0,
-		0
+		100,
+		50
 	],
 	"sing_duration": 4,
 	"scale": 1,

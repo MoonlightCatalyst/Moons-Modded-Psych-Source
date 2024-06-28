@@ -93,9 +93,9 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Title BG',
-			"If checked, the title screen will have a background\nMay overlay the background set in gfDanceTitle.json",
-			'backdropTitle',
+		var option:Option = new Option('Opponent Note Splashes',
+			"If checked, the opponent will have note splashes\njust like the player. (Transparency will be the same)",
+			'oppSplashes',
 			'bool');
 		addOption(option);
 

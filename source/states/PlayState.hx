@@ -74,6 +74,13 @@ import objects.NoteSplash.PixelSplashShaderRef;
 import flixel.math.FlxRect;
 //
 
+//visualizer
+import haxe.io.UInt16Array;
+import lime.media.AudioSource;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
+//
+
 /**
  * This is where all the Gameplay stuff happens and is managed
  *
@@ -322,6 +329,13 @@ class PlayState extends MusicBeatState
 	//
 
 	var ogCamZoom:Float = 0;
+
+	//visualizer
+	var musicSrc:AudioSource;
+	var data:lime.utils.UInt16Array;
+	var debugText:FlxText;
+	var musicList:Array<String> = [];
+	//
 
 	override public function create()
 	{
@@ -782,23 +796,43 @@ class PlayState extends MusicBeatState
 			addBehindGF(abot);
 
 			/*
-			var vis = new FlxSprite(0, 0);
-			vis.frames = Paths.getSparrowAtlas('aBotViz');
-			vis.animation.addByIndices('idle', 'viz1', [0], "", 24);
-			vis.animation.addByIndices('idle1', 'viz1', [1], "", 24);
-			vis.animation.addByIndices('idle2', 'viz1', [2], "", 24);
-			vis.animation.addByIndices('idle3', 'viz1', [3], "", 24);
-			vis.animation.addByIndices('idle4', 'viz1', [4], "", 24);
-			vis.animation.addByIndices('idle5', 'viz1', [5], "", 24);
-			vis.x = gf.x + 66;
-			vis.y = gf.y + 390;
-			addBehindGF(vis);
-			*/
+			var visFrms:FlxAtlasFrames = Paths.getSparrowAtlas('aBotViz');
+			// these are the differences in X position, from left to right
+			var positionX:Array<Float> = [0, 59, 56, 66, 54, 52, 51];
+			var positionY:Array<Float> = [0, -8, -3.5, -0.4, 0.5, 4.7, 7];
+
+			for (lol in 1...8)
+			{
+
+				//volumes.push(0.0);
+      			var sum = function(num:Float, total:Float) return total += num;
+      			var posX:Float = positionX.slice(0, lol).fold(sum, 0);
+      			var posY:Float = positionY.slice(0, lol).fold(sum, 0);
+
+      			var viz:FlxSprite = new FlxSprite(posX, posY);
+      			viz.frames = visFrms;
+      			add(viz);
+
+      			var visStr = 'viz';
+      			viz.animation.addByPrefix('VIZ', visStr + lol, 0);
+      			viz.animation.play('VIZ', false, false, 6);
+			}
+
+			@:privateAccess
+			musicSrc = cast FlxG.sound.music._channel.__source;
+
+			data = cast musicSrc.buffer.data;
+
+			var visualizer = new Visualizer(musicSrc);
+			add(visualizer);
+
+			debugText = new FlxText(0, 0, 0, "test", 24);
 			
 			abot.alpha = 1;
 			stBg.alpha = 1;
 			Sys.println(abotEyes.x);
 			Sys.println(abotEyes.y);
+			*/
 		}
 
 		if(ClientPrefs.data.ldm) {
@@ -1937,6 +1971,7 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var freezeCamera:Bool = false;
 	var allowDebugKeys:Bool = true;
+	var max:Float = 0;
 
 	override public function update(elapsed:Float)
 	{
@@ -1990,6 +2025,30 @@ class PlayState extends MusicBeatState
 			scoreTxt.scale.x = 1;
 			scoreTxt.scale.y = 1;
 		}
+		if(gf.curCharacter == 'nene') {
+			var max:Float = 0;
+			var curIndex = Math.floor(musicSrc.buffer.sampleRate * (FlxG.sound.music.time / 1000));
+			// trace(curIndex / (data.length * 2));
+			// trace(FlxG.sound.music.time / FlxG.sound.music.length);
+			// max = Math.max(max, data[curIndex]);
+			debugText.text = "";
+			// refactor below code to use addDebugText function
+			// addDebugText(max / 2);
+			// addDebugText(musicSrc.buffer.sampleRate);
+			// addDebugText(data[curIndex]);
+			// addDebugText(FlxG.sound.music.time / FlxG.sound.music.length);
+			// addDebugText(curIndex / (data.length / 4));
+			// addDebugText((data.length / 4) / musicSrc.buffer.sampleRate);
+			// addDebugText(FlxG.sound.music.length / 1000);
+			if (FlxG.keys.justPressed.SPACE)
+			{
+				#if instrument
+				// instrument.coverage.Coverage.endCoverage(); // when measuring coverage
+				instrument.profiler.Profiler.endProfiler(); // when profiling
+				#end
+			}
+		}
+
 		if(botplayTxt != null && botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
@@ -2186,7 +2245,23 @@ class PlayState extends MusicBeatState
 		  default: return FlxG.keys.anyPressed(ClientPrefs.keyBinds.get('note_left'));
 		}
 		return false;
-	  }
+	}
+
+	function addDebugText(text:Dynamic)
+	{
+		debugText.text += "\n";
+		debugText.text += "" + text;
+	}
+
+	/**
+	 * Returns an array of song names to use for music list
+	 * @param listPath file path to the txt file
+	 * @return An array of song names from the txt file
+	 */
+	function fillMusicList(listPath:String):Array<String>
+	{
+		return Assets.getText(listPath).split("\n").map(str -> str.trim());
+	}
 
 	// Health icon updaters
 	public dynamic function updateIconsScale(elapsed:Float)
@@ -3539,6 +3614,8 @@ class PlayState extends MusicBeatState
 		var result:Dynamic = callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('opponentNoteHit', [note]);
 
+		if(!note.noteSplashData.disabled && !note.isSustainNote && ClientPrefs.data.oppSplashes) spawnNoteSplashOnNoteOpp(note);
+
 		if (!note.isSustainNote) invalidateNote(note);
 	}
 
@@ -3691,11 +3768,27 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function spawnNoteSplashOnNoteOpp(note:Note) {
+		if(note != null) {
+			var strum:StrumNote = opponentStrums.members[note.noteData];
+			if(strum != null)
+				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
+		}
+	}
+
 	public function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null) {
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 		splash.setupNoteSplash(x, y, data, note);
 		grpNoteSplashes.add(splash);
 	}
+
+	/*
+	function opponentNoteHit(i, d, _, s)
+    	if not s then
+    	    callMethod('spawnNoteSplash', {getProperty('opponentStrums.members['..d..'].x'), getProperty('opponentStrums.members['..d..'].y'), d, instanceArg('notes.members['..i..']')})
+    	end
+	end
+	*/
 
 	override function destroy() {
 		#if LUA_ALLOWED
