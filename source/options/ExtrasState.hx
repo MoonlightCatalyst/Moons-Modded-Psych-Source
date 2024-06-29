@@ -99,7 +99,7 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Hitsound Version',
+		var option:Option = new Option('Hitsound Version:',
 			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
 			'hitsounds',
 			'string',
@@ -148,7 +148,7 @@ class ExtrasState extends BaseOptionsMenu
 			['Middle', 'Left', 'Right']);
 		addOption(option);
 
-		var option:Option = new Option('Lane Underlay Visibility',
+		var option:Option = new Option('Lane Underlay Visibility:',
 			'Sets visibility of lane underlay.',
 			'underlaneVisibility',
 			'percent');

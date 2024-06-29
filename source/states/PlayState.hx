@@ -2986,6 +2986,26 @@ class PlayState extends MusicBeatState
 	// Stores Note Objects in a Group
 	public var noteGroup:FlxTypedGroup<FlxBasic>;
 
+	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
+	public var rateNames:Array<String> = [
+		'sick',
+		'good',
+		'bad',
+		'shit'
+	];
+	public var ratingDirectories:Map<String, String> = [
+		'Default' => 'default',
+		'Kade' => 'kade',
+		'MMPE' => 'custom',
+		'Forever' => 'forever',
+		'Voiid' => 'voiid',
+		'Dave and Bambi 3D' => 'dambi',
+		'Golen Apple 3D' => 'grapple',
+		'Sonic.exe' => 'sonic.exe',
+		'Mario Madness' => 'mario madness',
+		'Neo' => 'neo'
+	];
+
 	private function cachePopUpScore()
 	{
 		var uiPrefix:String = '';
@@ -3090,77 +3110,14 @@ class PlayState extends MusicBeatState
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
 
-		//I really need to figure out how to optimize this
+		//Optimizations were finally done. Thanks pumpsuki :3
 		if (!PlayState.isPixelStage) {
-			if(ClientPrefs.data.ratingTex == 'Default')
-			{
-				ratingsData[0].image = 'ratings/default/sick';
-				ratingsData[1].image = 'ratings/default/good';
-				ratingsData[2].image = 'ratings/default/bad';
-				ratingsData[3].image = 'ratings/default/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Kade')
-			{
-				ratingsData[0].image = 'ratings/kade/sick';
-				ratingsData[1].image = 'ratings/kade/good';
-				ratingsData[2].image = 'ratings/kade/bad';
-				ratingsData[3].image = 'ratings/kade/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'MMPE')
-			{
-				ratingsData[0].image = 'ratings/custom/sick';
-				ratingsData[1].image = 'ratings/custom/good';
-				ratingsData[2].image = 'ratings/custom/bad';
-				ratingsData[3].image = 'ratings/custom/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Forever')
-			{
-				ratingsData[0].image = 'ratings/forever/sick'; //real shame that forever only has custom ratings for sicks
-				ratingsData[1].image = 'ratings/default/good'; //real shame that forever only has custom ratings for sicks
-				ratingsData[2].image = 'ratings/default/bad'; //real shame that forever only has custom ratings for sicks
-				ratingsData[3].image = 'ratings/default/shit'; //real shame that forever only has custom ratings for sicks
-			}
-			if(ClientPrefs.data.ratingTex == 'Voiid')
-			{
-				ratingsData[0].image = 'ratings/voiid/sick';
-				ratingsData[1].image = 'ratings/default/good';
-				ratingsData[2].image = 'ratings/default/bad';
-				ratingsData[3].image = 'ratings/voiid/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Dave and Bambi 3D')
-			{
-				ratingsData[0].image = 'ratings/dambi/sick';
-				ratingsData[1].image = 'ratings/dambi/good';
-				ratingsData[2].image = 'ratings/dambi/bad';
-				ratingsData[3].image = 'ratings/dambi/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Golen Apple 3D')
-			{
-				ratingsData[0].image = 'ratings/gapple/sick';
-				ratingsData[1].image = 'ratings/gapple/good';
-				ratingsData[2].image = 'ratings/gapple/bad';
-				ratingsData[3].image = 'ratings/gapple/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Sonic.exe')
-			{
-				ratingsData[0].image = 'ratings/sonic.exe/sick';
-				ratingsData[1].image = 'ratings/sonic.exe/good';
-				ratingsData[2].image = 'ratings/sonic.exe/bad';
-				ratingsData[3].image = 'ratings/sonic.exe/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Mario Madness')
-			{
-				ratingsData[0].image = 'ratings/mario madness/sick';
-				ratingsData[1].image = 'ratings/mario madness/good';
-				ratingsData[2].image = 'ratings/mario madness/bad';
-				ratingsData[3].image = 'ratings/mario madness/shit';
-			}
-			if(ClientPrefs.data.ratingTex == 'Neo')
-			{
-				ratingsData[0].image = 'ratings/neo/sick';
-				ratingsData[1].image = 'ratings/neo/good';
-				ratingsData[2].image = 'ratings/neo/bad';
-				ratingsData[3].image = 'ratings/neo/shit';
+			final yes:String = ClientPrefs.data.ratingTex;
+			for (i in 0...3) {
+				ratingsData[i].image = 'ratings/${ratingDirectories.get(yes)}/${rateNames[i]}';
+				if ((yes == 'Forever' && i != 0) || (yes == 'Voiid' && (i == 1 || i == 2))) {
+					ratingsData[i].image = 'ratings/default/${rateNames[i]}';
+				}
 			}
 		}
 
