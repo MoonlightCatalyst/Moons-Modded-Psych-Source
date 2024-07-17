@@ -177,7 +177,7 @@ class WeekData {
 		return null;
 	}
 
-	//   FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
+	// FUNCTIONS YOU WILL PROBABLY NEVER NEED TO USE
 
 	//To use on PlayState.hx or Highscore stuff
 	public static function getWeekFileName():String {

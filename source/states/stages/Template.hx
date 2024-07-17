@@ -38,9 +38,9 @@ class Template extends BaseStage
 	}
 
 	// Steps, Beats and Sections:
-	//    curStep, curDecStep
-	//    curBeat, curDecBeat
-	//    curSection
+	//curStep, curDecStep
+	//curBeat, curDecBeat
+	//curSection
 	override function stepHit()
 	{
 		// Code here

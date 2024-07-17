@@ -46,6 +46,7 @@ class CreditsState extends MusicBeatState
 			['KadeDev', 'kade', 'Kade Engine rating sprites', 'https://gamebanana.com/members/1774971', '64A250'],
 			['Betopia', 'nothing', 'Bty noteskin (Pixel was made by Moonlight)', 'https://www.youtube.com/channel/UCfjyz9xRhZiRbLMteQloVeg', 'FFFFFF'],
 			['Pumpsuki', 'pumpsuki', 'Hold Note Splashes and ALT + Enter Fix', 'https://x.com/Pumpsuki_ALT', 'FC95D3'],
+			['CrowPlexus',			'crowplexus',		'Prepare intro sprites',				 'https://twitter.com/crowplexus',		'A1A1A1'],
 			['Unholywanderer04', 'nothing', 'Coolest and bestest pal', 'https://gamebanana.com/members/1908754', 'FFFFFF'],
 			['Ralsi', 'nothing', 'Ralsi Note Splashes', 'https://twitter.com/ralsi_', 'FFFFFF'],
 			['JellyFishedm', 'nothing', 'FNF NEO Menu song & Ratings', 'https://gamebanana.com/mods/44230', 'FFFFFF'],

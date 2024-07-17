@@ -190,7 +190,7 @@ class FlxInputText extends FlxText
 	 * @param	Y				The Y position of the text.
 	 * @param	Width			The width of the text object (height is determined automatically).
 	 * @param	Text			The actual text you would like to display initially.
-	 * @param   size			Initial size of the font
+	 * @param size			Initial size of the font
 	 * @param	TextColor		The color of the text
 	 * @param	BackgroundColor	The color of the background (FlxColor.TRANSPARENT for no background color)
 	 * @param	EmbeddedFont	Whether this text field uses embedded fonts or not
@@ -332,28 +332,28 @@ class FlxInputText extends FlxText
 		if (hasFocus)
 		{
 
-			  //// Crtl/Cmd + C to copy text to the clipboard
-			  // This copies the entire input, because i'm too lazy to do caret selection, and if i did it i whoud probabbly make it a pr in flixel-ui.
+			//// Crtl/Cmd + C to copy text to the clipboard
+			// This copies the entire input, because i'm too lazy to do caret selection, and if i did it i whoud probabbly make it a pr in flixel-ui.
 
-			  #if (macos)
-			  if (key == 67 && e.commandKey) {
-			  #else
-			  if (key == 67 && e.ctrlKey) {
-		 	  #end
+			#if (macos)
+			if (key == 67 && e.commandKey) {
+			#else
+			if (key == 67 && e.ctrlKey) {
+		 	#end
 				Clipboard.text = text;
 
 				onChange(COPY_ACTION);
 
 				// Stops the function to go further, because it whoud type in a c to the input
 				return;
-			  }
+			}
 
-			  //// Crtl/Cmd + V to paste in the clipboard text to the input
-			  #if (macos)
-			  if (key == 86 && e.commandKey) {
-			  #else
-			  if (key == 86 && e.ctrlKey) {
-			  #end
+			//// Crtl/Cmd + V to paste in the clipboard text to the input
+			#if (macos)
+			if (key == 86 && e.commandKey) {
+			#else
+			if (key == 86 && e.ctrlKey) {
+			#end
 				var newText:String = filter(Clipboard.text);
 
 				if (newText.length > 0 && (maxLength == 0 || (text.length + newText.length) < maxLength)) {
@@ -495,7 +495,7 @@ class FlxInputText extends FlxText
 	/**
 	 * Gets the index of the character in this box under the mouse cursor
 	 * @return The index of the character.
-	 *         between 0 and the length of the text
+	 * between 0 and the length of the text
 	 */
 	private function getCaretIndex():Int
 	{

@@ -114,7 +114,7 @@ class PhillyStreets extends BaseStage
 		rain.setFloat('uTime', 0);
 		rain.setFloat('uScale', FlxG.height / 200);
 		rain.setFloat('uIntensity', 0.1);
-        return;
+return;
 		*/
 	}
 	override function eventPushed(event:objects.Note.EventNote)
@@ -132,9 +132,9 @@ class PhillyStreets extends BaseStage
 	{
 		new FlxTimer().start(0.2, (tmr) -> {
 			if (abotEyess == (focus == 'dad' ? 1 : 0)) {
-			  
-			  abotEyess = (focus == 'dad') ? 0 : 1;
-			  abotEyes.animation.play((focus == 'dad') ? 'l' : 'r');
+			
+			abotEyess = (focus == 'dad') ? 0 : 1;
+			abotEyes.animation.play((focus == 'dad') ? 'l' : 'r');
 			}
 		});
 	}
@@ -151,9 +151,9 @@ class PhillyStreets extends BaseStage
 		/*
 		rain.setFloatArray('uCameraBounds')
 		{get('scroll.x') + get('viewMarginX'); // left
-        get('scroll.y') + get('viewMarginY'); // top
-        get('scroll.x') + (get('width') - get('viewMarginX')); // right
-        get('scroll.y') + (get('height') - get('viewMarginY'));} // bottom
+get('scroll.y') + get('viewMarginY'); // top
+get('scroll.x') + (get('width') - get('viewMarginX')); // right
+get('scroll.y') + (get('height') - get('viewMarginY'));} // bottom
 		*/
 		//rain.setFloat('uTime', fun);
 	}

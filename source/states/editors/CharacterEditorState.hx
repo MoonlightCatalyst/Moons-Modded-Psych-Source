@@ -1042,7 +1042,7 @@ class CharacterEditorState extends MusicBeatState
 		}
 	}
 
-	final assetFolder = 'week1';  //load from assets/week1/
+	final assetFolder = 'week1';//load from assets/week1/
 	inline function loadBG()
 	{
 		var lastLoaded = Paths.currentLevel;

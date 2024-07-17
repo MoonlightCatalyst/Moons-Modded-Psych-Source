@@ -10,86 +10,86 @@ import flixel.util.FlxColor;
 
 class DiamondTransSubState extends FlxSubState
 {
-    public static var finishCallback:Void->Void;
+public static var finishCallback:Void->Void;
 
-    var shader:DiamondTransShader;
-    var rect:FlxSprite;
-    var tween:FlxTween;
+var shader:DiamondTransShader;
+var rect:FlxSprite;
+var tween:FlxTween;
 
-    var duration:Float;
+var duration:Float;
 
-    var fi:Bool = true;
+var fi:Bool = true;
 
-    public function new(duration:Float = 1.0, fadeIn:Bool = true, finishCallback:() -> Void = null)
-    {
-        super();
-        
-        this.duration = duration;
-        this.fi = fadeIn;
-    }
+public function new(duration:Float = 1.0, fadeIn:Bool = true, finishCallback:() -> Void = null)
+{
+super();
 
-    override public function create()
-    {
-        super.create();
+this.duration = duration;
+this.fi = fadeIn;
+}
 
-        camera = new FlxCamera();
-        camera.bgColor = FlxColor.TRANSPARENT;
+override public function create()
+{
+super.create();
 
-        FlxG.cameras.add(camera, false);
+camera = new FlxCamera();
+camera.bgColor = FlxColor.TRANSPARENT;
 
-        shader = new DiamondTransShader();
+FlxG.cameras.add(camera, false);
 
-        shader.progress.value = [0.0];
-        shader.reverse.value = [false];
+shader = new DiamondTransShader();
 
-        rect = new FlxSprite(0, 0);
-        rect.makeGraphic(1, 1, 0xFF000000);
-        rect.scale.set(1280, 720);
-        rect.origin.set();
-        rect.shader = shader;
-        rect.visible = false;
-        add(rect);
+shader.progress.value = [0.0];
+shader.reverse.value = [false];
 
-        if (fi)
-            fadeIn();
-        else
-            fadeOut();
+rect = new FlxSprite(0, 0);
+rect.makeGraphic(1, 1, 0xFF000000);
+rect.scale.set(1280, 720);
+rect.origin.set();
+rect.shader = shader;
+rect.visible = false;
+add(rect);
+
+if (fi)
+fadeIn();
+else
+fadeOut();
 
 		closeCallback = _closeCallback;
-    }
+}
 
-    function __fade(from:Float, to:Float, reverse:Bool)
-    {
-        trace("fade initiated");
-        
-        rect.visible = true;
-        shader.progress.value = [from];
-        shader.reverse.value = [reverse];
+function __fade(from:Float, to:Float, reverse:Bool)
+{
+trace("fade initiated");
 
-        tween = FlxTween.num(from, to, duration, {ease: FlxEase.linear, onComplete: function(_)
-        {
-            trace("finished");
-            if(finishCallback != null) finishCallback();
+rect.visible = true;
+shader.progress.value = [from];
+shader.reverse.value = [reverse];
+
+tween = FlxTween.num(from, to, duration, {ease: FlxEase.linear, onComplete: function(_)
+{
+trace("finished");
+if(finishCallback != null) finishCallback();
 			finishCallback = null;
-        }}, function(num:Float)
-        {
-            shader.progress.value = [num];
-        });
-    }
+}}, function(num:Float)
+{
+shader.progress.value = [num];
+});
+}
 
-    function fadeIn()
-    {
-        __fade(0.0, 1.0, true);
-    }
+function fadeIn()
+{
+__fade(0.0, 1.0, true);
+}
 
-    function fadeOut()
-    {
-        __fade(0.0, 1.0, false);
-    }
+function fadeOut()
+{
+__fade(0.0, 1.0, false);
+}
 
-    function _closeCallback()
-    {
-        if (tween != null)
-            tween.cancel();
-    }
+function _closeCallback()
+{
+if (tween != null)
+tween.cancel();
+}
 }

@@ -1021,7 +1021,7 @@ class ChartingState extends MusicBeatState
 		#end
 
 		for (i in 0...directories.length) {
-			var directory:String =  directories[i];
+			var directory:String =directories[i];
 			if(FileSystem.exists(directory)) {
 				for (file in FileSystem.readDirectory(directory)) {
 					var path = haxe.io.Path.join([directory, file]);
@@ -1051,7 +1051,7 @@ class ChartingState extends MusicBeatState
 		eventDropDown = new FlxUIDropDownMenu(20, 50, FlxUIDropDownMenu.makeStrIdLabelArray(leEvents, true), function(pressed:String) {
 			var selectedEvent:Int = Std.parseInt(pressed);
 			descText.text = eventStuff[selectedEvent][1];
-				if (curSelectedNote != null &&  eventStuff != null) {
+				if (curSelectedNote != null &&eventStuff != null) {
 				if (curSelectedNote != null && curSelectedNote[2] == null){
 				curSelectedNote[1][curEventSelected][0] = eventStuff[selectedEvent][0];
 
@@ -2030,7 +2030,7 @@ class ChartingState extends MusicBeatState
 			}
 
 			if(!vortex){
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN  )
+				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
 				{
 					FlxG.sound.music.pause();
 					updateCurStep();
@@ -2079,7 +2079,7 @@ class ChartingState extends MusicBeatState
 			}
 			if(vortex && !blockInput){
 				var controlArray:Array<Bool> = [FlxG.keys.justPressed.ONE, FlxG.keys.justPressed.TWO, FlxG.keys.justPressed.THREE, FlxG.keys.justPressed.FOUR,
-											   FlxG.keys.justPressed.FIVE, FlxG.keys.justPressed.SIX, FlxG.keys.justPressed.SEVEN, FlxG.keys.justPressed.EIGHT];
+											 FlxG.keys.justPressed.FIVE, FlxG.keys.justPressed.SIX, FlxG.keys.justPressed.SEVEN, FlxG.keys.justPressed.EIGHT];
 
 				if(controlArray.contains(true))
 				{
@@ -2091,7 +2091,7 @@ class ChartingState extends MusicBeatState
 				}
 
 				var feces:Float;
-				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN  )
+				if (FlxG.keys.justPressed.UP || FlxG.keys.justPressed.DOWN)
 				{
 					FlxG.sound.music.pause();
 
@@ -2126,7 +2126,7 @@ class ChartingState extends MusicBeatState
 					if (curSelectedNote != null)
 					{
 						var controlArray:Array<Bool> = [FlxG.keys.pressed.ONE, FlxG.keys.pressed.TWO, FlxG.keys.pressed.THREE, FlxG.keys.pressed.FOUR,
-													   FlxG.keys.pressed.FIVE, FlxG.keys.pressed.SIX, FlxG.keys.pressed.SEVEN, FlxG.keys.pressed.EIGHT];
+													 FlxG.keys.pressed.FIVE, FlxG.keys.pressed.SIX, FlxG.keys.pressed.SEVEN, FlxG.keys.pressed.EIGHT];
 
 						if(controlArray.contains(true))
 						{

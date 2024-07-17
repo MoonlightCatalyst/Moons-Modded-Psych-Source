@@ -884,8 +884,8 @@ class ModItem extends FlxSpriteGroup
 			if(pack.color != null)
 			{
 				this.bgColor = FlxColor.fromRGB(pack.color[0] != null ? pack.color[0] : 170,
-											  pack.color[1] != null ? pack.color[1] : 0,
-											  pack.color[2] != null ? pack.color[2] : 255);
+											pack.color[1] != null ? pack.color[1] : 0,
+											pack.color[2] != null ? pack.color[2] : 255);
 			}
 			this.mustRestart = (pack.restart == true);
 		}
