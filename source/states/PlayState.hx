@@ -3524,14 +3524,11 @@ class PlayState extends MusicBeatState
 			onComplete: tween -> missSpr.destroy(),
 			startDelay: Conductor.crochet * 0.002 / playbackRate
 		});
-		if (ClientPrefs.data.ratingType == "camGame") {
-			missSpr.cameras = [camGame];
-		}
-		if (ClientPrefs.data.ratingType == "camHUD") {
-			missSpr.cameras = [camHUD];
-		}
-		else if (ClientPrefs.data.ratingType == "Invisible") {
+		if (ClientPrefs.data.ratingType == 'Invisible') {
 			missSpr.visible = false;
+		}
+		else {
+			missSpr.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
 		}
 		if (!PlayState.isPixelStage)
 		{
