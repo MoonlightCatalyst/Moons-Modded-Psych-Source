@@ -3168,28 +3168,15 @@ class PlayState extends MusicBeatState
 				comboGroup.add(numScore);
 			}
 
-			if (ClientPrefs.data.ratingType == "camGame") {
-				comboSpr.cameras = [camGame];
-				rating.cameras = [camGame];
-				numScore.cameras = [camGame];
-				/*
-				numScore.x = gf.x;
-				comboSpr.x = gf.x;
-				rating.x = gf.x;
-				numScore.y = gf.y;
-				comboSpr.y = gf.y;
-				rating.y = gf.y;
-				*/
-			}
-			if (ClientPrefs.data.ratingType == "camHUD") {
-				comboSpr.cameras = [camHUD];
-				rating.cameras = [camHUD];
-				numScore.cameras = [camHUD];
-			}
-			else if (ClientPrefs.data.ratingType == "Invisible") {
+			if (ClientPrefs.data.ratingType == 'Invisible') {
 				comboSpr.visible = false;
 				rating.visible = false;
 				numScore.visible = false;
+			}
+			else {
+				comboSpr.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
+				rating.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
+				numScore.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
 			}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2 / playbackRate, {
@@ -3518,6 +3505,42 @@ class PlayState extends MusicBeatState
 			}
 		}
 		vocals.volume = 0;
+		//popUpScore(note);
+		
+		var missSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('miss' + (PlayState.isPixelStage ? '-pixel' : '')));
+		missSpr.screenCenter();
+		missSpr.x = FlxG.width * 0.35 - 40;
+		missSpr.y -= 60;
+		missSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
+		missSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+		missSpr.visible = (!ClientPrefs.data.hideHud && showCombo);
+		missSpr.x += ClientPrefs.data.comboOffset[0];
+		missSpr.y -= ClientPrefs.data.comboOffset[1];
+		missSpr.antialiasing = ClientPrefs.data.antialiasing;
+		//missSpr.y += 60;
+		missSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
+		comboGroup.add(missSpr);
+		FlxTween.tween(missSpr, {alpha: 0}, 0.2 / playbackRate, {
+			onComplete: tween -> missSpr.destroy(),
+			startDelay: Conductor.crochet * 0.002 / playbackRate
+		});
+		if (ClientPrefs.data.ratingType == "camGame") {
+			missSpr.cameras = [camGame];
+		}
+		if (ClientPrefs.data.ratingType == "camHUD") {
+			missSpr.cameras = [camHUD];
+		}
+		else if (ClientPrefs.data.ratingType == "Invisible") {
+			missSpr.visible = false;
+		}
+		if (!PlayState.isPixelStage)
+		{
+			missSpr.setGraphicSize(Std.int(missSpr.width * 0.7));
+		}
+		else
+		{
+			missSpr.setGraphicSize(Std.int(missSpr.width * daPixelZoom * 0.85));
+		}
 	}
 
 	function opponentNoteHit(note:Note):Void
