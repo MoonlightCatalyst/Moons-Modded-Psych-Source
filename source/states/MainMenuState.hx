@@ -214,7 +214,7 @@ class MainMenuState extends MusicBeatState
 							case 'credits':
 								MusicBeatState.switchState(new CreditsState());
 							case 'gallery':
-								MusicBeatState.switchState(new Gallery());
+								MusicBeatState.switchState(new GalleryState());
 							case 'options':
 								MusicBeatState.switchState(new OptionsState());
 								OptionsState.onPlayState = false;

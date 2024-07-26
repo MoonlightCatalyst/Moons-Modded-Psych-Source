@@ -80,6 +80,7 @@ import states.TitleState;
 	//MMPE V0.7.3h options
 
 	public var ratingType:String = 'camHUD';
+	public var uilook:String = 'Psych';
 	public var iconBops:String = 'Psych';
 	public var menuButtons:String = 'Middle'; 
 	public var menuSong:String = 'Default';

@@ -99,6 +99,13 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		var option:Option = new Option('UI Version:',
+			"What do you want the UI to be?",
+			'uilook',
+			'string',
+			['Psych', 'Base'/*, 'Dave'*/]);
+		addOption(option);
+
 		var option:Option = new Option('Hitsound Version:',
 			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
 			'hitsounds',

@@ -835,6 +835,34 @@ class PlayState extends MusicBeatState
 			*/
 		}
 
+		if(ClientPrefs.data.uilook == 'Base') {
+			for (hud in [timeBar, timeTxt]) hud.kill();
+
+			healthBar.leftBar.color = 0xFF0000;
+    		healthBar.rightBar.color = 0xFF66FF33;
+
+			if (!ClientPrefs.data.middleScroll)
+			{
+				for (i in 0...strumLineNotes.length)
+				{
+					strumLineNotes.members[i].x -= 42;
+				}
+			}
+
+			healthBar.bg.y = (ClientPrefs.data.downScroll ? FlxG.height * 0.1 : FlxG.height * 0.9);
+    		healthBar.x += 4;
+    		healthBar.y += 4;
+
+    		iconP1.y = healthBar.y - (iconP1.height / 1.9);
+    		iconP2.y = healthBar.y - (iconP2.height / 1.9);
+
+    		scoreTxt.fieldWidth = 0;
+    		scoreTxt.x = healthBar.bg.x + healthBar.bg.width - 190;
+    		scoreTxt.y = healthBar.bg.y + 30;
+    		scoreTxt.size = 16;
+    		scoreTxt.alignment = 'right'; // I THINK THIS WORKS?????
+		}
+
 		if(ClientPrefs.data.ldm) {
 			var newCam = new FlxCamera();
 	    	newCam.bgColor = 0x00000000;
@@ -1452,6 +1480,9 @@ class PlayState extends MusicBeatState
 			doScoreBop();
 
 		callOnScripts('onUpdateScore', [miss]);
+		if(ClientPrefs.data.uilook == 'Base') {
+			scoreTxt.text = 'Score: ' + songScore;
+		}
 	}
 
 	public dynamic function fullComboFunction()
@@ -2714,7 +2745,13 @@ class PlayState extends MusicBeatState
 							setOnScripts('gfName', gf.curCharacter);
 						}
 				}
-				reloadHealthBarColors();
+				if(ClientPrefs.data.uilook == 'Base') {
+					healthBar.leftBar.color = 0xFF0000;
+        			healthBar.rightBar.color = 0xFF66FF33;
+				}
+				else {
+					reloadHealthBarColors();
+				}
 
 			case 'Change Scroll Speed':
 				if (songSpeedType != "constant")

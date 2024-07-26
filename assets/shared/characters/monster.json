@@ -76,9 +76,9 @@
 				20
 			],
 			"indices": [
-				17,
-				18,
-				19
+				12,
+				13,
+				14
 			],
 			"fps": 24,
 			"anim": "singLEFT-loop",
@@ -106,9 +106,9 @@
 				30
 			],
 			"indices": [
-				12,
-				13,
-				14
+				17,
+				18,
+				19
 			],
 			"fps": 24,
 			"anim": "singRIGHT-loop",
