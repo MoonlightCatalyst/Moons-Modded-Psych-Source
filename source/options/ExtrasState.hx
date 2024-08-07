@@ -87,12 +87,6 @@ class ExtrasState extends BaseOptionsMenu
 		addOption(option);
 		*/
 
-		var option:Option = new Option('Watermark',
-			"If unchecked, There will NOT be a watermark in the\nbottom left of the screen during songs",
-			'watermark',
-			'bool');
-		addOption(option);
-
 		var option:Option = new Option('Opponent Note Splashes',
 			"If checked, the opponent will have note splashes\njust like the player. (Transparency will be the same)",
 			'oppSplashes',
@@ -103,7 +97,7 @@ class ExtrasState extends BaseOptionsMenu
 			"What do you want the UI to be?",
 			'uilook',
 			'string',
-			['Psych', 'Base'/*, 'Dave'*/]);
+			['Psych', 'Base', 'Dave', 'Forever', 'Gapple']);
 		addOption(option);
 
 		var option:Option = new Option('Hitsound Version:',

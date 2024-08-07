@@ -24,6 +24,10 @@ class Bar extends FlxSpriteGroup
 		
 		this.valueFunction = valueFunction;
 		setBounds(boundX, boundY);
+
+		//if(ClientPrefs.data.uilook == 'Dave') {
+		//	image = 'healthBarDave';
+		//}
 		
 		bg = new FlxSprite().loadGraphic(Paths.image(image));
 		bg.antialiasing = ClientPrefs.data.antialiasing;

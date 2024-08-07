@@ -92,7 +92,7 @@ import states.TitleState;
 
 	public var oppSplashes:Bool = false;
 	public var comboSprite:Bool = false;
-	public var watermark:Bool = false;
+	//public var watermark:Bool = false;
 	public var smoothHealth:Bool = false;
 	public var darkMode:Bool = false;
 	public var camMovement:Bool = false;
