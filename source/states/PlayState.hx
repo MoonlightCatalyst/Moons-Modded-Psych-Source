@@ -380,6 +380,25 @@ class PlayState extends MusicBeatState
 	var memPeak:Float = 0;
 	//
 
+	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
+	public var rateNames:Array<String> = [
+		'sick',
+		'good',
+		'bad',
+		'shit'
+	];
+	public var ratingDirectories:Map<String, String> = [
+		'Kade' => 'kade',
+		'MMPE' => 'custom',
+		'Forever' => 'forever',
+		'Voiid' => 'voiid',
+		'Dave and Bambi 3D' => 'dambi',
+		'Golen Apple 3D' => 'grapple',
+		'Sonic.exe' => 'sonic.exe',
+		'Mario Madness' => 'mario madness',
+		'Neo' => 'neo'
+	];
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -791,6 +810,17 @@ class PlayState extends MusicBeatState
 		Paths.clearUnusedMemory();
 
 		timeBar.setColors(0xFFB200FF, 0xFF404040);
+
+		//Optimizations were finally done. Thanks pumpsuki :3
+		if (!PlayState.isPixelStage && ClientPrefs.data.ratingTex != 'Default') {
+			final yes:String = ClientPrefs.data.ratingTex;
+			for (i in 0...3) {
+				ratingsData[i].image = 'ratings/${ratingDirectories.get(yes)}/${rateNames[i]}';
+				if ((yes == 'Forever' && i != 0) || (yes == 'Voiid' && (i == 1 || i == 2))) {
+					ratingsData[i].image = 'ratings/default/${rateNames[i]}';
+				}
+			}
+		}
 
 		if(eventNotes.length < 1) checkEventNote();
 		
@@ -3285,25 +3315,6 @@ class PlayState extends MusicBeatState
 	// Stores Note Objects in a Group
 	public var noteGroup:FlxTypedGroup<FlxBasic>;
 
-	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
-	public var rateNames:Array<String> = [
-		'sick',
-		'good',
-		'bad',
-		'shit'
-	];
-	public var ratingDirectories:Map<String, String> = [
-		'Kade' => 'kade',
-		'MMPE' => 'custom',
-		'Forever' => 'forever',
-		'Voiid' => 'voiid',
-		'Dave and Bambi 3D' => 'dambi',
-		'Golen Apple 3D' => 'grapple',
-		'Sonic.exe' => 'sonic.exe',
-		'Mario Madness' => 'mario madness',
-		'Neo' => 'neo'
-	];
-
 	private function cachePopUpScore()
 	{
 		var uiPrefix:String = '';
@@ -3407,17 +3418,6 @@ class PlayState extends MusicBeatState
 
 		comboSpr.updateHitbox();
 		rating.updateHitbox();
-
-		//Optimizations were finally done. Thanks pumpsuki :3
-		if (!PlayState.isPixelStage && ClientPrefs.data.ratingTex != 'Default') {
-			final yes:String = ClientPrefs.data.ratingTex;
-			for (i in 0...3) {
-				ratingsData[i].image = 'ratings/${ratingDirectories.get(yes)}/${rateNames[i]}';
-				if ((yes == 'Forever' && i != 0) || (yes == 'Voiid' && (i == 1 || i == 2))) {
-					ratingsData[i].image = 'ratings/default/${rateNames[i]}';
-				}
-			}
-		}
 
 		var seperatedScore:Array<Int> = [];
 
