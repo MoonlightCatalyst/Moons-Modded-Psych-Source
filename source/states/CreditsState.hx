@@ -55,6 +55,7 @@ class CreditsState extends MusicBeatState
 			['xdcallmeboyfriend', 'xdcallmeboyfriend', 'Note Splash "Sweet" Creator', 'https://www.youtube.com/channel/UCS1NmArmae_dvM4IN6eZ0DA', '284289'],
 			['Notweuz', 'nothing', 'OS "Engine" code', 'https://gamebanana.com/members/1969031', 'FFFFFF'],
 			['Grantare', 'nothing', 'Golden Apple Icon Bounce/Ratings', 'https://gamebanana.com/members/1772565', 'FFFFFF'],
+			['Nick', 'nothing', 'Camera Movement Source Port', 'https://x.com/NickNGC', 'FFFFFF'],
 			['Squidbowl', 'nothing', 'Gallery Creator', 'https://gamebanana.com/members/2041479', 'FFFFFF'],
 			[''],
 			['Psych Engine Team'],

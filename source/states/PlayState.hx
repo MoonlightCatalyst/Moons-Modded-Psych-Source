@@ -2506,6 +2506,19 @@ class PlayState extends MusicBeatState
 				camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 			}
 		}
+		if(ClientPrefs.data.camMovement) {
+			final animIndexArray:Array<Array<Int>> = [[-1, 0], [0, 1], [0, -1], [1, 0]];
+			var offsetArray:Array<Float> = [];
+
+			//Camera Intensity
+			final mult:Float = 20;
+
+			camGame.targetOffset.set(0, 0);
+   			offsetArray = [0, 0];
+
+    		for (i in 0...4) for (strums in [playerStrums, opponentStrums]) if (strums.members[i].animation.curAnim.name == "confirm") offsetArray = [animIndexArray[i][0] * mult, animIndexArray[i][1] * mult];
+    		camGame.targetOffset.set(camGame.targetOffset.x + offsetArray[0], camGame.targetOffset.y + offsetArray[1]);
+		}
 
 		if (jackass) {
 			for (note in notes.members) {
@@ -4039,7 +4052,12 @@ class PlayState extends MusicBeatState
 		var result:Dynamic = callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('goodNoteHit', [note]);
 
-		if(!note.isSustainNote) invalidateNote(note);
+		if(!note.isSustainNote) {
+			invalidateNote(note);
+			if (note.rating == 'bad' || note.rating == 'shit') {
+				makeGhostNote(note);
+			}
+		}
 	}
 
 	public function invalidateNote(note:Note):Void {
@@ -4745,28 +4763,33 @@ class PlayState extends MusicBeatState
 	
 	function reloadIcons(char:String) {
 		@:privateAccess {
-		if (char.toLowerCase() == 'dad' || char.toLowerCase() == 'opponent' || char == '0') {
-			ogIconSize.shift();
-			ogIconSize.insert(0, [Std.int(iconP2._frame.frame.width) + Std.int(iconP2._frame.frame.height)]);
-		} else {
-			ogIconSize.pop();
-			ogIconSize.push([Std.int(iconP1._frame.frame.width) + Std.int(iconP1._frame.frame.height)]);
+			if (char.toLowerCase() == 'dad' || char.toLowerCase() == 'opponent' || char == '0') {
+				ogIconSize.shift();
+				ogIconSize.insert(0, [Std.int(iconP2._frame.frame.width) + Std.int(iconP2._frame.frame.height)]);
+			} else {
+				ogIconSize.pop();
+				ogIconSize.push([Std.int(iconP1._frame.frame.width) + Std.int(iconP1._frame.frame.height)]);
+			}
 		}
 	}
+
+	function makeGhostNote(note:Note) {
+		var ghost = new Note(note.strumTime, note.noteData, null, note.isSustainNote);
+		ghost.noteType = 'MISSED_NOTE';
+		ghost.multAlpha = note.multAlpha * .5;
+		ghost.mustPress = note.mustPress;
+		ghost.ignoreNote = true;
+		ghost.blockHit = true;
+		notes.add(ghost);
+		//ghost.rgbShader.r = int_desat(ghost.rgbShader.r, 0.5); //desaturate note
+		//ghost.rgbShader.g = int_desat(ghost.rgbShader.g, 0.5);
+		//ghost.rgbShader.b = int_desat(ghost.rgbShader.b, 0.5);
 	}
 	
 	function setObjectOrderSource(obj:FlxBasic, position:Int) {
 		remove(obj);
 		insert(position, obj);
 	}
-
-	/*
-	function updateJudgementCounter():Void {
-		counter.text = 'Sick: ' + ratingsData[0].hits +
-		'\nGood: ' + ratingsData[1].hits + '\nBad: ' + ratingsData[2].hits +
-		'\nShit: ' + ratingsData[3].hits + '\nMiss: ' + songMisses;
-	}
-	*/
 
 	function determineRank(acc:Float):String {
 		for (i in ranks) if (i[0] <= acc) return i[1];

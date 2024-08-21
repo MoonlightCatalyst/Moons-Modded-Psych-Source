@@ -55,11 +55,13 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
+		/* Gone but not forgotten. May you rest in peace Song Intro Card. 
 		var option:Option = new Option('Song intro card',
 			"If unchecked, the intro card will not appear when starting songs",
 			'songIntroScript',
 			'bool');
 		addOption(option);
+		*/
 
 		var option:Option = new Option('Dark Mode',
 			'Do you want to have Psych in Dark Mode?\n(No Flashes, Dark menu bg etc)\n(Wont work on some states because of some texts)',
