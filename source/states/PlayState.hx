@@ -4781,9 +4781,12 @@ class PlayState extends MusicBeatState
 		ghost.ignoreNote = true;
 		ghost.blockHit = true;
 		notes.add(ghost);
-		//ghost.rgbShader.r = int_desat(ghost.rgbShader.r, 0.5); //desaturate note
-		//ghost.rgbShader.g = int_desat(ghost.rgbShader.g, 0.5);
-		//ghost.rgbShader.b = int_desat(ghost.rgbShader.b, 0.5);
+		ghost.rgbShader.r.saturation = .2;
+		ghost.rgbShader.g.saturation = .2;
+		ghost.rgbShader.b.saturation = .2;
+		ghost.rgbShader.r = ghost.rgbShader.r;
+		ghost.rgbShader.g = ghost.rgbShader.g;
+		ghost.rgbShader.b = ghost.rgbShader.b;
 	}
 	
 	function setObjectOrderSource(obj:FlxBasic, position:Int) {
