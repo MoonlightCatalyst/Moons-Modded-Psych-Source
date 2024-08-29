@@ -345,8 +345,6 @@ class PlayState extends MusicBeatState
 	//
 
 	//hud shitsssss
-	var iconProp1:FlxSprite;
-	var iconProp2:FlxSprite;
 
 	var kadeEngineWatermark:FlxText;
 	var creditsWatermark:FlxText;
@@ -398,6 +396,8 @@ class PlayState extends MusicBeatState
 		'Mario Madness' => 'mario madness',
 		'Neo' => 'neo'
 	];
+
+	var ogIconBounce:String;
 
 	override public function create()
 	{
@@ -852,46 +852,9 @@ class PlayState extends MusicBeatState
 			abot.x = gf.x - 133;
 			abot.y = gf.y + 310;
 			addBehindGF(abot);
-
-			/*
-			var visFrms:FlxAtlasFrames = Paths.getSparrowAtlas('aBotViz');
-			// these are the differences in X position, from left to right
-			var positionX:Array<Float> = [0, 59, 56, 66, 54, 52, 51];
-			var positionY:Array<Float> = [0, -8, -3.5, -0.4, 0.5, 4.7, 7];
-
-			for (lol in 1...8)
-			{
-
-				//volumes.push(0.0);
-      			var sum = function(num:Float, total:Float) return total += num;
-      			var posX:Float = positionX.slice(0, lol).fold(sum, 0);
-      			var posY:Float = positionY.slice(0, lol).fold(sum, 0);
-
-      			var viz:FlxSprite = new FlxSprite(posX, posY);
-      			viz.frames = visFrms;
-      			add(viz);
-
-      			var visStr = 'viz';
-      			viz.animation.addByPrefix('VIZ', visStr + lol, 0);
-      			viz.animation.play('VIZ', false, false, 6);
-			}
-
-			@:privateAccess
-			musicSrc = cast FlxG.sound.music._channel.__source;
-
-			data = cast musicSrc.buffer.data;
-
-			var visualizer = new Visualizer(musicSrc);
-			add(visualizer);
-
-			debugText = new FlxText(0, 0, 0, "test", 24);
-			
-			abot.alpha = 1;
-			stBg.alpha = 1;
-			Sys.println(abotEyes.x);
-			Sys.println(abotEyes.y);
-			*/
 		}
+
+		ogIconBounce = ClientPrefs.data.iconBops;
 
 		if(ClientPrefs.data.uilook == 'Base') {
 			for (hud in [timeBar, timeTxt]) hud.kill();
@@ -923,14 +886,8 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.data.uilook == 'Dave') {
 
 			Main.fpsVar.defaultTextFormat = new TextFormat(Paths.font('comic.ttf'), 15, FlxColor.WHITE, true);
-		
-			@:privateAccess {
-				iconProp1 = new FlxSprite().makeGraphic(Std.int(iconP1._frame.frame.width) + Std.int(iconP1._frame.frame.height), FlxColor.BLACK);
-				ogIconSize.push([Std.int(iconP1._frame.frame.width) + Std.int(iconP1._frame.frame.height)]);
 
-				iconProp2 = new FlxSprite().makeGraphic(Std.int(iconP2._frame.frame.width) + Std.int(iconP2._frame.frame.height), FlxColor.BLACK);
-				ogIconSize.push([Std.int(iconP2._frame.frame.width) + Std.int(iconP2._frame.frame.height)]);
-			}
+			ClientPrefs.data.iconBops = 'Dave and Bambi'; //had to use this cuz apparently it doesn't work just by itself
 		
 			timeBar.alpha = 1;
 			timeTxt.visible = true;
@@ -980,8 +937,8 @@ class PlayState extends MusicBeatState
 				add(creditsWatermark);
 			}
 
-			healthBar.loadGraphic(Paths.image('healthBarDave'));
-			timeBar.loadGraphic(Paths.image('timeBarDave'));
+			healthBar.bg.loadGraphic(Paths.image('healthBarDave'));
+			//timeBar.bg.loadGraphic(Paths.image('timeBarDave'));
 			//botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		}
 		if(ClientPrefs.data.uilook == 'Forever') {
@@ -1081,6 +1038,47 @@ class PlayState extends MusicBeatState
     	return;
 		}
 		if(ClientPrefs.data.uilook == 'Gapple') {
+			ClientPrefs.data.iconBops = 'Golden Apple';
+			Main.fpsVar.defaultTextFormat = new TextFormat(Paths.font('comic2.ttf'), 15, 0xFFFFFF, true);
+
+			timeBar.visible = false;
+			timeBar.bg.visible = false;
+
+			timeTxt.setFormat(Paths.font('comic2.ttf'), 32 * 1, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			timeTxt.borderSize = 2.5 * 1;
+
+			scoreTxt.y = healthBar.y + 40;
+			scoreTxt.setFormat(Paths.font('comic2.ttf'), 20 * 1, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			scoreTxt.borderSize = 1.5 * 1;
+
+			botplayTxt.y = healthBar.bg.y + (ClientPrefs.data.downScroll ? 100 : -100);
+			botplayTxt.setFormat(Paths.font('comic2.ttf'), 42 * 1, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			botplayTxt.borderSize = 2.5 * 1;
+
+			var healthOver:FlxSprite = new FlxSprite(healthBar.x, healthBar.y).loadGraphic(Paths.image("healthBarOverlay"));
+			healthOver.cameras = [camHUD];
+			healthOver.scale.set(1, 1);
+			healthOver.alpha = 1;
+			remove(iconP1);
+			remove(iconP2);
+			add(healthOver);
+			add(iconP1);
+			add(iconP2);
+
+			var songName = PlayState.SONG.song;
+			kadeEngineWatermark = new FlxText(4, healthBar.bg.y + (credits.get(songName) != null ? 30 : 50), 0, songName);
+			kadeEngineWatermark.setFormat(Paths.font('comic2.ttf'), 16 * 1, 0xFFFFFFFF, "center", FlxTextBorderStyle.OUTLINE, 0xFF000000);
+			kadeEngineWatermark.borderSize = 1.25 * 1;
+			kadeEngineWatermark.camera = camHUD;
+			add(kadeEngineWatermark);
+
+			if (credits.get(songName) != null) {
+				creditsWatermark = new FlxText(4, healthBar.bg.y + 50, 0, credits.get(songName));
+				creditsWatermark.setFormat(Paths.font('comic2.ttf'), 16 * 1, 0xFFFFFFFF, "center", FlxTextBorderStyle.OUTLINE, 0xFF000000);
+				creditsWatermark.borderSize = 1.25 * 1;
+				creditsWatermark.camera = camHUD;
+				add(creditsWatermark);
+			}
 
 		}
 
@@ -1531,7 +1529,7 @@ class PlayState extends MusicBeatState
 			setOnScripts('startedCountdown', true);
 			callOnScripts('onCountdownStarted', null);
 
-			if(ClientPrefs.data.uilook == 'Dave') {
+			if(ClientPrefs.data.uilook == 'Dave' || ClientPrefs.data.uilook == 'Gapple') {
 				for (i in strumLineNotes) {
 					i.x += 5.5;
 					if (ClientPrefs.data.downScroll)
@@ -2381,7 +2379,7 @@ class PlayState extends MusicBeatState
 			if(ClientPrefs.data.timeBarType != 'Song Name')
 				timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 
-			if(ClientPrefs.data.timeBarType == 'Elapsed, Left')
+			if(ClientPrefs.data.timeBarType == 'Elapsed, Left' || ClientPrefs.data.uilook == 'Gapple')
 				timeTxt.text = '${FlxStringUtil.formatTime(Conductor.songPosition / 1000)} / ${FlxStringUtil.formatTime(songLength / 1000)}';
 		}
 
@@ -2497,7 +2495,7 @@ class PlayState extends MusicBeatState
 		setOnScripts('botPlay', cpuControlled);
 		callOnScripts('onUpdatePost', [elapsed]);
 
-		if(ClientPrefs.data.uilook == 'Dave') {
+		if(ClientPrefs.data.uilook == 'Dave' || ClientPrefs.data.uilook == 'Gapple') {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Accuracy: ' + truncateFloat(ratingPercent * 100, 2) + '%';
 			scoreTxt.scale.set(1, 1);
 			scoreTxt.updateHitbox();
@@ -2589,26 +2587,13 @@ class PlayState extends MusicBeatState
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, thingy)),Std.int(FlxMath.lerp(150, iconP2.height, thingy)));
 			iconP2.updateHitbox();
 		}
-		if(ClientPrefs.data.iconBops == 'Dave and Bambi') {
+		if(ClientPrefs.data.iconBops == 'Dave and Bambi' || ClientPrefs.data.uilook == 'Dave') {
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.9 * playbackRate)),Std.int(FlxMath.lerp(150, iconP1.height, 0.9 * playbackRate)));
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.9 * playbackRate)),Std.int(FlxMath.lerp(150, iconP2.height, 0.9 * playbackRate)));
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
-		if(ClientPrefs.data.uilook == 'Dave') {
-			var thingy = 0.88;
-			iconProp1.setGraphicSize(Std.int(FlxMath.lerp(ogIconSize[0][0], iconProp1.width, thingy)), Std.int(FlxMath.lerp(ogIconSize[0][1], iconProp1.height, thingy)));
-			iconProp1.updateHitbox();
-			iconProp2.setGraphicSize(Std.int(FlxMath.lerp(ogIconSize[1][0], iconProp2.width, thingy)), Std.int(FlxMath.lerp(ogIconSize[1][1], iconProp2.height, thingy)));
-			iconProp2.updateHitbox();
-
-			iconP1.scale.set(iconProp1.width / 150, iconProp1.height / 150);
-			iconP2.scale.set(iconProp2.width / 150, iconProp2.height / 150);
-
-			iconP1.origin.set(0, 0);
-			iconP2.origin.set(0, 0);
-		}
-		if(ClientPrefs.data.iconBops == 'Golden Apple') {
+		if(ClientPrefs.data.iconBops == 'Golden Apple' || ClientPrefs.data.uilook == 'Gapple') {
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
 			iconP1.updateHitbox();
@@ -4142,7 +4127,10 @@ class PlayState extends MusicBeatState
 			hscriptArray.pop();
 		#end
 
-		if(ClientPrefs.data.uilook == 'Dave') {Main.fpsVar.defaultTextFormat = new TextFormat("_sans", 14, 0xFFFFFF, false);}
+		if(ClientPrefs.data.uilook == 'Dave' || ClientPrefs.data.uilook == 'Gapple') {
+			Main.fpsVar.defaultTextFormat = new TextFormat("_sans", 14, 0xFFFFFF, false);
+			ClientPrefs.data.iconBops = ogIconBounce;
+		}
 		if(ClientPrefs.data.uilook == 'Forever') {
 			Main.fpsVar.defaultTextFormat = new TextFormat('_sans', 14, 0xFFFFFF);
     		Main.fpsVar.x = 10;
@@ -4242,7 +4230,7 @@ class PlayState extends MusicBeatState
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
-		if (ClientPrefs.data.iconBops == 'Dave and Bambi') {
+		if (ClientPrefs.data.iconBops == 'Dave and Bambi' || ClientPrefs.data.uilook == 'Dave') {
 			var funny:Float = Math.max(Math.min(healthBar.percent,1.9),0.01);
 
 			iconP2.setGraphicSize(Std.int(iconP2.width + (50 / funny)),Std.int(iconP2.height - (25 * funny)));
@@ -4251,7 +4239,7 @@ class PlayState extends MusicBeatState
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
-		if(ClientPrefs.data.iconBops == "Golden Apple")
+		if(ClientPrefs.data.iconBops == "Golden Apple" || ClientPrefs.data.uilook == 'Gapple')
 		{
 			var funny:Float = (healthBar.percent * 0.01) + 0.01;
 	
@@ -4295,13 +4283,6 @@ class PlayState extends MusicBeatState
 		}
 		if(gf.curCharacter == 'nene') {
 			abot.animation.play("i");
-		}
-		if(ClientPrefs.data.uilook == 'Dave') {
-			var funny = Math.max(Math.min(health, 1.9), 0.1);
-			iconProp1.setGraphicSize(Std.int(iconProp1.width + (50 * (funny + 0.1))), Std.int(iconProp1.height - (25 * funny)));
-			iconProp1.updateHitbox();
-			iconProp2.setGraphicSize(Std.int(iconProp2.width + (50 * ((2 - funny) + 0.1))), Std.int(iconProp2.height - (25 * (2 - funny))));
-			iconProp2.updateHitbox();
 		}
 
 		characterBopper(curBeat);

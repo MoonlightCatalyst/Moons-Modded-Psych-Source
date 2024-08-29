@@ -47,7 +47,7 @@ class CreditsState extends MusicBeatState
 			['Squidbowl', 'nothing', 'Gallery Creator', 'https://gamebanana.com/members/2041479', 'FFFFFF'],
 			['Betopia', 'nothing', 'Bty noteskin (Pixel was made by Moonlight)', 'https://www.youtube.com/channel/UCfjyz9xRhZiRbLMteQloVeg', 'FFFFFF'],
 			['Pumpsuki', 'pumpsuki', 'Hold Note Splashes and ALT + Enter Fix', 'https://x.com/Pumpsuki_ALT', 'FC95D3'],
-			['Cobalt', 'cobalt', 'TitleState intro rewrite, Ghost Note Desaturation Fixes', 'https://github.com/CobaltBar', '0065FF'],
+			['Cobalt', 'cobalt', 'TitleState intro rewrite, Ghost Note Desaturation Fixes', 'https://github.com/CobaltBar', '002A56'],
 			['CrowPlexus',			'crowplexus',		'Prepare intro sprites',				 'https://twitter.com/crowplexus',		'A1A1A1'],
 			['Ralsi', 'nothing', 'Ralsi Note Splashes', 'https://twitter.com/ralsi_', 'FFFFFF'],
 			['JellyFishedm', 'nothing', 'FNF NEO Menu song & Ratings', 'https://gamebanana.com/mods/44230', 'FFFFFF'],
