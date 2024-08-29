@@ -1118,6 +1118,13 @@ class PlayState extends MusicBeatState
 				strums.x -= 315;
 			}
 		}
+		if(isPixelStage) {
+			for (note in unspawnNotes) {
+				if(note.isSustainNote) {
+					note.scale.x /= 1.5;
+				}
+			}
+		}
 	}
 
 	function set_songSpeed(value:Float):Float
