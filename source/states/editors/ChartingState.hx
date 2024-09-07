@@ -59,6 +59,7 @@ class ChartingState extends MusicBeatState
 		'GF Sing',
 		'No Animation'
 	];
+	private var noteTypeIntMap:Map<Int, String> = new Map<Int, String>();
 	public var ignoreWarnings = false;
 	var curNoteTypes:Array<String> = [];
 	var undos = [];
@@ -110,6 +111,9 @@ class ChartingState extends MusicBeatState
 	var bullshitUI:FlxGroup;
 
 	var highlight:FlxSprite;
+
+	var lastNoteData:Float;
+	var lastNoteStrum:Float;
 
 	public static var GRID_SIZE:Int = 40;
 	var CAM_OFFSET:Int = 360;
@@ -1335,6 +1339,21 @@ class ChartingState extends MusicBeatState
 
 		metronomeStepper = new FlxUINumericStepper(15, 55, 5, _song.bpm, 1, 1500, 1);
 		metronomeOffsetStepper = new FlxUINumericStepper(metronomeStepper.x + 100, metronomeStepper.y, 25, 0, 0, 1000, 1);
+
+		var randomizeNotes:FlxButton = new FlxButton(metronomeOffsetStepper.x+100, metronomeOffsetStepper.y, "Randomize Notes", function () {
+			for (i in _song.notes) {
+				for (e in i.sectionNotes) {
+					if (e[1] >= 4 && e[1] <= 7) {
+						e[1] = FlxG.random.int(4,7);
+					} else {
+						e[1] = FlxG.random.int(0,3);
+					}
+				}
+			}
+			updateGrid();
+			updateNoteUI();
+		});
+
 		blockPressWhileTypingOnStepper.push(metronomeStepper);
 		blockPressWhileTypingOnStepper.push(metronomeOffsetStepper);
 
@@ -1376,6 +1395,7 @@ class ChartingState extends MusicBeatState
 		tab_group_chart.add(disableAutoScrolling);
 		tab_group_chart.add(metronomeStepper);
 		tab_group_chart.add(metronomeOffsetStepper);
+		tab_group_chart.add(randomizeNotes);
 		#if desktop
 		tab_group_chart.add(waveformUseInstrumental);
 		tab_group_chart.add(waveformUseVoices);
@@ -1798,6 +1818,7 @@ class ChartingState extends MusicBeatState
 			dummyArrow.visible = false;
 		}
 
+		/* //original
 		if (FlxG.mouse.justPressed)
 		{
 			if (FlxG.mouse.overlaps(curRenderedNotes))
@@ -1814,6 +1835,88 @@ class ChartingState extends MusicBeatState
 						{
 							selectNote(note);
 							curSelectedNote[3] = curNoteTypes[currentType];
+							updateGrid();
+						}
+						else
+						{
+							//trace('tryin to delete note...');
+							deleteNote(note);
+						}
+					}
+				});
+			}
+			else
+			{
+				if (FlxG.mouse.x > gridBG.x
+					&& FlxG.mouse.x < gridBG.x + gridBG.width
+					&& FlxG.mouse.y > gridBG.y
+					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
+				{
+					FlxG.log.add('added note');
+					addNote();
+				}
+			}
+		}
+		*/
+
+		if (FlxG.mouse.pressedRight) {
+			var curNoteStrum = getStrumTime(dummyArrow.y, false) + sectionStartTime();
+			var curNoteData = Math.floor((FlxG.mouse.x - GRID_SIZE) / GRID_SIZE);
+			if ((curNoteStrum == lastNoteStrum) && (curNoteData == lastNoteData)) {
+				//trace("there's another arrow :c"); no one wants to see this in console, so this is a comment now
+			} else {
+				if (FlxG.mouse.overlaps(curRenderedNotes))
+				{
+					curRenderedNotes.forEachAlive(function(note:Note)
+					{
+						if (FlxG.mouse.overlaps(note))
+						{
+							if (FlxG.keys.pressed.CONTROL)
+							{
+								selectNote(note);
+							}
+							else if (FlxG.keys.pressed.ALT)
+							{
+								selectNote(note);
+								curSelectedNote[3] = noteTypeIntMap.get(currentType);
+								updateGrid();
+							}
+							else
+							{
+								//trace('tryin to delete note...');
+								deleteNote(note);
+							}
+						}
+					});
+				}
+				else
+				{
+					if (FlxG.mouse.x > gridBG.x
+						&& FlxG.mouse.x < gridBG.x + gridBG.width
+						&& FlxG.mouse.y > gridBG.y
+						&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * getSectionBeats() * 4) * zoomList[curZoom])
+					{
+						FlxG.log.add('added note');
+						addNote();
+					}
+				}
+			}
+		} else if (FlxG.mouse.justPressed && !FlxG.keys.pressed.V)
+		{
+			if (FlxG.mouse.overlaps(curRenderedNotes))
+			{
+				curRenderedNotes.forEachAlive(function(note:Note)
+				{
+					if (FlxG.mouse.overlaps(note))
+					{
+						if (FlxG.keys.pressed.CONTROL)
+						{
+							selectNote(note);
+						}
+						else if (FlxG.keys.pressed.ALT)
+						{
+							selectNote(note);
+							curSelectedNote[3] = noteTypeIntMap.get(currentType);
 							updateGrid();
 						}
 						else
