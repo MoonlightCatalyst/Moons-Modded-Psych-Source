@@ -11,20 +11,6 @@ class ExtrasState extends BaseOptionsMenu
 		title = 'Extras';
 		rpcTitle = 'Extras Menu'; //for Discord Rich Presence
 
-		/* //disabling for now
-
-		var option:Option = new Option('Random Menu Shenanigans',
-			"If checked, random little things will appear on the main menu",
-			'randomMenuThings',
-			'bool');
-		addOption(option);
-
-		var option:Option = new Option('Freeplay Search Bar',
-			"If checked, there will be a search bar\nin the freeplay menu",
-			'freeplaySearch',
-			'bool');
-		addOption(option);
-*/
 		var option:Option = new Option('Low Detail Mode',
 			"If checked, the game will run in low detail mode\nor a 'performance mode' to help memory\n(STILL EXPERIMENTAL)",
 			'ldm',
@@ -81,14 +67,6 @@ class ExtrasState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		/*
-		var option:Option = new Option('Smooth Health Bar',
-			'Do you want your healthbar to be smooth?',
-			'smoothHealth',
-			'bool');
-		addOption(option);
-		*/
-
 		var option:Option = new Option('Opponent Note Splashes',
 			"If checked, the opponent will have note splashes\njust like the player. (Transparency will be the same)",
 			'oppSplashes',
@@ -107,13 +85,6 @@ class ExtrasState extends BaseOptionsMenu
 			'hitsounds',
 			'string',
 			['Psych', 'Dave', 'Switch', 'IndieC']);
-		addOption(option);
-
-		var option:Option = new Option('Strum Animation:',
-			"How do you want the opponent stums\nto play their animation?",
-			'strumAnim',
-			'string',
-			['BPM Based', 'Full Anim', 'None']);
 		addOption(option);
 
 		var option:Option = new Option('Menu Song:',
