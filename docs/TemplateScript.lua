@@ -121,7 +121,7 @@ function goodNoteHitPre(id, direction, noteType, isSustainNote)
 	-- id: The note member id, you can get whatever variable you want from this note, example: "getPropertyFromGroup('notes', id, 'strumTime')"
 	-- noteData: 0 = Left, 1 = Down, 2 = Up, 3 = Right
 	-- noteType: The note type string/tag
-	-- isSustainNote: If it's a hold note, can be either true or false
+	-- isSustainNote: If it's purple hold piece note, can be either true or false
 end
 function opponentNoteHit(id, direction, noteType, isSustainNote)
 	-- Works the same as goodNoteHit, but for Opponent's notes being hit

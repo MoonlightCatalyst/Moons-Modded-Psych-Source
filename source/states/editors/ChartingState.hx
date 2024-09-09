@@ -84,7 +84,11 @@ class ChartingState extends MusicBeatState
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
 		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
 		['Focus Camera', "Value 1: Dad, Boyfriend or Girlfriend\nValue 2: True/False. True enables it, False disables it."],
-		['Set Cam Zoom', "Value 1: Camera Zoom\n(Leave Blank for original zoom)"]
+		['Set Cam Zoom', "Value 1: Camera Zoom\n(Leave Blank for original zoom)"],
+		//['Zoom Camera', "Value 1: Zoom Ease (it can be a FlxEase, or 'INSTANT')\nZoom. (Default is 1.0)\nDuration in steps (default 4.0)\nMode (default, 'direct', anything else is 'stage'"],
+		//['Set Camera Bop', "Value 1 - The rate of camera bopping\nValue 2 - The intensity of camera bop"],
+		//['Add Camera Bop', "Value 1: Camera zoom add (Default: 0.015)\nValue 2: UI zoom add (Default: 0.03)\nLeave the values blank if you want to use Default."],
+		//['Focus Camera', "(Values are separated with ;)\nValue 1: Char (default dad) - Can be any character, and 'origin'\nDuration in steps (default 4.0)\nEase - Any FlxEase, can be INSTANT or CLASSIC\nCLASSIC is by default\n Value 2: Additional X and Y Camera Offsets"]
 	];
 
 	var _file:FileReference;
