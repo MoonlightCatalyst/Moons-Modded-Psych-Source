@@ -3892,14 +3892,19 @@ class PlayState extends MusicBeatState
 		if(opponentVocals.length <= 0) vocals.volume = 1;
 		//	strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 
-		if (note.isSustainNote) {
-			var spr = opponentStrums.members[note.noteData];
-			if(note.animation.curAnim.name.endsWith('end')) {
-				spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;
-			} else spr.resetAnim = 0;
+		if(!ClientPrefs.data.oldHold) {
+			if (note.isSustainNote) {
+				var spr = opponentStrums.members[note.noteData];
+				if(note.animation.curAnim.name.endsWith('end')) {
+					spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;
+				} else spr.resetAnim = 0;
+			} else {
+				strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+			}
 		} else {
 			strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		}
+
 
 		note.hitByOpponent = true;
 
@@ -3996,20 +4001,30 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-
-		if(!cpuControlled)
+		
+		//this shit is so ass oml
+		if(!ClientPrefs.data.oldHold) {
+			if(!cpuControlled)
+			{
+				var spr = playerStrums.members[note.noteData];
+				if (spr != null && spr.animation.name != 'confirm') spr.playAnim('confirm', true);
+			} else {
+				if (note.isSustainNote) {
+					var spr = playerStrums.members[note.noteData];
+					if(note.animation.curAnim.name.endsWith('end')) {
+						spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;
+					} else spr.resetAnim = 0;
+				} else {
+					strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
+				}
+			}
+		} else {
+			if(!cpuControlled)
 		{
 			var spr = playerStrums.members[note.noteData];
-			if (spr != null && spr.animation.name != 'confirm') spr.playAnim('confirm', true);
-		} else {
-			if (note.isSustainNote) {
-				var spr = playerStrums.members[note.noteData];
-				if(note.animation.curAnim.name.endsWith('end')) {
-					spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;
-				} else spr.resetAnim = 0;
-			} else {
-				strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
-			}
+			if(spr != null) spr.playAnim('confirm', true);
+		}
+		else strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		}
 		vocals.volume = 1;
 
