@@ -1,11 +1,166 @@
 {
 	"song": {
-		"speed": 2.3,
-		"stage": "philly",
-		"player1": "bf",
-		"player2": "pico",
-		"player3": null,
 		"events": [
+			[
+				12363.6363636364,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				13818.1818181818,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				15272.7272727273,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				16727.2727272727,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				18181.8181818182,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				19636.3636363636,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				21090.9090909091,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				22545.4545454545,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				24090.9090909091,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				25454.5454545455,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				26909.0909090909,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				28363.6363636364,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				29818.1818181818,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				31272.7272727273,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				32727.2727272727,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
+			[
+				34181.8181818182,
+				[
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
+					]
+				]
+			],
 			[
 				46545.4545454546,
 				[
@@ -43,6 +198,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -98,6 +258,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -158,6 +323,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -213,6 +383,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -263,6 +438,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -318,6 +498,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -378,6 +563,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -480,6 +670,11 @@
 						"Camera Follow Pos",
 						"600",
 						"490"
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -550,6 +745,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -605,6 +805,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -665,6 +870,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -720,6 +930,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -770,6 +985,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -825,6 +1045,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -885,6 +1110,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -940,6 +1170,11 @@
 						"Add Camera Zoom",
 						"",
 						""
+					],
+					[
+						"Play Animation",
+						"cheer",
+						"gf"
 					]
 				]
 			],
@@ -963,14 +1198,6 @@
 					]
 				]
 			]
-		],
-		"notes": [],
-		"splashSkin": null,
-		"validScore": false,
-		"gfVersion": "gf",
-		"bpm": 165,
-		"arrowSkin": null,
-		"needsVoices": true,
-		"song": "Blammed"
+		]
 	}
 }

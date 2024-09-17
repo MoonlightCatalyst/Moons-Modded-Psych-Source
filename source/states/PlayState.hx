@@ -374,6 +374,8 @@ class PlayState extends MusicBeatState
 	
 	var oldUpdate = null;
 	var memPeak:Float = 0;
+
+	var smoothHealth:Float = 1;
 	//
 
 	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
@@ -1119,6 +1121,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
+		healthBar.valueFunction = function() return smoothHealth;
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -2495,6 +2498,9 @@ class PlayState extends MusicBeatState
 		setOnScripts('cameraY', camFollow.y);
 		setOnScripts('botPlay', cpuControlled);
 		callOnScripts('onUpdatePost', [elapsed]);
+
+		var mult:Float = FlxMath.lerp(smoothHealth, health, ((health / smoothHealth) * (elapsed * 8)) * playbackRate);
+    	smoothHealth = mult;
 
 		if(ClientPrefs.data.uilook == 'Dave' || ClientPrefs.data.uilook == 'Gapple') {
 			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Accuracy: ' + truncateFloat(ratingPercent * 100, 2) + '%';
@@ -3904,7 +3910,6 @@ class PlayState extends MusicBeatState
 		} else {
 			strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		}
-
 
 		note.hitByOpponent = true;
 
