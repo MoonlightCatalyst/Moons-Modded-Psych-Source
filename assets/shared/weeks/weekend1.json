@@ -37,7 +37,7 @@
 			]
 		]
 	],
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "blue",
 	"weekCharacters": [
 		"darnell",
@@ -53,5 +53,5 @@
 	],
 	"hideStoryMode": true,
 	"weekBefore": "week7",
-	"startUnlocked": false
+	"startUnlocked": true
 }
