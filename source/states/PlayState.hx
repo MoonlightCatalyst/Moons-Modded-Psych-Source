@@ -399,6 +399,9 @@ class PlayState extends MusicBeatState
 
 	var ogIconBounce:String;
 
+	final animIndex = [[-1, 0], [0, 1], [0, -1], [1, 0]];
+	var curStrum:Dynamic;
+
 	override public function create()
 	{
 		//trace('Playback Rate: ' + playbackRate);
@@ -534,6 +537,7 @@ class PlayState extends MusicBeatState
 			case 'schoolEvil': new states.stages.SchoolEvil(); //Week 6 - Thorns
 			case 'tank': new states.stages.Tank(); //Week 7 - Ugh, Guns, Stress
 			case 'phillyStreets': new states.stages.PhillyStreets(); //Weekend 1 - Darnell, Lit Up, 2Hot, Blazin
+			case 'backstage': new states.stages.Backstage(); //Weekend 1 - Darnell, Lit Up, 2Hot, Blazin
 		}
 
 		if(isPixelStage) {
@@ -2512,17 +2516,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 		if(ClientPrefs.data.camMovement) {
-			final animIndexArray:Array<Array<Int>> = [[-1, 0], [0, 1], [0, -1], [1, 0]];
-			var offsetArray:Array<Float> = [];
-
-			//Camera Intensity
-			final mult:Float = 20;
-
 			camGame.targetOffset.set(0, 0);
-   			offsetArray = [0, 0];
-
-    		for (i in 0...4) for (strums in [playerStrums, opponentStrums]) if (strums.members[i].animation.curAnim.name == "confirm") offsetArray = [animIndexArray[i][0] * mult, animIndexArray[i][1] * mult];
-    		camGame.targetOffset.set(camGame.targetOffset.x + offsetArray[0], camGame.targetOffset.y + offsetArray[1]);
+    		for (i in 0...4) if (curStrum.members[i].animation.curAnim.name == "confirm") camGame.targetOffset.set(animIndex[i][0] * 15, animIndex[i][1] * 15);
 		}
 
 		if (jackass) {
@@ -3105,6 +3100,9 @@ class PlayState extends MusicBeatState
 		var isDad:Bool = (SONG.notes[sec].mustHitSection != true);
 		moveCamera(isDad);
 		callOnScripts('onMoveCamera', [isDad ? 'dad' : 'boyfriend']);
+		if(ClientPrefs.data.camMovement) {
+			curStrum = isDad ? opponentStrums : playerStrums;
+		}
 		//abot stuffz
 		if(gf.curCharacter == 'nene') {
 			new FlxTimer().start(0.2, (tmr) -> {
