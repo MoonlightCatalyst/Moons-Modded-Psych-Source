@@ -668,7 +668,7 @@ class PlayState extends MusicBeatState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
-		generateSong(SONG.song);
+		generateSong();
 
 		noteGroup.add(grpNoteSplashes);
 		noteGroup.add(grpHoldCovers);
@@ -1844,7 +1844,7 @@ class PlayState extends MusicBeatState
 	var debugNum:Int = 0;
 	private var noteTypes:Array<String> = [];
 	private var eventsPushed:Array<String> = [];
-	private function generateSong(dataPath:String):Void
+	private function generateSong():Void
 	{
 		// FlxG.log.add(ChartParser.parse());
 		songSpeed = PlayState.SONG.speed;
@@ -1912,8 +1912,12 @@ class PlayState extends MusicBeatState
 					makeEvent(event, i);
 		}
 
+		var daBpm:Float = Conductor.bpm;
 		for (section in noteData)
 		{
+			if (section.changeBPM != null && section.changeBPM && section.bpm != null && daBpm != section.bpm)
+				daBpm = section.bpm;
+
 			for (songNotes in section.sectionNotes)
 			{
 				var daStrumTime:Float = songNotes[0];
@@ -1974,7 +1978,8 @@ class PlayState extends MusicBeatState
 
 				unspawnNotes.push(swagNote);
 
-				final susLength:Float = swagNote.sustainLength / Conductor.stepCrochet;
+				var curStepCrochet:Float = 60 / daBpm * 1000 * .25;
+				final susLength:Float = (swagNote.sustainLength - curStepCrochet * .25) / curStepCrochet;
 				final floorSus:Int = Math.floor(susLength);
 
 				if(floorSus > 0) {
@@ -1982,7 +1987,7 @@ class PlayState extends MusicBeatState
 					{
 						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
-						var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote), daNoteData, oldNote, true);
+						var sustainNote:Note = new Note(daStrumTime + curStepCrochet * susNote, daNoteData, oldNote, true);
 						sustainNote.mustPress = gottaHitNote;
 						sustainNote.gfNote = (section.gfSection && (songNotes[1]<4));
 						sustainNote.noteType = swagNote.noteType;
