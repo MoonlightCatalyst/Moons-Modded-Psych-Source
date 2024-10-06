@@ -5588,9 +5588,9 @@
 		],
 		"player2": "dad",
 		"player3": null,
-		"song": "Dad-Battle Erect",
+		"song": "Dad Battle Erect",
 		"needsVoices": true,
-		"stage": "stage",
+		"stage": "backstage",
 		"bpm": 190,
 		"speed": 2.4
 	}

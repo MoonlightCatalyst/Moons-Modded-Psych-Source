@@ -1,20 +1,19 @@
 package states.stages;
 
-import states.stages.objects.*;
-import objects.Character;
-
 import shaders.AdjustColorShader;
-import shaders.DarkenShader;
 
 import openfl.filters.ShaderFilter;
+import flixel.addons.display.FlxRuntimeShader;
 
 class Backstage extends BaseStage
 {
+    var characterShaders:Bool = true;
+
 	var bg:BGSprite;
 	//var rain:Rain;
-    var colorShaderBF:AdjustColorShader;
-    var colorShaderDad:AdjustColorShader;
-    var colorShaderGF:AdjustColorShader;
+    var colorShaderBF = new AdjustColorShader();
+    var colorShaderDad = new AdjustColorShader();
+    var colorShaderGF = new AdjustColorShader();
 
 	override function create()
 	{
@@ -81,28 +80,30 @@ class Backstage extends BaseStage
         insert(80, orangeLight);
         insert(40, lightgreen);
         insert(40, lightred);
-        insert(4500, lightAbove);
+        insert(4500, lightAbove); 
 	}
 
     override function createPost() {
         super.createPost();
-        colorShaderBF.brightness.value = [-23];
-        colorShaderBF.hue.value = [12];
-        colorShaderBF.contrast.value = [7];
-		colorShaderBF.saturation.value = [0];
+        if(!ClientPrefs.data.lowQuality) {
+            game.boyfriend.shader = colorShaderBF;
+            game.dad.shader = colorShaderDad;
+            game.gf.shader = colorShaderGF;
 
-        colorShaderGF.brightness.value = [-30];
-        colorShaderGF.hue.value = [-9];
-        colorShaderGF.contrast.value = [-4];
-		colorShaderGF.saturation.value = [0];
+            colorShaderBF.brightness.value = [-23];
+            colorShaderBF.hue.value = [12];
+            colorShaderBF.contrast.value = [7];
+		    colorShaderBF.saturation.value = [0];
 
-        colorShaderDad.brightness.value = [-33];
-        colorShaderDad.hue.value = [-32];
-        colorShaderDad.contrast.value = [-23];
-		colorShaderDad.saturation.value = [0];
+            colorShaderGF.brightness.value = [-30];
+            colorShaderGF.hue.value = [-9];
+            colorShaderGF.contrast.value = [-4];
+		    colorShaderGF.saturation.value = [0];
 
-        game.boyfriend.shader = colorShaderBF;
-        game.dad.shader = colorShaderDad;
-        game.gf.shader = colorShaderGF;
+            colorShaderDad.brightness.value = [-33];
+            colorShaderDad.hue.value = [-32];
+            colorShaderDad.contrast.value = [-23];
+		    colorShaderDad.saturation.value = [0];
+        }
     }
 }

@@ -7,17 +7,17 @@ class AdjustColorShader extends FlxShader
 	@:glFragmentSource('
         #pragma header
 
-        uniform float hue = 0.0;
-        uniform float saturation = 0.0;
-        uniform float brightness = 0.0;
-        uniform float contrast = 0.0;
+        uniform float hue;
+        uniform float saturation;
+        uniform float brightness;
+        uniform float contrast;
 
         vec3 applyHue(vec3 aColor, float aHue)
         {
             float angle = radians(aHue);
             vec3 k = vec3(0.57735, 0.57735, 0.57735);
             float cosAngle = cos(angle);
-           return aColor * cosAngle + cross(k, aColor) * sin(angle) + k * dot(k, aColor) * (1.0 - cosAngle);
+            return aColor * cosAngle + cross(k, aColor) * sin(angle) + k * dot(k, aColor) * (1.0 - cosAngle);
         }
 
         vec3 applyHSBCEffect(vec3 color)
@@ -40,8 +40,8 @@ class AdjustColorShader extends FlxShader
 
 	        vec3 outColor = applyHSBCEffect(textureColor.rgb);
 
-	       gl_FragColor = vec4(outColor * textureColor.a, textureColor.a);
-    }')
+	        gl_FragColor = vec4(outColor * textureColor.a, textureColor.a);
+        }')
 	public function new()
 	{
 		super();

@@ -1,0 +1,36 @@
+{
+	"song": {
+		"events": [
+			[
+				5647.05882352941,
+				[
+					[
+						"Play Animation",
+						"singUP-alt",
+						"dad"
+					]
+				]
+			],
+			[
+				48000,
+				[
+					[
+						"Play Animation",
+						"singUP-alt",
+						"dad"
+					]
+				]
+			],
+			[
+				73411.7647058823,
+				[
+					[
+						"Play Animation",
+						"singUP-alt",
+						"dad"
+					]
+				]
+			]
+		]
+	}
+}

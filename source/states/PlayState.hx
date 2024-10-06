@@ -537,7 +537,9 @@ class PlayState extends MusicBeatState
 			case 'schoolEvil': new states.stages.SchoolEvil(); //Week 6 - Thorns
 			case 'tank': new states.stages.Tank(); //Week 7 - Ugh, Guns, Stress
 			case 'phillyStreets': new states.stages.PhillyStreets(); //Weekend 1 - Darnell, Lit Up, 2Hot, Blazin
-			case 'backstage': new states.stages.Backstage(); //Weekend 1 - Darnell, Lit Up, 2Hot, Blazin
+			case 'backstage': new states.stages.Backstage(); //Erect Week 1
+			case 'spookyMansion': new states.stages.SpookyMansion(); //Erect Week 2
+			case 'phillyErect': new states.stages.PhillyErect(); //Erect Week 3
 		}
 
 		if(isPixelStage) {
@@ -1712,7 +1714,7 @@ class PlayState extends MusicBeatState
 			str += ' (${percent}%) - ${ratingFC}';
 		}
 
-		var tempScore:String = 'Score: ${songScore}'
+		var tempScore:String = 'Score: ${FlxStringUtil.formatMoney(songScore, false)}'
 		+ (!instakillOnMiss ? ' | Misses: ${songMisses}' : "")
 		+ ' | Rating: ${str}';
 		// "tempScore" variable is used to prevent another memory leak, just in case
@@ -1724,7 +1726,7 @@ class PlayState extends MusicBeatState
 
 		callOnScripts('onUpdateScore', [miss]);
 		if(ClientPrefs.data.uilook == 'Base') {
-			scoreTxt.text = 'Score: ' + songScore;
+			scoreTxt.text = 'Score: ' + tempScore;
 		}
 		if(ClientPrefs.data.uilook == 'Forever') {
 			var divider:String = ' • ';
@@ -1732,7 +1734,7 @@ class PlayState extends MusicBeatState
     		var acc:Float = CoolUtil.floorDecimal(ratingPercent * 100, 2);
     		var rank:String = determineRank(acc);
 
-    		scoreTxt.text = 'Score: ' + songScore + divider + 'Accuracy: ' + acc + '%'
+    		scoreTxt.text = 'Score: ' + tempScore + divider + 'Accuracy: ' + acc + '%'
     		+ comboDisplay + divider + 'Combo Breaks: ' + songMisses + divider + 'Rank: ' + rank;
 
     		return;
@@ -3921,6 +3923,7 @@ class PlayState extends MusicBeatState
 		if(!note.noteSplashData.disabled && !note.isSustainNote && ClientPrefs.data.oppSplashes) spawnNoteSplashOnNoteOpp(note);
 
 		if (!note.isSustainNote) invalidateNote(note);
+		stagesFunc(function(stage:BaseStage) stage.opponentNoteHit(note));
 	}
 
 	public function goodNoteHit(note:Note):Void
@@ -4032,12 +4035,16 @@ class PlayState extends MusicBeatState
 		vocals.volume = 1;
 
 		spawnHoldSplashOnNote(note);
+		var scoreValue:Float = 0;
 		if (!note.isSustainNote)
 		{
 			combo++;
 			if(combo > 9999) combo = 9999;
 			popUpScore(note);
-		}
+		} /*else if(note.isSustainNote && !guitarHeroSustains) {
+			songScore += 50;
+			Math.floor(FlxMath.lerp(scoreValue, songScore, 0.2));
+		}*/
 		if(note.rating <= 'bad' && ClientPrefs.data.badSounds) {
 			FlxG.sound.play(Paths.soundRandom('badnoise', 1, 3), FlxG.random.float(0.2, 0.4));
 		}
@@ -4054,6 +4061,7 @@ class PlayState extends MusicBeatState
 				makeGhostNote(note);
 			}
 		}
+		stagesFunc(function(stage:BaseStage) stage.goodNoteHit(note));
 	}
 
 	public function invalidateNote(note:Note):Void {

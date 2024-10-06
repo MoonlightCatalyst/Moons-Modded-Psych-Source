@@ -1,5 +1,6 @@
 package backend;
 
+import objects.Note;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -85,6 +86,10 @@ class BaseStage extends FlxBasic
 	public function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {}
 	public function eventPushed(event:EventNote) {}
 	public function eventPushedUnique(event:EventNote) {}
+
+	//note hit stuff
+	public function goodNoteHit(note:Note) {}
+	public function opponentNoteHit(note:Note) {}
 
 	// Things to replace FlxGroup stuff and inject sprites directly into the state
 	function add(object:FlxBasic) game.add(object);
