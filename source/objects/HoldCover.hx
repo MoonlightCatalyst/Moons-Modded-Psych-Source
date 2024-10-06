@@ -43,7 +43,7 @@ class HoldCover extends FlxSprite {
     rgbShader = new NoteSplash.PixelSplashShaderRef();
     shader = rgbShader.shader;
     if (parentEnd.shader != null) {
-      shader.data.mult.value[0] = parentEnd.shader.data.mult.value[0];
+      //shader.data.mult.value[0] = parentEnd.shader.data.mult.value[0];
       for (i in 0...3) {
         shader.data.r.value[i] = parentEnd.shader.data.r.value[i];
         shader.data.g.value[i] = parentEnd.shader.data.g.value[i];
