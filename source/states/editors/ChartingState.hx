@@ -2020,7 +2020,6 @@ class ChartingState extends MusicBeatState
 				}
 			}
 
-
 			if (FlxG.keys.justPressed.BACKSPACE) {
 				// Protect against lost data when quickly leaving the chart editor.
 				autosaveSong();

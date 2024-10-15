@@ -84,7 +84,7 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
 			'hitsounds',
 			'string',
-			['Psych', 'Dave', 'Switch', 'IndieC']);
+			['Psych', 'Dave', 'Switch', 'IndieC', 'Snap']);
 		addOption(option);
 
 		var option:Option = new Option('Menu Song:',

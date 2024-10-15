@@ -59,7 +59,7 @@ class HoldCover extends FlxSprite {
       if (!parentEnd.mustPress) return kill();
       animation.play('end', true, false, 2);
       copyAlpha = false;
-      alpha = ClientPrefs.data.splashAlpha * parentStrum.alpha;
+      alpha = ClientPrefs.data.holdSplashAlpha * parentStrum.alpha;
     });
 
     animation.play('start');

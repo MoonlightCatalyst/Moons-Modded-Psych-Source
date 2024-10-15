@@ -540,6 +540,8 @@ class PlayState extends MusicBeatState
 			case 'backstage': new states.stages.Backstage(); //Erect Week 1
 			case 'spookyMansion': new states.stages.SpookyMansion(); //Erect Week 2
 			case 'phillyErect': new states.stages.PhillyErect(); //Erect Week 3
+			case 'limoNight': new states.stages.LimoNight(); //Erect Week 4
+			case 'mallErect': new states.stages.MallErect(); //Erect Week 4
 		}
 
 		if(isPixelStage) {
