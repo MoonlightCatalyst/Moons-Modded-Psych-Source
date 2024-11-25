@@ -24,8 +24,13 @@ class Template extends BaseStage
 		// Code here
 	}
 
+	override function destroy()
+	{
+		// Code here
+	}
+
 	
-	override function countdownTick(count:BaseStage.Countdown, num:Int)
+	override function countdownTick(count:Countdown, num:Int)
 	{
 		switch(count)
 		{
@@ -37,10 +42,15 @@ class Template extends BaseStage
 		}
 	}
 
+	override function startSong()
+	{
+		// Code here
+	}
+
 	// Steps, Beats and Sections:
-	//curStep, curDecStep
-	//curBeat, curDecBeat
-	//curSection
+	//    curStep, curDecStep
+	//    curBeat, curDecBeat
+	//    curSection
 	override function stepHit()
 	{
 		// Code here
@@ -119,5 +129,26 @@ class Template extends BaseStage
 						//precacheMusic('myMusicThree') //preloads music/myMusicThree.ogg
 				}
 		}
+	}
+
+	// Note Hit/Miss
+	override function goodNoteHit(note:Note)
+	{
+		// Code here
+	}
+
+	override function opponentNoteHit(note:Note)
+	{
+		// Code here
+	}
+
+	override function noteMiss(note:Note)
+	{
+		// Code here
+	}
+
+	override function noteMissPress(direction:Int)
+	{
+		// Code here
 	}
 }

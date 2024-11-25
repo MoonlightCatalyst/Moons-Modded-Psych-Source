@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="FcIcon.png">
+<SubTexture name="WhenTheFC0000" x="0" y="0" width="82" height="77" frameX="-8" frameY="-16" frameWidth="100" frameHeight="100" />
+<SubTexture name="WhenTheFC0001" x="82" y="0" width="81" height="76" frameX="-9" frameY="-16" frameWidth="100" frameHeight="100" />
+</TextureAtlas>

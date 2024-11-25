@@ -1,14 +1,8 @@
 stage
-backstage
 spooky
-spookyMansion
 philly
-phillyErect
-phillyStreets
 limo
-limoNight
 mall
-mallErect
 mallEvil
 school
 schoolEvil

@@ -18,7 +18,6 @@ import states.TitleState;
 	public var noteSkin:String = 'Default';
 	public var splashSkin:String = 'Psych';
 	public var splashAlpha:Float = 0.6;
-	public var holdSplashAlpha:Float = 0.6;
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
 	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
@@ -76,34 +75,8 @@ import states.TitleState;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
-
-	//MMPE V0.7.3h options
-
-	public var ratingType:String = 'camHUD';
-	public var uilook:String = 'Psych';
-	public var iconBops:String = 'Psych';
-	public var menuButtons:String = 'Middle'; 
-	public var menuSong:String = 'Default';
-	public var ratingTex:String = 'Default';
-	public var strumAnim:String = 'BPM Based';
-	public var hitsounds:String = 'Psych';
-	
-	public var underlaneVisibility:Float = 0;
-
-	public var oppSplashes:Bool = false;
-	public var comboSprite:Bool = false;
-	//public var watermark:Bool = false;
-	public var smoothHealth:Bool = false;
-	public var darkMode:Bool = false;
-	public var camMovement:Bool = false;
-	public var oldHold:Bool = false;
-	public var songIntroScript:Bool = false;
-	public var advancedDiscord:Bool = false;
-
-	public var ldm:Bool = false;
-	public var missSounds:Bool = false;
-	public var badSounds:Bool = false;
-//	public var randomMenuThings:Bool = false;
+	public var loadingScreen:Bool = true;
+	public var language:String = 'en-US';
 }
 
 class ClientPrefs {
@@ -240,9 +213,7 @@ class ClientPrefs {
 		if (FlxG.save.data.mute != null)
 			FlxG.sound.muted = FlxG.save.data.mute;
 
-		#if DISCORD_ALLOWED
-		DiscordClient.check();
-		#end
+		#if DISCORD_ALLOWED DiscordClient.check(); #end
 
 		// controls on a separate save file
 		var save:FlxSave = new FlxSave();
@@ -280,8 +251,9 @@ class ClientPrefs {
 	}
 	public static function toggleVolumeKeys(?turnOn:Bool = true)
 	{
-		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : [];
-		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : [];
-		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : [];
+		final emptyArray = [];
+		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : emptyArray;
+		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : emptyArray;
+		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : emptyArray;
 	}
 }

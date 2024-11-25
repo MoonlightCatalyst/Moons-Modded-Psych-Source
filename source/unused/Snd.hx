@@ -206,7 +206,7 @@ class ChannelEventInstance extends Channel {//basically a sound instance
 	}
 	
 	//returns in secs
-	public overridefunction getPlayCursorSec() : Float {
+	public override  function getPlayCursorSec() : Float {
 		if ( data == null ) return 0.0;
 		
 		var pos : Int = 0;
@@ -367,7 +367,7 @@ class ChannelLowLevel extends Channel{
 	}
 	
 	//returns in secs
-	public overridefunction getPlayCursorSec() : Float {
+	public override  function getPlayCursorSec() : Float {
 		if (data == null) return 0.0;
 		
 		var pos : cpp.UInt32 = 0;
@@ -630,7 +630,7 @@ class Snd {
 	public var 	volume(default,set) 	: Float 				= 1.0;
 	public var 	curPlay 		: Null<Channel> 		= null;
 	public var 	bus				= otherBus;	
-	public varisDebug = true;
+	public var  isDebug = true;
 	/**
 	 * for when stop is called explicitly
 	 * allows disposal
@@ -1095,7 +1095,7 @@ class Snd {
 	public static var DEBUG_TRACK = false;
 	
 	//@:noDebug
-	public static function loadSound( path:String, streaming : Bool, blocking : Bool) : Sound {
+	public static function loadSound( path:String, streaming : Bool, blocking : Bool  ) : Sound {
 		
 		if ( released ) {
 			//#if(!prod)
@@ -1114,8 +1114,8 @@ class Snd {
 		
 		if( DEBUG_TRACK) trace("Snd:loading " + path);
 		
-		var snd : cpp.RawPointer<faxe.Faxe.FmodSound> = castnull;
-		var sndR :cpp.RawPointer<cpp.RawPointer<faxe.Faxe.FmodSound>> = cpp.RawPointer.addressOf(snd);
+		var snd : cpp.RawPointer<faxe.Faxe.FmodSound> = cast  null;
+		var sndR :  cpp.RawPointer<cpp.RawPointer<faxe.Faxe.FmodSound>> = cpp.RawPointer.addressOf(snd);
 		
 		#if switch
 		if ( !path.startsWith("rom:"))
@@ -1139,7 +1139,7 @@ class Snd {
 		var n:String = null;
 		
 		#if debug
-		n= new bm.Path(path).getFilename();
+		n  = new bm.Path(path).getFilename();
 		#end
 			
 		return new SoundLowLevel(cpp.Pointer.fromRaw(snd),n);
@@ -1195,7 +1195,7 @@ class Snd {
 		var n:String = null;
 		
 		#if debug
-		n= new bm.Path(path).getFilename();
+		n  = new bm.Path(path).getFilename();
 		#end
 		
 		return new Snd( new SoundLowLevel(s,n), path);
@@ -1210,7 +1210,7 @@ class Snd {
 	public static function loadSong( path:String ) : Snd {
 		var s : Sound = loadSound(path, true, true);
 		if ( s == null) return null;
-		return new Snd( s,s.name);
+		return new Snd( s,  s.name);
 	}
 	
 	public static function load( path:String, streaming=false,blocking=true ) : Snd {
@@ -1221,7 +1221,7 @@ class Snd {
 			#end
 			return null;
 		}
-		return new Snd( s,s.name);
+		return new Snd( s,  s.name);
 	}
 	
 	public static function terminateTweens() {

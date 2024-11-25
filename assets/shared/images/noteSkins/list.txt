@@ -1,5 +1,2 @@
 Future
 Chip
-Bty
-Bar
-RonaTheRTD

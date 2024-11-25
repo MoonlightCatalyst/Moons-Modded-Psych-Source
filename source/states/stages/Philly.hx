@@ -17,6 +17,7 @@ class Philly extends BaseStage
 	var phillyGlowParticles:FlxTypedGroup<PhillyGlowParticle>;
 	var phillyWindowEvent:BGSprite;
 	var curLightEvent:Int = -1;
+	var trainCanGo:Bool = true;
 
 	override function create()
 	{
@@ -63,7 +64,6 @@ class Philly extends BaseStage
 				phillyWindowEvent.visible = false;
 				insert(members.indexOf(blammedLightsBlack) + 1, phillyWindowEvent);
 
-
 				phillyGlowGradient = new PhillyGlowGradient(-400, 225); //This shit was refusing to properly load FlxGradient so fuck it
 				phillyGlowGradient.visible = false;
 				insert(members.indexOf(blammedLightsBlack) + 1, phillyGlowGradient);
@@ -81,24 +81,17 @@ class Philly extends BaseStage
 		phillyWindow.alpha -= (Conductor.crochet / 1000) * FlxG.elapsed * 1.5;
 		if(phillyGlowParticles != null)
 		{
-			var i:Int = phillyGlowParticles.members.length-1;
-			while (i > 0)
+			phillyGlowParticles.forEachAlive(function(particle:PhillyGlowParticle)
 			{
-				var particle = phillyGlowParticles.members[i];
 				if(particle.alpha <= 0)
-				{
 					particle.kill();
-					phillyGlowParticles.remove(particle, true);
-					particle.destroy();
-				}
-				--i;
-			}
+			});
 		}
 	}
 
 	override function beatHit()
 	{
-		phillyTrain.beatHit(curBeat);
+		if(trainCanGo) phillyTrain.beatHit(curBeat);
 		if (curBeat % 4 == 0)
 		{
 			curLight = FlxG.random.int(0, phillyLightsColors.length - 1, [curLight]);
@@ -122,6 +115,7 @@ class Philly extends BaseStage
 						if(phillyGlowGradient.visible)
 						{
 							doFlash();
+							trainCanGo = true;
 							if(ClientPrefs.data.camZooms)
 							{
 								FlxG.camera.zoom += 0.5;
@@ -148,6 +142,7 @@ class Philly extends BaseStage
 						if(!phillyGlowGradient.visible)
 						{
 							doFlash();
+							trainCanGo = false;
 							if(ClientPrefs.data.camZooms)
 							{
 								FlxG.camera.zoom += 0.5;
@@ -195,7 +190,10 @@ class Philly extends BaseStage
 							{
 								for (i in 0...particlesNum)
 								{
-									var particle:PhillyGlowParticle = new PhillyGlowParticle(-400 + width * i + FlxG.random.float(-width / 5, width / 5), phillyGlowGradient.originalY + 200 + (FlxG.random.float(0, 125) + j * 40), color);
+									var particle:PhillyGlowParticle = phillyGlowParticles.recycle(PhillyGlowParticle);
+									particle.x = -400 + width * i + FlxG.random.float(-width / 5, width / 5);
+									particle.y = phillyGlowGradient.originalY + 200 + (FlxG.random.float(0, 125) + j * 40);
+									particle.color = color;
 									phillyGlowParticles.add(particle);
 								}
 							}
