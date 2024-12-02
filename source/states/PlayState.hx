@@ -403,7 +403,7 @@ class PlayState extends MusicBeatState
 			if(SONG.gfVersion == null || SONG.gfVersion.length < 1) SONG.gfVersion = 'gf'; //Fix for the Chart Editor
 			gf = new Character(0, 0, SONG.gfVersion);
 			startCharacterPos(gf);
-			gfGroup.scrollFactor.set(0.95, 0.95);
+			gfGroup.scrollFactor.set(1, 1);
 			gfGroup.add(gf);
 		}
 
@@ -569,7 +569,7 @@ class PlayState extends MusicBeatState
 		fcIcon.frames = Paths.getSparrowAtlas('FcIcon');
 		fcIcon.animation.addByPrefix('idle', "WhenTheFC", 24, true);
 		fcIcon.scale.set(0.4, 0.4);
-		fcIcon.playAnim('idle');
+		fcIcon.animation.play('idle');
 		fcIcon.updateHitbox();
 		uiGroup.add(fcIcon);
 
@@ -742,7 +742,7 @@ class PlayState extends MusicBeatState
 			case 2:
 				if(gf != null && !gfMap.exists(newCharacter)) {
 					var newGf:Character = new Character(0, 0, newCharacter);
-					newGf.scrollFactor.set(0.95, 0.95);
+					newGf.scrollFactor.set(1, 1);
 					gfMap.set(newCharacter, newGf);
 					gfGroup.add(newGf);
 					startCharacterPos(newGf);
