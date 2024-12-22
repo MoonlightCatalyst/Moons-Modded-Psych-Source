@@ -130,11 +130,6 @@ class PhillyStreets extends BaseStage
 			add(picoFade);
 			darkenable.push(picoFade);
 		}
-		if(game.gfName == 'nene') {
-			abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550);
-			updateABotEye(true);
-			add(abot);
-		}
 		
 		if(ClientPrefs.data.shaders)
 			setupRainShader();
@@ -189,6 +184,14 @@ class PhillyStreets extends BaseStage
 		add(spraycanPile);
 		darkenable.push(spraycanPile);
 
+		if(gf.curCharacter == 'nene') {
+			abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550);
+			updateABotEye(true);
+			add(abot);
+		} else {
+			gfGroup.y += 200;
+		}
+
 		if(gf != null)
 		{
 			gf.animation.callback = function(name:String, frameNumber:Int, frameIndex:Int)
@@ -206,7 +209,6 @@ class PhillyStreets extends BaseStage
 				}
 			}
 		}
-		if(game.gfName != 'nene') gfGroup.y += 200;
 	}
 
 	var videoEnded:Bool = false;
@@ -402,7 +404,7 @@ class PhillyStreets extends BaseStage
 
 	override function startSong()
 	{
-		if(game.gfName == 'nene') abot.snd = FlxG.sound.music;
+		if(gf.curCharacter == 'nene') abot.snd = FlxG.sound.music;
 		gf.animation.finishCallback = onNeneAnimationFinished;
 	}
 	
@@ -592,7 +594,7 @@ class PhillyStreets extends BaseStage
 
 	override function sectionHit()
 	{
-		if(game.gfName == 'nene') updateABotEye();
+		if(gf.curCharacter == 'nene') updateABotEye();
 	}
 
 	var lightsStop:Bool = false;
@@ -605,7 +607,7 @@ class PhillyStreets extends BaseStage
 
 	override function beatHit()
 	{
-		if(curBeat % 2 == 0 && game.gfName == 'nene') abot.beatHit();
+		if(curBeat % 2 == 0 && gf.curCharacter == 'nene') abot.beatHit();
 		switch(currentNeneState) {
 			case STATE_READY:
 				if (blinkCountdown == 0)

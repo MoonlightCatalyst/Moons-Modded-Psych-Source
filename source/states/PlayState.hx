@@ -264,7 +264,8 @@ class PlayState extends MusicBeatState
 	public static var nextReloadAll:Bool = false;
 
 	//Extra Non Base Psych Stuff
-	var fcIcon:FlxSprite;
+	public var fcIcon:FlxSprite;
+	public var robot:FlxSprite;
 
 
 	override public function create()
@@ -571,7 +572,20 @@ class PlayState extends MusicBeatState
 		fcIcon.scale.set(0.4, 0.4);
 		fcIcon.animation.play('idle');
 		fcIcon.updateHitbox();
+		fcIcon.visible = !cpuControlled;
 		uiGroup.add(fcIcon);
+
+		robot = new FlxSprite(900, healthBar.y - 50);
+		switch(stageUI){
+			case 'pixel': robot.loadGraphic(Paths.image('pixelUI/auto')); robot.y = healthBar.y - 40;
+			case 'normal': robot.loadGraphic(Paths.image('auto'));
+		}
+		robot.scale.set(isPixelStage ? 3.7 : 0.7, isPixelStage ? 3.7 : 0.7);
+		robot.visible = cpuControlled;
+		robot.alpha = ClientPrefs.data.healthBarAlpha;
+		robot.antialiasing = isPixelStage ? false : ClientPrefs.data.antialiasing;
+		robot.updateHitbox();
+		uiGroup.add(robot);
 
 		uiGroup.cameras = [camHUD];
 		noteGroup.cameras = [camHUD];
@@ -1867,6 +1881,10 @@ class PlayState extends MusicBeatState
 		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9 * playbackRate));
 		iconP2.scale.set(mult, mult);
 		iconP2.updateHitbox();
+
+		var mult:Float = FlxMath.lerp(isPixelStage ? 3.7 : 0.7, robot.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+		robot.scale.set(mult, mult);
+		robot.updateHitbox();
 	}
 
 	public dynamic function updateIconsPosition()
@@ -3254,6 +3272,9 @@ class PlayState extends MusicBeatState
 			setOnScripts('altAnim', SONG.notes[curSection].altAnim);
 			setOnScripts('gfSection', SONG.notes[curSection].gfSection);
 		}
+		robot.scale.set(isPixelStage ? 3.8 : 0.8, isPixelStage ? 3.8 : 0.8);
+		robot.updateHitbox();
+
 		super.sectionHit();
 
 		setOnScripts('curSection', curSection);

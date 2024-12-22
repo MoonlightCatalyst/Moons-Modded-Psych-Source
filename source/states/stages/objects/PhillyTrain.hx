@@ -31,7 +31,7 @@ class PhillyTrain extends BGSprite
 				if (sound.time >= 4700)
 				{
 					startedMoving = true;
-					if (PlayState.instance.gf != null)
+					if (PlayState.instance.gf != null && PlayState.instance.gf.animation.exists('hairBlow'))
 					{
 						PlayState.instance.gf.playAnim('hairBlow');
 						PlayState.instance.gf.specialAnim = true;
