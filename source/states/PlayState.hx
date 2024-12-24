@@ -1869,6 +1869,12 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('botPlay', cpuControlled);
 		callOnScripts('onUpdatePost', [elapsed]);
+
+		if(ClientPrefs.data.camMovement) {
+			if(boyfriend.animation.finished && boyfriend.animation.name.startsWith('sing') || dad.animation.finished && dad.animation.name.startsWith('sing')) {
+				camGame.targetOffset.set(0,0);
+			} 
+		}
 	}
 
 	// Health icon updaters
@@ -3020,6 +3026,19 @@ class PlayState extends MusicBeatState
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('opponentNoteHit', [note]);
 
 		if (!note.isSustainNote) invalidateNote(note);
+
+		if(ClientPrefs.data.camMovement) {
+			var resetCamera:FlxTimer = new FlxTimer();
+			if (!note.isSustainNote)  {
+				  if (note.noteData == 0 || note.noteData == 3)
+				  {
+					camGame.targetOffset.set(note.noteData == 3 ? 15 : -15,0);
+				  }
+				  else{
+					camGame.targetOffset.set(0,note.noteData == 1 ? 15 : -15);
+				  }
+			}
+		}
 	}
 
 	public function goodNoteHit(note:Note):Void
@@ -3122,6 +3141,19 @@ class PlayState extends MusicBeatState
 		var result:Dynamic = callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('goodNoteHit', [note]);
 		if(!note.isSustainNote) invalidateNote(note);
+
+		if(ClientPrefs.data.camMovement) {
+			var resetCamera:FlxTimer = new FlxTimer();
+			if (!note.isSustainNote)  {
+				  if (note.noteData == 0 || note.noteData == 3)
+				  {
+					camGame.targetOffset.set(note.noteData == 3 ? 15 : -15,0);
+				  }
+				  else{
+					camGame.targetOffset.set(0,note.noteData == 1 ? 15 : -15);
+				  }
+			}
+		}
 	}
 
 	public function invalidateNote(note:Note):Void {

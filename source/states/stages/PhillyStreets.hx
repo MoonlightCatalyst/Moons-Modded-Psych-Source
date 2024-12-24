@@ -45,8 +45,13 @@ class PhillyStreets extends BaseStage
 
 	var darkenable:Array<FlxSprite> = [];
 	var abot:ABotSpeaker;
+
+	var abotX:Float = 0;
+	var abotY:Float = 0;
 	override function create()
 	{
+		abotX = gfGroup.x;
+		abotY = gfGroup.y + 550;
 		if(!ClientPrefs.data.lowQuality)
 		{
 			var skyImage = Paths.image('phillyStreets/phillySkybox');
@@ -185,9 +190,9 @@ class PhillyStreets extends BaseStage
 		darkenable.push(spraycanPile);
 
 		if(gf.curCharacter == 'nene') {
-			abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550);
+			abot = new ABotSpeaker(abotX, abotY);
 			updateABotEye(true);
-			add(abot);
+			addBehindGF(abot);
 		} else {
 			gfGroup.y += 200;
 		}
