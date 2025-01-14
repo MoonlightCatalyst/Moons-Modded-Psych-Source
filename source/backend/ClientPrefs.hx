@@ -79,6 +79,7 @@ import states.TitleState;
 	public var language:String = 'en-US';
 
 	public var camMovement:Bool = false;
+	public var camMoveMult:Float = 15;
 }
 
 class ClientPrefs {

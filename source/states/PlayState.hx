@@ -1678,6 +1678,8 @@ class PlayState extends MusicBeatState
 	var freezeCamera:Bool = false;
 	var allowDebugKeys:Bool = true;
 
+	var moveSpeed:Float = ClientPrefs.data.camMoveMult;
+
 	override public function update(elapsed:Float)
 	{
 		if(!inCutscene && !paused && !freezeCamera) {
@@ -3032,10 +3034,10 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote)  {
 				  if (note.noteData == 0 || note.noteData == 3)
 				  {
-					camGame.targetOffset.set(note.noteData == 3 ? 15 : -15,0);
+					camGame.targetOffset.set(note.noteData == 3 ? moveSpeed : -moveSpeed,0);
 				  }
 				  else{
-					camGame.targetOffset.set(0,note.noteData == 1 ? 15 : -15);
+					camGame.targetOffset.set(0,note.noteData == 1 ? moveSpeed : -moveSpeed);
 				  }
 			}
 		}
@@ -3147,10 +3149,10 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote)  {
 				  if (note.noteData == 0 || note.noteData == 3)
 				  {
-					camGame.targetOffset.set(note.noteData == 3 ? 15 : -15,0);
+					camGame.targetOffset.set(note.noteData == 3 ? moveSpeed : -moveSpeed,0);
 				  }
 				  else{
-					camGame.targetOffset.set(0,note.noteData == 1 ? 15 : -15);
+					camGame.targetOffset.set(0,note.noteData == 1 ? moveSpeed : -moveSpeed);
 				  }
 			}
 		}

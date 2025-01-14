@@ -13,6 +13,16 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			BOOL); //Variable type
 		addOption(option);
 
+		var option:Option = new Option('Camera Movement Intensity:',
+			'The intensity of the\nCamera Movement on Note Hit.',
+			'camMoveMult',
+			FLOAT);
+		addOption(option);
+		option.scrollSpeed = 1.6;
+		option.minValue = 5;
+		option.maxValue = 30;
+		option.changeValue = 1;
+
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
 			'If checked, notes go Down instead of Up, simple enough.', //Description
