@@ -403,7 +403,7 @@ class WeekEditorState extends MusicBeatState implements PsychUIEventHandler.Psyc
 				if(!unsavedProgress)
 				{
 					MusicBeatState.switchState(new MasterEditorMenu());
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 				}
 				else openSubState(new ExitConfirmationPrompt(function() unsavedProgress = false));
 			}

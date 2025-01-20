@@ -66,6 +66,16 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		option.displayFormat = '%vX';
 		optionsArray.push(option);
 
+		var option:GameplayOption = new GameplayOption('Camera Movement Multiplier:', 'camMult', FLOAT, 1);
+		option.scrollSpeed = 1.6;
+		option.minValue = 5;
+		option.maxValue = 50;
+		option.changeValue = 1;
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Note Assistant', 'jackass', BOOL, false); //automatically hits notes if key is being held down, but it hits EVERY note, including the bad ones. 
+		optionsArray.push(option);
+
 		optionsArray.push(new GameplayOption('Instakill on Miss', 'instakill', BOOL, false));
 		optionsArray.push(new GameplayOption('Practice Mode', 'practice', BOOL, false));
 		optionsArray.push(new GameplayOption('Botplay', 'botplay', BOOL, false));

@@ -45,7 +45,6 @@ class PhillyStreets extends BaseStage
 
 	var darkenable:Array<FlxSprite> = [];
 	var abot:ABotSpeaker;
-
 	override function create()
 	{
 		if(!ClientPrefs.data.lowQuality)
@@ -188,11 +187,6 @@ class PhillyStreets extends BaseStage
 		precache();
 		add(spraycanPile);
 		darkenable.push(spraycanPile);
-
-		if(gf.curCharacter != 'nene'){
-			abot.kill;
-			gfGroup.y += 200;
-		}
 
 		if(gf != null)
 		{
@@ -406,7 +400,7 @@ class PhillyStreets extends BaseStage
 
 	override function startSong()
 	{
-		if(gf.curCharacter == 'nene') abot.snd = FlxG.sound.music;
+		abot.snd = FlxG.sound.music;
 		gf.animation.finishCallback = onNeneAnimationFinished;
 	}
 	
@@ -596,7 +590,7 @@ class PhillyStreets extends BaseStage
 
 	override function sectionHit()
 	{
-		if(gf.curCharacter == 'nene') updateABotEye();
+		updateABotEye();
 	}
 
 	var lightsStop:Bool = false;
@@ -609,7 +603,7 @@ class PhillyStreets extends BaseStage
 
 	override function beatHit()
 	{
-		if(curBeat % 2 == 0 && gf.curCharacter == 'nene') abot.beatHit();
+		if(curBeat % 2 == 0) abot.beatHit();
 		switch(currentNeneState) {
 			case STATE_READY:
 				if (blinkCountdown == 0)

@@ -17,6 +17,8 @@ import openfl.utils.Assets;
 
 import haxe.Json;
 
+import flixel.util.FlxStringUtil;
+
 class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
@@ -103,7 +105,7 @@ class FreeplayState extends MusicBeatState
 		}
 		Mods.loadTopMod();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image(ClientPrefs.data.darkMode ? 'menuDesatDark' : 'menuDesat'));
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 		add(bg);
 		bg.screenCenter();
@@ -243,7 +245,7 @@ class FreeplayState extends MusicBeatState
 
 		if (!player.playingMusic)
 		{
-			scoreText.text = Language.getPhrase('personal_best', 'PERSONAL BEST: {1} ({2}%)', [lerpScore, ratingSplit.join('.')]);
+			scoreText.text = Language.getPhrase('personal_best', 'PERSONAL BEST: {1} ({2}%)', [FlxStringUtil.formatMoney(lerpScore, false), ratingSplit.join('.')]);
 			positionHighscore();
 			
 			if(songs.length > 1)
@@ -312,7 +314,7 @@ class FreeplayState extends MusicBeatState
 				player.playingMusic = false;
 				player.switchPlayMusic();
 
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+				FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong), 0);
 				FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
 			}
 			else 

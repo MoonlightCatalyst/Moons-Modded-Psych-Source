@@ -142,7 +142,7 @@ class Philly extends BaseStage
 						if(!phillyGlowGradient.visible)
 						{
 							doFlash();
-							trainCanGo = false;
+							trainCanGo = true;
 							if(ClientPrefs.data.camZooms)
 							{
 								FlxG.camera.zoom += 0.5;

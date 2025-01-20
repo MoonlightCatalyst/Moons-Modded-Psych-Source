@@ -425,7 +425,7 @@ class FunkinLua {
 
 		//shitass stuff for epic coders like me B)  *image of obama giving himself a medal*
 		Lua_helper.add_callback(lua, "getObjectOrder", function(obj:String, ?group:String = null) {
-			var leObj:FlxSprite = LuaUtils.getObjectDirectly(obj);
+			var leObj:FlxBasic = LuaUtils.getObjectDirectly(obj);
 			if(leObj != null)
 			{
 				if(group != null)
@@ -447,13 +447,14 @@ class FunkinLua {
 						return -1;
 					}
 				}
-				return LuaUtils.getTargetInstance().members.indexOf(leObj);
+				var groupOrArray:Dynamic = CustomSubstate.instance != null ? CustomSubstate.instance : LuaUtils.getTargetInstance();
+				return groupOrArray.members.indexOf(leObj);
 			}
 			luaTrace('getObjectOrder: Object $obj doesn\'t exist!', false, false, FlxColor.RED);
 			return -1;
 		});
 		Lua_helper.add_callback(lua, "setObjectOrder", function(obj:String, position:Int, ?group:String = null) {
-			var leObj:FlxSprite = LuaUtils.getObjectDirectly(obj);
+			var leObj:FlxBasic = LuaUtils.getObjectDirectly(obj);
 			if(leObj != null)
 			{
 				if(group != null)
@@ -475,7 +476,7 @@ class FunkinLua {
 				}
 				else
 				{
-					var groupOrArray:FlxState = LuaUtils.getTargetInstance();
+					var groupOrArray:Dynamic = CustomSubstate.instance != null ? CustomSubstate.instance : LuaUtils.getTargetInstance();
 					groupOrArray.remove(leObj, true);
 					groupOrArray.insert(position, leObj);
 				}
@@ -745,7 +746,7 @@ class FunkinLua {
 
 			#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 			PlayState.changedDifficulty = false;
 			PlayState.chartingMode = false;
 			game.transitioning = true;

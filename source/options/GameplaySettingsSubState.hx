@@ -7,22 +7,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		title = Language.getPhrase('gameplay_menu', 'Gameplay Settings');
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
 
-		var option:Option = new Option('Camera Movement', //Name
-			'If checked, the camera will go in the direction\nof the note that is being hit.', //Description
-			'camMovement', //Save data variable name
-			BOOL); //Variable type
-		addOption(option);
-
-		var option:Option = new Option('Camera Movement Intensity:',
-			'The intensity of the\nCamera Movement on Note Hit.',
-			'camMoveMult',
-			FLOAT);
-		addOption(option);
-		option.scrollSpeed = 1.6;
-		option.minValue = 5;
-		option.maxValue = 30;
-		option.changeValue = 1;
-
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
 			'If checked, notes go Down instead of Up, simple enough.', //Description
@@ -133,7 +117,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	}
 
 	function onChangeHitsoundVolume()
-		FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.data.hitsoundVolume);
+		FlxG.sound.play(Paths.sound('hitsounds/hitsound-' + ClientPrefs.data.hitsounds), ClientPrefs.data.hitsoundVolume); //forgot about this part
 
 	function onChangeAutoPause()
 		FlxG.autoPause = ClientPrefs.data.autoPause;

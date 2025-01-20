@@ -103,7 +103,7 @@ class ABotSpeaker extends FlxSpriteGroup
 			levelMax = Std.int(Math.max(levelMax, 5 - animFrame));
 		}
 
-		/* this isn't really needed. Could be added as an option or something later, but I prefer the normal beat dance. 
+		/*
 		if(levelMax >= 4)
 		{
 			//trace(levelMax);

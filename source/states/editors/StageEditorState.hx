@@ -82,7 +82,7 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 		loadJsonAssetDirectory();
 		gf = new Character(0, 0, stageJson._editorMeta != null ? stageJson._editorMeta.gf : 'gf');
 		gf.visible = !(stageJson.hide_girlfriend);
-		gf.scrollFactor.set(1, 1);
+		gf.scrollFactor.set(0.95, 0.95);
 		dad = new Character(0, 0, stageJson._editorMeta != null ? stageJson._editorMeta.dad : 'dad');
 		boyfriend = new Character(0, 0, stageJson._editorMeta != null ? stageJson._editorMeta.boyfriend : 'bf', true);
 
@@ -1352,7 +1352,7 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 			if(!unsavedProgress)
 			{
 				MusicBeatState.switchState(new states.editors.MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 			}
 			else openSubState(new ExitConfirmationPrompt());
 			return;
@@ -1563,8 +1563,8 @@ class StageEditorState extends MusicBeatState implements PsychUIEventHandler.Psy
 		@:privateAccess
 		var lineSize:Int = Std.int(Math.max(2, Math.floor(3 / FlxG.camera.zoom)));
 
-		var sprX:Float = spr.x + spr.offset.x;
-		var sprY:Float = spr.y + spr.offset.y;
+		var sprX:Float = spr.x - spr.offset.x;
+		var sprY:Float = spr.y - spr.offset.y;
 		var sprWidth:Int = Std.int(spr.frameWidth * spr.scale.x);
 		var sprHeight:Int = Std.int(spr.frameHeight * spr.scale.y);
 		for (num => sel in selectionSprites.members)

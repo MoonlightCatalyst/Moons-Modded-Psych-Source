@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="noteSplashes-forever.png">
+<SubTexture name="note splash instance 10000" x="172" y="393" width="138" height="150" frameX="-39" frameY="-37" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 10001" x="524" y="182" width="171" height="181" frameX="-22" frameY="-19" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 10002" x="176" y="198" width="177" height="183" frameX="-18" frameY="-19" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 10003" x="524" y="0" width="175" height="182" frameX="-20" frameY="-20" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 10004" x="0" y="393" width="172" height="156" frameX="-21" frameY="-22" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 20000" x="353" y="198" width="167" height="169" frameX="-18" frameY="-19" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 20001" x="0" y="198" width="176" height="195" frameX="-15" frameY="-8" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 20002" x="346" y="0" width="178" height="196" frameX="-14" frameY="-7" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 20003" x="0" y="0" width="174" height="198" frameX="-14" frameY="-7" frameWidth="210" frameHeight="210" />
+<SubTexture name="note splash instance 20004" x="174" y="0" width="172" height="197" frameX="-15" frameY="-7" frameWidth="210" frameHeight="210" />
+</TextureAtlas>

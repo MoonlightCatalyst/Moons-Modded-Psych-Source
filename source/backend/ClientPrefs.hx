@@ -58,9 +58,11 @@ import states.TitleState;
 		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
 		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
 		// -kade
+		'camMult' => 15,
 		'songspeed' => 1.0,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
+		'jackass' => false,
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
@@ -78,8 +80,32 @@ import states.TitleState;
 	public var loadingScreen:Bool = true;
 	public var language:String = 'en-US';
 
+	//NON BASE PSYCH OPTIONS
+	public var holdSplashAlpha:Float = 0.6;
+
+	public var ratingType:String = 'camHUD';
+	public var iconBops:String = 'Psych';
+	public var menuSong:String = 'Default';
+	public var ratingTex:String = 'Default';
+	public var hitsounds:String = 'Psych';
+
+	public var oppSplashes:Bool = false;
+	public var comboSprite:Bool = false;
+	public var smoothHealth:Bool = false;
+	public var darkMode:Bool = false;
 	public var camMovement:Bool = false;
-	public var camMoveMult:Float = 15;
+	public var oldHold:Bool = false;
+	public var advancedDiscord:Bool = false;
+
+	public var ldm:Bool = false;
+	public var missSounds:Bool = false;
+	public var badSounds:Bool = false;
+
+	//public var songIntroScript:Bool = false;
+	//public var uilook:String = 'Psych';
+	//public var menuButtons:String = 'Middle'; 
+	//public var watermark:Bool = false;
+	//public var randomMenuThings:Bool = false;
 }
 
 class ClientPrefs {

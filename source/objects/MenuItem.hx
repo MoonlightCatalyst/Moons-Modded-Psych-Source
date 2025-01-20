@@ -9,11 +9,9 @@ class MenuItem extends FlxSprite
 	public function new(x:Float, y:Float, weekName:String = '')
 	{
 		super(x, y);
-		//checks if the graphic is null. If it is, it replaces the HaxeFlixel logo with the "unused" image instead.
 		var graphic:FlxGraphic = Paths.image('storymenu/' + weekName);
 		if (graphic == null) graphic = Paths.image('storymenu/unused');
 		loadGraphic(graphic);
-
 		antialiasing = ClientPrefs.data.antialiasing;
 		//trace('Test added: ' + WeekData.getWeekNumber(weekNum) + ' (' + weekNum + ')');
 	}

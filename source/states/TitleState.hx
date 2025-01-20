@@ -57,6 +57,9 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
+	//keeps track of how many texts were added so they always come from different directions
+	var counter:Int = 0;
+
 	#if TITLE_SCREEN_EASTER_EGG
 	final easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVEREN', 'BBPANZU', 'PESSY'
@@ -152,7 +155,7 @@ class TitleState extends MusicBeatState
 	{
 		persistentUpdate = true;
 		if (!initialized && FlxG.sound.music == null)
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong));
 
 		loadJsonData();
 		#if TITLE_SCREEN_EASTER_EGG easterEggData(); #end
@@ -501,11 +504,15 @@ class TitleState extends MusicBeatState
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
 	{
+		var determined = (counter % 2 == 0 ? 1 : -1);
 		for (i in 0...textArray.length)
 		{
 			var money:Alphabet = new Alphabet(0, 0, textArray[i], true);
 			money.screenCenter(X);
-			money.y += (i * 60) + 200 + offset;
+			var oldX = money.x;
+			money.x += FlxG.width * 2 * determined;
+			money.y += (i * 65) + 200 + offset;
+			FlxTween.tween(money, {x: oldX}, Conductor.crochet * .001, {type: ONESHOT, ease: FlxEase.expoOut});
 			if(credGroup != null && textGroup != null)
 			{
 				credGroup.add(money);
@@ -519,9 +526,13 @@ class TitleState extends MusicBeatState
 		if(textGroup != null && credGroup != null) {
 			var coolText:Alphabet = new Alphabet(0, 0, text, true);
 			coolText.screenCenter(X);
-			coolText.y += (textGroup.length * 60) + 200 + offset;
+			var oldX = coolText.x;
+			coolText.x += FlxG.width * 2 * (counter % 2 == 0 ? 1 : -1);
+			coolText.y += (textGroup.length * 65) + 200 + offset;
+			FlxTween.tween(coolText, {x: oldX}, Conductor.crochet * .001, {type:ONESHOT, ease:FlxEase.expoOut});
 			credGroup.add(coolText);
 			textGroup.add(coolText);
+			counter += 1;
 		}
 	}
 
@@ -563,7 +574,7 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+					FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					createCoolText(['Psych Engine by'], 40);
@@ -576,7 +587,10 @@ class TitleState extends MusicBeatState
 					createCoolText(['Not associated', 'with'], -40);
 				case 8:
 					addMoreText('newgrounds', -40);
+					var oldNgSprY = ngSpr.y;
+					ngSpr.y += FlxG.height * 2;
 					ngSpr.visible = true;
+					FlxTween.tween(ngSpr, {y: oldNgSprY}, Conductor.crochet * .001, {type: ONESHOT, ease: FlxEase.expoOut});
 				case 9:
 					deleteCoolText();
 					ngSpr.visible = false;
@@ -631,7 +645,7 @@ class TitleState extends MusicBeatState
 						FlxG.camera.flash(FlxColor.WHITE, 2);
 						skippedIntro = true;
 
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -653,7 +667,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+						FlxG.sound.playMusic(Paths.music('menuSongs/freakyMenu-' + ClientPrefs.data.menuSong), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 						if(easteregg == 'PESSY')
