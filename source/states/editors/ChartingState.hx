@@ -56,6 +56,7 @@ enum abstract ChartingTheme(String)
 	var DARK = 'dark';
 	var DEFAULT = 'default';
 	var VSLICE = 'vslice';
+	var CUSTOM = 'custom';
 }
 
 enum abstract WaveformTarget(String)
@@ -282,6 +283,12 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		if(chartEditorSave.data.autoSave != null) autoSaveCap = chartEditorSave.data.autoSave;
 		if(chartEditorSave.data.backupLimit != null) backupLimit = chartEditorSave.data.backupLimit;
 		if(chartEditorSave.data.vortex != null) vortexEnabled = chartEditorSave.data.vortex;
+
+		if(chartEditorSave.data.customBgColor == null) chartEditorSave.data.customBgColor = '303030';
+		if(chartEditorSave.data.customGridColors == null || chartEditorSave.data.customGridColors.length < 2)
+			chartEditorSave.data.customGridColors = ['DFDFDF', 'BFBFBF'];
+		if(chartEditorSave.data.customNextGridColors == null || chartEditorSave.data.customNextGridColors.length < 2)
+			chartEditorSave.data.customNextGridColors = ['5F5F5F', '4A4A4A'];
 		
 		changeTheme(chartEditorSave.data.theme != null ? chartEditorSave.data.theme : DEFAULT, false);
 
@@ -588,13 +595,17 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				bg.color = 0xFF673AB7;
 				gridColors = [0xFFD0D0D0, 0xFFAFAFAF];
 				gridColorsOther = [0xFF595959, 0xFF464646];
+			case CUSTOM:
+				bg.color = CoolUtil.colorFromString(chartEditorSave.data.customBgColor);
+				gridColors = [CoolUtil.colorFromString(chartEditorSave.data.customGridColors[0]), CoolUtil.colorFromString(chartEditorSave.data.customGridColors[1])];
+				gridColorsOther = [CoolUtil.colorFromString(chartEditorSave.data.customNextGridColors[0]), CoolUtil.colorFromString(chartEditorSave.data.customNextGridColors[1])];
 			default:
 				bg.color = 0xFF303030;
 				gridColors = [0xFFDFDFDF, 0xFFBFBFBF];
 				gridColorsOther = [0xFF5F5F5F, 0xFF4A4A4A];
 		}
 
-		if(theme != oldTheme)
+		if(theme != oldTheme || theme == CUSTOM)
 		{
 			if(gridBg != null)
 			{
@@ -833,87 +844,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 					}
 					playbackSlider.value = playbackRate;
 				}
-
-				/*
-				if(vortexEnabled && _keysPressedBuffer.contains(true))
-				{
-					var typeSelected:String = noteTypes[noteTypeDropDown.selectedIndex];
-					if(typeSelected != null)
-					{
-						typeSelected = typeSelected.trim();
-						if(typeSelected.length < 1) typeSelected = null;
-					}
-
-					var sectionStart:Float = cachedSectionTimes[curSec];
-					var strumTime:Float = Conductor.songPosition - sectionStart;
-					strumTime -= strumTime % (Conductor.stepCrochet * 16 / curQuant);
-					strumTime += sectionStart;
-
-					trace('Vortex editor press at time: $strumTime');
-					var deletedNotes:Array<MetaNote> = [];
-					var addedNotes:Array<MetaNote> = [];
-					for (num => press in _keysPressedBuffer)
-					{
-						if(!press) continue;
-
-						// Try to find a note to delete first
-						var didDelete:Bool = false;
-						for (note in curRenderedNotes)
-						{
-							if(note == null || note.isEvent) continue;
-
-							if(note.songData[1] == num && Math.abs(strumTime - note.strumTime) < 1)
-							{
-								deletedNotes.push(note);
-								didDelete = true;
-								break;
-							}
-						}
-
-						if(didDelete) continue;
-
-						// If no notes were found, add a new in its place
-						var didAdd:Bool = false;
-						var noteSetupData:Array<Dynamic> = [strumTime, num, 0];
-						if(typeSelected != null) noteSetupData.push(typeSelected);
-	
-						var noteAdded:MetaNote = createNote(noteSetupData);
-						for (num in sectionFirstNoteID...notes.length)
-						{
-							var note = notes[num];
-							if(note.strumTime >= strumTime)
-							{
-								notes.insert(num, noteAdded);
-								didAdd = true;
-								break;
-							}
-						}
-						if(!didAdd) notes.push(noteAdded);
-						addedNotes.push(noteAdded);
-					}
-
-					if(deletedNotes.length > 0)
-					{
-						var wasSelected:Bool = false;
-						for (note in deletedNotes)
-						{
-							if(selectedNotes.contains(note))
-							{
-								selectedNotes.remove(note);
-								wasSelected = true;
-							}
-							notes.remove(note);
-						}
-						if(wasSelected) onSelectNote();
-						addUndoAction(DELETE_NOTE, {notes: deletedNotes});
-					}
-					if(addedNotes.length > 0)
-						addUndoAction(ADD_NOTE, {notes: addedNotes});
-
-					softReloadNotes(true);
-				}
-				else if(FlxG.keys.justPressed.A != FlxG.keys.justPressed.D && !holdingAlt)
-				*/
 				if(FlxG.keys.justPressed.A != FlxG.keys.justPressed.D && !holdingAlt)
 				{
 					if(FlxG.sound.music.playing)
@@ -1487,50 +1417,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				infoText.text = str;
 				if(infoText.autoSize) infoText.autoSize = false;
 			}
-
-			/*var vortexPlaying:Bool = (vortexEnabled && FlxG.sound.music != null && FlxG.sound.music.playing);
-			var canPlayHitSound:Bool = (FlxG.sound.music != null && FlxG.sound.music.playing && lastTime < Conductor.songPosition);
-			var hitSoundPlayer:Bool = (hitsoundPlayerStepper.value > 0);
-			var hitSoundOpp:Bool = (hitsoundOpponentStepper.value > 0);
-			*/
 			for (note in curRenderedNotes)
 			{
 				if(note == null || note.isEvent) continue;
-
-				/*note.alpha = (note.strumTime >= Conductor.songPosition) ? 1 : 0.6;
-				if(Conductor.songPosition > note.strumTime && lastTime <= note.strumTime)
-				{
-					if(note.mustPress) {
-						lilbf.playAnim(singAnimations[note.noteData], true); 
-						lilbf.holdTimer = 0;
-					} else if(!note.mustPress) {
-						lilpixbf.playAnim(singAnimations[note.noteData], true); 
-						lilpixbf.holdTimer = 0;
-					}
-					if(canPlayHitSound)
-					{
-						if(hitSoundPlayer && note.mustPress)
-						{
-							FlxG.sound.play(Paths.sound('hitsound'), hitsoundPlayerStepper.value);
-							hitSoundPlayer = false;
-						}
-						else if(hitSoundOpp && !note.mustPress)
-						{
-							FlxG.sound.play(Paths.sound('hitsound'), hitsoundOpponentStepper.value);
-							hitSoundOpp = false;
-						}
-					}
-
-					if(vortexPlaying)
-					{
-						var strumNote:StrumNote = strumLineNotes.members[note.songData[1]];
-						if(strumNote != null)
-						{
-							strumNote.playAnim('confirm', true);
-							strumNote.resetAnim = Math.max(Conductor.stepCrochet * 1.25, note.sustainLength) / 1000 / playbackRate;
-						}
-					}
-				}*/
 				var offsetTime:Float = note.strumTime + .001;
 				var hitAlpha:Float = (FlxG.sound.music.playing ? .4 : .6);
 				note.alpha = (offsetTime > Conductor.songPosition) ? 1 : hitAlpha;
@@ -4544,14 +4433,14 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			upperBox.isMinimized = true;
 			upperBox.bg.visible = false;
 
-			openSubState(new BasePrompt(500, 160, 'Chart Editor Theme',
+			openSubState(new BasePrompt(500, 260, 'Chart Editor Theme',
 				function(state:BasePrompt)
 				{
 					var btn:PsychUIButton = new PsychUIButton(state.bg.x + state.bg.width - 40, state.bg.y, 'X', state.close, 40);
 					btn.cameras = state.cameras;
 					state.add(btn);
 
-					var btnY = 390;
+					var btnY = 320;
 					var btn:PsychUIButton = new PsychUIButton(0, btnY, 'Light', changeTheme.bind(LIGHT));
 					btn.screenCenter(X);
 					btn.x -= 180;
@@ -4575,6 +4464,107 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 					btn.x += 180;
 					btn.cameras = state.cameras;
 					state.add(btn);
+
+					btnY += 60;
+					var btn:PsychUIButton = new PsychUIButton(0, btnY, 'Custom', changeTheme.bind(CUSTOM));
+					btn.screenCenter(X);
+					btn.x -= 180;
+					btn.cameras = state.cameras;
+					state.add(btn);
+
+					var customBgC:String = '303030';
+					if(chartEditorSave.data.customBgColor != null)
+						customBgC = chartEditorSave.data.customBgColor;
+
+					var input:PsychUIInputText = new PsychUIInputText(0, btnY, 80, customBgC, 10);
+					input.maxLength = 6;
+					input.filterMode = ONLY_HEXADECIMAL;
+					input.forceCase = UPPER_CASE;
+					input.screenCenter(X);
+					input.x -= 60;
+					input.cameras = state.cameras;
+					input.onChange = function(old:String, cur:String)
+					{
+						chartEditorSave.data.customBgColor = cur;
+						changeTheme(CUSTOM);
+					}
+
+					var txt:FlxText = new FlxText(input.x, input.y - 15, 120, 'BG Color:');
+					txt.cameras = state.cameras;
+					state.add(txt);
+					state.add(input);
+
+					var customGridC:Array<String> = ['DFDFDF', 'BFBFBF'];
+					if(chartEditorSave.data.customGridColors != null && chartEditorSave.data.customGridColors.length > 1)
+						customGridC = chartEditorSave.data.customGridColors;
+
+					var input:PsychUIInputText = new PsychUIInputText(0, btnY, 80, customGridC[0], 10);
+					input.maxLength = 6;
+					input.filterMode = ONLY_HEXADECIMAL;
+					input.forceCase = UPPER_CASE;
+					input.screenCenter(X);
+					input.x += 60;
+					input.cameras = state.cameras;
+					input.onChange = function(old:String, cur:String)
+					{
+						chartEditorSave.data.customGridColors[0] = cur;
+						changeTheme(CUSTOM);
+					}
+
+					var txt:FlxText = new FlxText(input.x, input.y - 15, 120, 'Grid Colors:');
+					txt.cameras = state.cameras;
+					state.add(txt);
+					state.add(input);
+
+					var input:PsychUIInputText = new PsychUIInputText(0, btnY + 30, 80, customGridC[1], 10);
+					input.maxLength = 6;
+					input.filterMode = ONLY_HEXADECIMAL;
+					input.forceCase = UPPER_CASE;
+					input.screenCenter(X);
+					input.x += 60;
+					input.cameras = state.cameras;
+					input.onChange = function(old:String, cur:String)
+					{
+						chartEditorSave.data.customGridColors[1] = cur;
+						changeTheme(CUSTOM);
+					}
+					state.add(input);
+
+					var customGridOtherC:Array<String> = ['5F5F5F', '4A4A4A'];
+					if(chartEditorSave.data.customNextGridColors != null && chartEditorSave.data.customNextGridColors.length > 1)
+						customGridOtherC = chartEditorSave.data.customNextGridColors;
+
+					var input:PsychUIInputText = new PsychUIInputText(0, btnY, 80, customGridOtherC[0], 10);
+					input.maxLength = 6;
+					input.filterMode = ONLY_HEXADECIMAL;
+					input.forceCase = UPPER_CASE;
+					input.screenCenter(X);
+					input.x += 180;
+					input.cameras = state.cameras;
+					input.onChange = function(old:String, cur:String)
+					{
+						chartEditorSave.data.customNextGridColors[0] = cur;
+						changeTheme(CUSTOM);
+					}
+
+					var txt:FlxText = new FlxText(input.x, input.y - 15, 120, 'Next Grid Colors:');
+					txt.cameras = state.cameras;
+					state.add(txt);
+					state.add(input);
+
+					var input:PsychUIInputText = new PsychUIInputText(0, btnY + 30, 80, customGridOtherC[1], 10);
+					input.maxLength = 6;
+					input.filterMode = ONLY_HEXADECIMAL;
+					input.forceCase = UPPER_CASE;
+					input.screenCenter(X);
+					input.x += 180;
+					input.cameras = state.cameras;
+					input.onChange = function(old:String, cur:String)
+					{
+						chartEditorSave.data.customNextGridColors[1] = cur;
+						changeTheme(CUSTOM);
+					}
+					state.add(input);
 				}
 			));
 		}, btnWid);

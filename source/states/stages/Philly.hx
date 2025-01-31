@@ -78,7 +78,7 @@ class Philly extends BaseStage
 
 	override function update(elapsed:Float)
 	{
-		phillyWindow.alpha -= (Conductor.crochet / 1000) * FlxG.elapsed * 1.5;
+		phillyWindow.alpha -= (Conductor.crochet / 1000) * elapsed * 1.5;
 		if(phillyGlowParticles != null)
 		{
 			phillyGlowParticles.forEachAlive(function(particle:PhillyGlowParticle)
@@ -194,6 +194,7 @@ class Philly extends BaseStage
 									particle.x = -400 + width * i + FlxG.random.float(-width / 5, width / 5);
 									particle.y = phillyGlowGradient.originalY + 200 + (FlxG.random.float(0, 125) + j * 40);
 									particle.color = color;
+									particle.start();
 									phillyGlowParticles.add(particle);
 								}
 							}

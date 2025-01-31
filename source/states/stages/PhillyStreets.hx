@@ -45,6 +45,8 @@ class PhillyStreets extends BaseStage
 
 	var darkenable:Array<FlxSprite> = [];
 	var abot:ABotSpeaker;
+
+	var notNene:Bool = false; //checks if its Nene. If it isn't, then it removes Abot and all of the functionality.
 	override function create()
 	{
 		if(!ClientPrefs.data.lowQuality)
@@ -169,6 +171,11 @@ class PhillyStreets extends BaseStage
 	var noteTypes:Array<String> = [];
 	override function createPost()
 	{
+		if(gf.curCharacter != 'nene') {
+			notNene = true;
+			gfGroup.y += 200;
+			remove(abot);
+		}
 		var unspawnNotes:Array<Note> = cast game.unspawnNotes;
 		for (note in unspawnNotes)
 		{
@@ -390,17 +397,19 @@ class PhillyStreets extends BaseStage
 
 	function updateABotEye(finishInstantly:Bool = false)
 	{
-		if(PlayState.SONG.notes[Std.int(FlxMath.bound(curSection, 0, PlayState.SONG.notes.length - 1))].mustHitSection == true)
-			abot.lookRight();
-		else
-			abot.lookLeft();
+		if(!notNene){
+			if(PlayState.SONG.notes[Std.int(FlxMath.bound(curSection, 0, PlayState.SONG.notes.length - 1))].mustHitSection == true)
+				abot.lookRight();
+			else
+				abot.lookLeft();
 
-		if(finishInstantly) abot.eyes.anim.curFrame = abot.eyes.anim.length - 1;
+			if(finishInstantly) abot.eyes.anim.curFrame = abot.eyes.anim.length - 1;
+		}
 	}
 
 	override function startSong()
 	{
-		abot.snd = FlxG.sound.music;
+		if(!notNene) abot.snd = FlxG.sound.music;
 		gf.animation.finishCallback = onNeneAnimationFinished;
 	}
 	
@@ -603,7 +612,7 @@ class PhillyStreets extends BaseStage
 
 	override function beatHit()
 	{
-		if(curBeat % 2 == 0) abot.beatHit();
+		if(curBeat % 2 == 0 && !notNene) abot.beatHit();
 		switch(currentNeneState) {
 			case STATE_READY:
 				if (blinkCountdown == 0)
