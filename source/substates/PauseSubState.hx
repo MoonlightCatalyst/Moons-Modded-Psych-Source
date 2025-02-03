@@ -308,6 +308,7 @@ class PauseSubState extends MusicBeatSubstate
 					PlayState.instance.botplaySine = 0;
 					PlayState.instance.fcIcon.visible = !PlayState.instance.fcIcon.visible;
 					PlayState.instance.robot.visible = !PlayState.instance.robot.visible;
+					PlayState.instance.robsplash.visible = !PlayState.instance.robsplash.visible;
 				case 'Options':
 					PlayState.instance.paused = true; // For lua
 					PlayState.instance.vocals.volume = 0;
