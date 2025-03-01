@@ -3642,11 +3642,11 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('curBeat', curBeat);
 		callOnScripts('onBeatHit');
-		if(curBeat % 2 == 0 && ClientPrefs.data.camMovement) {
-			if(!boyfriend.stunned && boyfriend.getAnimationName() == 'idle' && SONG.notes[curSection].mustHitSection) {
+		if(curBeat % 2 == 0 && ClientPrefs.data.camMovement && SONG.notes[curSection] != null) {
+			if(!boyfriend.stunned && boyfriend.animation.name == 'idle' && SONG.notes[curSection].mustHitSection) {
 				resetCameraPos(0,0);
 			}
-			if(!dad.stunned && dad.getAnimationName() == 'idle' && !SONG.notes[curSection].mustHitSection) {
+			if(!dad.stunned && dad.animation.name == 'idle' && !SONG.notes[curSection].mustHitSection) {
 				resetCameraPos(0,0);
 			}
 		}
