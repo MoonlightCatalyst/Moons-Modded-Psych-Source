@@ -56,14 +56,16 @@ class HoldCover extends FlxSprite {
     var offsetFromParentPosition:Float = parentEnd.parent.strumTime - Conductor.songPosition + ClientPrefs.data.ratingOffset;
     destroyTimer = new CoverTimer().start((mainTime + accountEndSize + offsetFromParentPosition) * .001, (t:FlxTimer) -> {
       parentEnd.visible = false;
-      if (!parentEnd.mustPress) return kill();
+      if (!parentEnd.mustPress || ClientPrefs.data.holdSplashVer == 'Hold Only') return kill();
       animation.play('end', true, false, 2);
+      FlxG.sound.play(Paths.sound('hitsoundTail'), 1);
       copyAlpha = false;
       alpha = ClientPrefs.data.holdSplashAlpha * parentStrum.alpha;
     });
 
     animation.play('start');
-    offset.set(106.25, 100);
+    offset.set(106.25, 110);
+    scale.set(0.8, 0.8);
 
     animation.finishCallback = (n:String) -> {
       switch (n) {

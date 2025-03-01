@@ -11,6 +11,13 @@ class ExtrasState extends BaseOptionsMenu
 		title = 'Extras';
 		rpcTitle = 'Extras Menu'; //for Discord Rich Presence
 
+		var option:Option = new Option('Hold Splash Version:',
+			"How do you want the hold splashes to play?\nRequires the Hold Splash Opacity option to be higher than 0",
+			'holdSplashVer',
+			STRING,
+			['Full', 'Hold Only', 'Off']);
+		addOption(option);
+
 		var option:Option = new Option('Note Hold Splash Opacity',
 			'How much transparent should the Note Hold Splashes be.',
 			'holdSplashAlpha',

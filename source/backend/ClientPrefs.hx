@@ -20,7 +20,7 @@ import states.TitleState;
 	public var splashAlpha:Float = 0.6;
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
-	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
+	public var cacheOnGPU:Bool = #if !switch false #else true #end; // GPU Caching made by Raltyro
 	public var framerate:Int = 60;
 	public var camZooms:Bool = true;
 	public var hideHud:Bool = false;
@@ -81,10 +81,11 @@ import states.TitleState;
 	public var language:String = 'en-US';
 
 	//NON BASE PSYCH OPTIONS
+	public var holdSplashVer:String = 'Full';
 	public var holdSplashAlpha:Float = 0.6;
 
 	public var ratingType:String = 'camHUD';
-	public var iconBops:String = 'Psych';
+	//public var iconBops:String = 'Psych';
 	public var menuSong:String = 'Default';
 	public var ratingTex:String = 'Default';
 	public var hitsounds:String = 'Psych';
