@@ -18,10 +18,9 @@ import states.TitleState;
 	public var noteSkin:String = 'Default';
 	public var splashSkin:String = 'Psych';
 	public var splashAlpha:Float = 0.6;
-	public var holdSplashAlpha:Float = 0.6;
 	public var lowQuality:Bool = false;
 	public var shaders:Bool = true;
-	public var cacheOnGPU:Bool = #if !switch false #else true #end; //From Stilic
+	public var cacheOnGPU:Bool = #if !switch false #else true #end; // GPU Caching made by Raltyro
 	public var framerate:Int = 60;
 	public var camZooms:Bool = true;
 	public var hideHud:Bool = false;
@@ -59,9 +58,11 @@ import states.TitleState;
 		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
 		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
 		// -kade
+		'camMult' => 15,
 		'songspeed' => 1.0,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
+		'jackass' => false,
 		'instakill' => false,
 		'practice' => false,
 		'botplay' => false,
@@ -76,33 +77,36 @@ import states.TitleState;
 	public var safeFrames:Float = 10;
 	public var guitarHeroSustains:Bool = true;
 	public var discordRPC:Bool = true;
+	public var loadingScreen:Bool = true;
+	public var language:String = 'en-US';
 
-	//MMPE V0.7.3h options
+	//NON BASE PSYCH OPTIONS
+	public var holdSplashVer:String = 'Full';
+	public var holdSplashAlpha:Float = 0.6;
 
 	public var ratingType:String = 'camHUD';
-	public var iconBops:String = 'Psych';
-	public var menuButtons:String = 'Middle'; 
+	//public var iconBops:String = 'Psych';
 	public var menuSong:String = 'Default';
 	public var ratingTex:String = 'Default';
-	public var strumAnim:String = 'BPM Based';
 	public var hitsounds:String = 'Psych';
-	
-	public var underlaneVisibility:Float = 0;
 
-	public var backdropTitle:Bool = false;
+	public var oppSplashes:Bool = false;
 	public var comboSprite:Bool = false;
-	public var watermark:Bool = false;
 	public var smoothHealth:Bool = false;
 	public var darkMode:Bool = false;
 	public var camMovement:Bool = false;
 	public var oldHold:Bool = false;
-	public var songIntroScript:Bool = false;
 	public var advancedDiscord:Bool = false;
 
 	public var ldm:Bool = false;
 	public var missSounds:Bool = false;
 	public var badSounds:Bool = false;
-//	public var randomMenuThings:Bool = false;
+
+	//public var songIntroScript:Bool = false;
+	//public var uilook:String = 'Psych';
+	//public var menuButtons:String = 'Middle'; 
+	//public var watermark:Bool = false;
+	//public var randomMenuThings:Bool = false;
 }
 
 class ClientPrefs {
@@ -239,9 +243,7 @@ class ClientPrefs {
 		if (FlxG.save.data.mute != null)
 			FlxG.sound.muted = FlxG.save.data.mute;
 
-		#if DISCORD_ALLOWED
-		DiscordClient.check();
-		#end
+		#if DISCORD_ALLOWED DiscordClient.check(); #end
 
 		// controls on a separate save file
 		var save:FlxSave = new FlxSave();
@@ -279,8 +281,9 @@ class ClientPrefs {
 	}
 	public static function toggleVolumeKeys(?turnOn:Bool = true)
 	{
-		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : [];
-		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : [];
-		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : [];
+		final emptyArray = [];
+		FlxG.sound.muteKeys = turnOn ? TitleState.muteKeys : emptyArray;
+		FlxG.sound.volumeDownKeys = turnOn ? TitleState.volumeDownKeys : emptyArray;
+		FlxG.sound.volumeUpKeys = turnOn ? TitleState.volumeUpKeys : emptyArray;
 	}
 }

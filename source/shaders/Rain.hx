@@ -5,18 +5,18 @@ import flixel.system.FlxAssets.FlxShader;
 class Rain extends FlxShader
 {
 	@:glFragmentSource('
-    #pragma header
+#pragma header
 
 //
 // Description : Array and textureless GLSL 2D/3D/4D simplex
-//               noise functions.
-//      Author : Ian McEwan, Ashima Arts.
-//  Maintainer : stegu
-//     Lastmod : 20201014 (stegu)
-//     License : Copyright (C) 2011 Ashima Arts. All rights reserved.
-//               Distributed under the MIT License. See LICENSE file.
-//               https://github.com/ashima/webgl-noise
-//               https://github.com/stegu/webgl-noise
+// noise functions.
+//Author : Ian McEwan, Ashima Arts.
+//Maintainer : stegu
+// Lastmod : 20201014 (stegu)
+// License : Copyright (C) 2011 Ashima Arts. All rights reserved.
+// Distributed under the MIT License. See LICENSE file.
+// https://github.com/ashima/webgl-noise
+// https://github.com/stegu/webgl-noise
 //
 
 // ALL UNUSED THINGS WERE DELETED FROM ORIGINAL SHADER!!!
@@ -78,12 +78,12 @@ vec4 taylorInvSqrt(vec4 r) {
 }
 
 float snoise(vec3 v) {
-	const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
-	const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+	const vec2C = vec2(1.0/6.0, 1.0/3.0) ;
+	const vec4D = vec4(0.0, 0.5, 1.0, 2.0);
 
 	// First corner
-	vec3 i  = floor(v + dot(v, C.yyy) );
-	vec3 x0 =   v - i + dot(i, C.xxx) ;
+	vec3 i= floor(v + dot(v, C.yyy) );
+	vec3 x0 = v - i + dot(i, C.xxx) ;
 
 	// Other corners
 	vec3 g = step(x0.yzx, x0.xyz);
@@ -91,13 +91,13 @@ float snoise(vec3 v) {
 	vec3 i1 = min( g.xyz, l.zxy );
 	vec3 i2 = max( g.xyz, l.zxy );
 
-	//   x0 = x0 - 0.0 + 0.0 * C.xxx;
-	//   x1 = x0 - i1  + 1.0 * C.xxx;
-	//   x2 = x0 - i2  + 2.0 * C.xxx;
-	//   x3 = x0 - 1.0 + 3.0 * C.xxx;
+	// x0 = x0 - 0.0 + 0.0 * C.xxx;
+	// x1 = x0 - i1+ 1.0 * C.xxx;
+	// x2 = x0 - i2+ 2.0 * C.xxx;
+	// x3 = x0 - 1.0 + 3.0 * C.xxx;
 	vec3 x1 = x0 - i1 + C.xxx;
 	vec3 x2 = x0 - i2 + C.yyy; // 2.0*C.x = 1/3 = C.y
-	vec3 x3 = x0 - D.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y
+	vec3 x3 = x0 - D.yyy;// -1.0+3.0*C.x = -0.5 = -D.y
 
 	// Permutations
 	i = mod289(i);
@@ -109,12 +109,12 @@ float snoise(vec3 v) {
 	// Gradients: 7x7 points over a square, mapped onto an octahedron.
 	// The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)
 	float n_ = 0.142857142857; // 1.0/7.0
-	vec3  ns = n_ * D.wyz - D.xzx;
+	vec3ns = n_ * D.wyz - D.xzx;
 
-	vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+	vec4 j = p - 49.0 * floor(p * ns.z * ns.z);//mod(p,7*7)
 
 	vec4 x_ = floor(j * ns.z);
-	vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+	vec4 y_ = floor(j - 7.0 * x_ );// mod(j,N)
 
 	vec4 x = x_ *ns.x + ns.yyyy;
 	vec4 y = y_ *ns.x + ns.yyyy;
@@ -225,7 +225,7 @@ void main() {
 
 	
 	gl_FragColor = vec4(color, 1.0);
-    }')
+}')
 	public function new()
 	{
 		super();

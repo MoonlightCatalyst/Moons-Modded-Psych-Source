@@ -1,0 +1,31 @@
+{
+	"songs": [
+		[
+			"Ugh Erect",
+			"tankman",
+			[
+				246,
+				182,
+				4
+			]
+		]
+	],
+	"hideFreeplay": true,
+	"weekBackground": "tank",
+	"weekCharacters": [
+		"tankman",
+		"bf",
+		"gf"
+	],
+	"storyName": "Tankman",
+	"weekName": "Week 7",
+	"difficulties": "Erect, Nightmare",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"hideStoryMode": true,
+	"weekBefore": "week6",
+	"startUnlocked": true
+}

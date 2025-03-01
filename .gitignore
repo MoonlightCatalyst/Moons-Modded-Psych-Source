@@ -1,9 +1,9 @@
 ### FNF-Specific
 # File used for the NG API. Should not be shared with others.
 APIStuff.hx
-art/build_x32-officialrelease.bat
-art/build_x64-officialrelease.bat
-art/test_x64-debug-officialrelease.bat
+art/buildScripts/build_x32-officialrelease.bat
+art/buildScripts/build_x64-officialrelease.bat
+art/buildScripts/test_x64-debug-officialrelease.bat
 
 ### VS Code
 export/*
@@ -15,6 +15,8 @@ vs_Community.exe
 # Local history which shouldn't be shared.
 .history
 .ionide
+# macOS file attribute which can cause problems when uploading.
+*.DS_Store
 # ! means a file should be added regardless of it it gets ignored prior.
 # Including to allow others to use already set-up configuration tweaked for the project.
 !.vscode/settings.json
