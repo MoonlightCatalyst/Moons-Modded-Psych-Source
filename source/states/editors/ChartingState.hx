@@ -221,7 +221,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 	//var lilStage:FlxSprite;
 	var lilbf:Character;
-	var lilpixbf:Character;
+	var lildad:Character;
+	var lilgf:Character;
+	var gfSpeed:Int = 1;
 	var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
 	var _heldNotes:Array<MetaNote> = [];
@@ -259,25 +261,34 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		bg.scrollFactor.set();
 		add(bg);
 
-		lilbf = new Character(100, 405, "bf", false);
+		var lilbox = new FlxSprite(157, 590).makeGraphic(100, 55, 0xFF2f4f4f);
+		lilbox.scrollFactor.set();
+		add(lilbox);
+
+		lilgf = new Character(50, 335, 'gf-nospeak', false); //50, 335
+		lilgf.scrollFactor.set();
+		lilgf.setGraphicSize(Std.int(lilgf.width * 0.4));
+        add(lilgf);
+
+		lilbf = new Character(100, 405, 'bf', false); //"bf" 100, 405
 		lilbf.scrollFactor.set();
 		lilbf.setGraphicSize(Std.int(lilbf.width * 0.4));
         add(lilbf);
 
 		lilbf.flipX = !lilbf.flipX;
 
-		lilpixbf = new Character(50, 556, "bf-pixel-opponent", false);
-		lilpixbf.scrollFactor.set();
-		lilpixbf.setGraphicSize(Std.int(lilbf.width * 0.5));
-        add(lilpixbf);
+		lildad = new Character(50, 556, 'bf-pixel-opponent', false); //"bf-pixel-opponent"
+		lildad.scrollFactor.set();
+		lildad.setGraphicSize(Std.int(lilbf.width * 0.5));
+        add(lildad);
 		
 		for (key in lilbf.animOffsets.keys()) {
             lilbf.animOffsets[key][0] *= lilbf.scale.x;
             lilbf.animOffsets[key][1] *= lilbf.scale.y;
         }
-        for (keyt in lilpixbf.animOffsets.keys()) {
-            lilpixbf.animOffsets[keyt][0] *= lilpixbf.scale.x;
-            lilpixbf.animOffsets[keyt][1] *= lilpixbf.scale.y;
+        for (keyt in lildad.animOffsets.keys()) {
+            lildad.animOffsets[keyt][0] *= lildad.scale.x;
+            lildad.animOffsets[keyt][1] *= lildad.scale.y;
         }
 
 		if(chartEditorSave.data.autoSave != null) autoSaveCap = chartEditorSave.data.autoSave;
@@ -1441,17 +1452,12 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			forceDataUpdate = false;
 			
 			// moved from beatHit()
-			if(metronomeStepper.value > 0 && lastBeatHit != curBeat)
-				FlxG.sound.play(Paths.sound('Metronome_Tick'), metronomeStepper.value);
+			if(lastBeatHit != curBeat) {
+				if(metronomeStepper.value > 0 && lastBeatHit != curBeat) FlxG.sound.play(Paths.sound('Metronome_Tick'), metronomeStepper.value);
+				callBeatHit(curBeat);
+			}
 
 			lastBeatHit = curBeat;
-
-			if (curBeat % lilbf.danceEveryNumBeats == 0 && !lilbf.getAnimationName().startsWith('sing')) {
-				lilbf.dance();
-			}
-			if (curBeat % lilpixbf.danceEveryNumBeats == 0 && !lilpixbf.getAnimationName().startsWith('sing')) {
-				lilpixbf.dance();
-			}
 		}
 
 		if(selectedNotes.length > 0)
@@ -1508,8 +1514,8 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			lilbf.playAnim(singAnimations[note.noteData], true); 
 			lilbf.holdTimer = 0;
 		} else if(!note.mustPress) {
-			lilpixbf.playAnim(singAnimations[note.noteData], true); 
-			lilpixbf.holdTimer = 0;
+			lildad.playAnim(singAnimations[note.noteData], true); 
+			lildad.holdTimer = 0;
 		}
 
 		if (canPlayHitSound) {
@@ -1528,6 +1534,18 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 				strumNote.playAnim('confirm', true);
 				strumNote.resetAnim = Math.max(Conductor.stepCrochet * 1.25, note.sustainLength) / 1000 / playbackRate;
 			}
+		}
+	}
+
+	function callBeatHit(curBeat) {
+		if (curBeat % lilbf.danceEveryNumBeats == 0 && !lilbf.getAnimationName().startsWith('sing')) {
+			lilbf.dance();
+		}
+		if (curBeat % lildad.danceEveryNumBeats == 0 && !lildad.getAnimationName().startsWith('sing')) {
+			lildad.dance();
+		}
+		if(curBeat % Math.round(gfSpeed * lilgf.danceEveryNumBeats) == 0 && !lilgf.getAnimationName().startsWith('sing')) {
+			lilgf.dance();
 		}
 	}
 

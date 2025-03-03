@@ -58,7 +58,7 @@ class HoldCover extends FlxSprite {
       parentEnd.visible = false;
       if (!parentEnd.mustPress || ClientPrefs.data.holdSplashVer == 'Hold Only') return kill();
       animation.play('end', true, false, 2);
-      FlxG.sound.play(Paths.sound('hitsoundTail'), 1);
+      if(ClientPrefs.data.holdSplashVer == 'Full and Sound') FlxG.sound.play(Paths.sound('hitsoundTail'), 1);
       copyAlpha = false;
       alpha = ClientPrefs.data.holdSplashAlpha * parentStrum.alpha;
     });

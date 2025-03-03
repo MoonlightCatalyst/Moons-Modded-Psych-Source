@@ -775,6 +775,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		if(isPixelStage) {
+			camGame.pixelPerfectRender = true;
 			for (note in unspawnNotes) {
 				if(note.isSustainNote) {
 					note.scale.x /= 1.5;
@@ -1161,18 +1162,19 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
+						countdownPrepare = createCountdownSprite(introAlts[0], antialias);
 						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 						tick = THREE;
 					case 1:
-						countdownReady = createCountdownSprite(introAlts[0], antialias);
+						countdownReady = createCountdownSprite(introAlts[1], antialias);
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 						tick = TWO;
 					case 2:
-						countdownSet = createCountdownSprite(introAlts[1], antialias);
+						countdownSet = createCountdownSprite(introAlts[2], antialias);
 						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 						tick = ONE;
 					case 3:
-						countdownGo = createCountdownSprite(introAlts[2], antialias);
+						countdownGo = createCountdownSprite(introAlts[3], antialias);
 						FlxG.sound.play(Paths.sound('introGo' + introSoundsSuffix), 0.6);
 						tick = GO;
 					case 4:
@@ -3524,7 +3526,7 @@ class PlayState extends MusicBeatState
 		if(note != null) {
 			var strum:StrumNote = opponentStrums.members[note.noteData];
 			if(strum != null)
-				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
+				spawnNoteSplash(strum.x, strum.y, note.noteData, note, strum);
 		}
 	}
 
