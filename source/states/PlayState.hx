@@ -1819,6 +1819,8 @@ class PlayState extends MusicBeatState
 
 	var moveSpeed:Float = ClientPrefs.getGameplaySetting('camMult');
 
+	var holdBonus:Float = 250;
+
 	override public function update(elapsed:Float)
 	{
 		if(!inCutscene && !paused && !freezeCamera) {
@@ -1973,7 +1975,16 @@ class PlayState extends MusicBeatState
 							else if (daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 								opponentNoteHit(daNote);
 
-							if(daNote.isSustainNote && strum.sustainReduce) daNote.clipToStrumNote(strum);
+							if(daNote.isSustainNote) 
+							{
+								if(strum.sustainReduce) daNote.clipToStrumNote(strum);
+
+								//V-Slice sustain scoring shit
+								if(daNote.wasGoodHit && daNote.mustPress && !cpuControlled && !practiceMode) {
+									songScore += Std.int(holdBonus * elapsed);
+									updateScoreText();
+								}
+							}
 
 							// Kill extremely late notes and cause misses
 							if (Conductor.songPosition - daNote.strumTime > noteKillOffset)
@@ -3475,6 +3486,7 @@ class PlayState extends MusicBeatState
 		stagesFunc(function(stage:BaseStage) stage.goodNoteHit(note));
 		var result:Dynamic = callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
 		if(result != LuaUtils.Function_Stop && result != LuaUtils.Function_StopHScript && result != LuaUtils.Function_StopAll) callOnHScript('goodNoteHit', [note]);
+
 		if(!note.isSustainNote) {
 			invalidateNote(note);
 			if (note.rating == 'bad' || note.rating == 'shit') {
