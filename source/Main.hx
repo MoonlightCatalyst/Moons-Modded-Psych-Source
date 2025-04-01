@@ -1,3 +1,4 @@
+
 package;
 
 #if android
@@ -23,7 +24,7 @@ import crowplexus.iris.Iris;
 import psychlua.HScript.HScriptInfos;
 #end
 
-#if linux
+#if (linux || mac)
 import lime.graphics.Image;
 #end
 
@@ -40,29 +41,16 @@ import haxe.io.Path;
 
 import backend.Highscore;
 
+// NATIVE API STUFF, YOU CAN IGNORE THIS AND SCROLL //
 #if (linux && !debug)
 @:cppInclude('./external/gamemode_client.h')
 @:cppFileCode('#define GAMEMODE_AUTO')
-#end
-#if windows
-@:buildXml('
-<target id="haxe">
-	<lib name="wininet.lib" if="windows" />
-	<lib name="dwmapi.lib" if="windows" />
-</target>
-')
-@:cppFileCode('
-	#include <windows.h>
-	#include <winuser.h>
-	#pragma comment(lib, "Shell32.lib")
-	extern "C" HRESULT WINAPI SetCurrentProcessExplicitAppUserModelID(PCWSTR AppID);
-')
 #end
 
 // // // // // // // // //
 class Main extends Sprite
 {
-	var game = {
+	public static final game = {
 		width: 1280, // WINDOW width
 		height: 720, // WINDOW height
 		initialState: TitleState, // initial game state
@@ -84,21 +72,8 @@ class Main extends Sprite
 	{
 		super();
 
-		#if windows
-		// DPI Scaling fix for windows 
-		// this shouldn't be needed for other systems
-		// Credit to YoshiCrafter29 for finding this function
-		untyped __cpp__("SetProcessDPIAware();");
-
-		var display = lime.system.System.getDisplay(0);
-		if (display != null) {
-			var dpiScale:Float = display.dpi / 96;
-			Application.current.window.width = Std.int(game.width * dpiScale);
-			Application.current.window.height = Std.int(game.height * dpiScale);
-
-			Application.current.window.x = Std.int((Application.current.window.display.bounds.width - Application.current.window.width) / 2);
-			Application.current.window.y = Std.int((Application.current.window.display.bounds.height - Application.current.window.height) / 2);
-		}
+		#if (cpp && windows)
+		backend.Native.fixScaling();
 		#end
 
 		// Credits to MAJigsaw77 (he's the og author for this code)
@@ -107,7 +82,6 @@ class Main extends Sprite
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
-
 		#if VIDEOS_ALLOWED
 		hxvlc.util.Handle.init(#if (hxvlc >= "1.8.0")  ['--no-lua'] #end);
 		#end
@@ -118,7 +92,6 @@ class Main extends Sprite
 		Mods.loadTopMod();
 
 		FlxG.save.bind('funkin', CoolUtil.getSavePath());
-
 		Highscore.load();
 
 		#if HSCRIPT_ALLOWED
@@ -194,7 +167,7 @@ class Main extends Sprite
 		}
 		#end
 
-		#if linux
+		#if (linux || mac) // fix the app icon not showing up on the Linux Panel / Mac Dock
 		var icon = Image.fromFile("icon.png");
 		Lib.current.stage.window.setIcon(icon);
 		#end

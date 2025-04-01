@@ -15,7 +15,7 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want the hold splashes to play?\nRequires the Hold Splash Opacity option to be higher than 0",
 			'holdSplashVer',
 			STRING,
-			['Full', 'Hold Only', 'Off']);
+			['Full', 'Full and Sound', 'Hold Only', 'Off']);
 		addOption(option);
 
 		var option:Option = new Option('Note Hold Splash Opacity',
