@@ -265,22 +265,32 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		lilbox.scrollFactor.set();
 		add(lilbox);
 
-		lilgf = new Character(50, 335, 'gf-nospeak', false); //50, 335
+		lilgf = new Character(0, 0, PlayState.SONG.player1.contains('pico') ? 'nene' : 'gf-nospeak', false); //50, 335
 		lilgf.scrollFactor.set();
 		lilgf.setGraphicSize(Std.int(lilgf.width * 0.4));
         add(lilgf);
 
-		lilbf = new Character(100, 405, 'bf', false); //"bf" 100, 405
+		lilbf = new Character(100, 405, PlayState.SONG.player1.contains('pico') ? 'pico-playable' : 'bf', false); //"bf" 100, 405
 		lilbf.scrollFactor.set();
 		lilbf.setGraphicSize(Std.int(lilbf.width * 0.4));
         add(lilbf);
 
 		lilbf.flipX = !lilbf.flipX;
 
-		lildad = new Character(50, 556, 'bf-pixel-opponent', false); //"bf-pixel-opponent"
+		lildad = new Character(50, 556, PlayState.SONG.player1.contains('pico') ? 'pico-pixel-opponent' : 'bf-pixel-opponent', false); //"bf-pixel-opponent"
 		lildad.scrollFactor.set();
 		lildad.setGraphicSize(Std.int(lilbf.width * 0.5));
         add(lildad);
+
+		if(PlayState.SONG.player1.contains('pico')) {
+			lilgf.setPosition(20, 315);
+			lilbf.setPosition(30, 400);
+			lildad.setPosition(0, 556);
+			lilbf.setGraphicSize(Std.int(lilbf.width * 0.25));
+			lilgf.setGraphicSize(Std.int(lilgf.width * 0.45));
+		} else {
+			lilgf.setPosition(50, 335);
+		}
 		
 		for (key in lilbf.animOffsets.keys()) {
             lilbf.animOffsets[key][0] *= lilbf.scale.x;
@@ -2338,6 +2348,13 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			var iconP1:HealthIcon = icons[0];
 			var iconP2:HealthIcon = icons[1];
 			var mustHitSection:Bool = (curSecData != null && curSecData.mustHitSection == true);
+
+			if(iconP1.char.contains('-pixel')) {
+				iconP1.scale.set(5, 5);
+			}
+			if(iconP2.char.contains('-pixel')) {
+				iconP2.scale.set(5, 5);
+			}
 			if (isGfSection)
 			{
 				if (mustHitSection)

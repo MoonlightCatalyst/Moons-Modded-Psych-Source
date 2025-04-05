@@ -4,7 +4,9 @@ class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 	private var isPlayer:Bool = false;
-	private var char:String = '';
+	public var char:String = '';
+
+	public var defaultScale:Float = 1;
 
 	public function new(char:String = 'face', isPlayer:Bool = false, ?allowGPU:Bool = true)
 	{
@@ -12,6 +14,10 @@ class HealthIcon extends FlxSprite
 		this.isPlayer = isPlayer;
 		changeIcon(char, allowGPU);
 		scrollFactor.set();
+		if (char.contains('-pixel')) {
+			defaultScale = 5;
+			this.scale.set(5, 5);
+		}
 	}
 
 	override function update(elapsed:Float)

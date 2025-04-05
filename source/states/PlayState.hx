@@ -2088,11 +2088,11 @@ class PlayState extends MusicBeatState
 	public dynamic function updateIconsScale(elapsed:Float)
 	{
 		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
-		iconP1.scale.set(mult, mult);
+		iconP1.scale.set(iconP1.char.contains('-pixel') ? (mult + iconP2.defaultScale / 40) : mult, iconP1.char.contains('-pixel') ? (mult + iconP2.defaultScale / 40) : mult); //use 30 for a cool icon bop
 		iconP1.updateHitbox();
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, Math.exp(-elapsed * 9 * playbackRate));
-		iconP2.scale.set(mult, mult);
+		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, Math.exp(-elapsed * 9 * playbackRate));
+		iconP2.scale.set(iconP2.char.contains('-pixel') ? (mult + iconP2.defaultScale / 40) : mult, iconP2.char.contains('-pixel') ? (mult + iconP2.defaultScale / 40) : mult); //use 30 for a cool icon bop
 		iconP2.updateHitbox();
 
 		var mult:Float = FlxMath.lerp(isPixelStage ? 3.7 : 0.7, robot.scale.x, Math.exp(-elapsed * 9 * playbackRate));
@@ -2103,8 +2103,8 @@ class PlayState extends MusicBeatState
 	public dynamic function updateIconsPosition()
 	{
 		var iconOffset:Int = 26;
-		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		iconP1.x = healthBar.barCenter + (150 * (iconP1.scale.x / iconP1.defaultScale) - 150) / 2 - iconOffset;
+		iconP2.x = healthBar.barCenter - (150 * (iconP2.scale.x / iconP2.defaultScale)) / 2 - iconOffset * 2;
 	}
 
 	var iconsAnimations:Bool = true;
@@ -3359,14 +3359,13 @@ class PlayState extends MusicBeatState
 		if(!note.noteSplashData.disabled && !note.isSustainNote && ClientPrefs.data.oppSplashes) spawnNoteSplashOnNoteOpp(note);
 
 		if(ClientPrefs.data.camMovement) {
-			var resetCamera:FlxTimer = new FlxTimer();
 			if (!note.isSustainNote && !SONG.notes[curSection].mustHitSection)  {
-				  if (note.noteData == 0 || note.noteData == 3)
-				  {
+				if (note.noteData == 0 || note.noteData == 3)
+				{
 					camGame.targetOffset.set(note.noteData == 3 ? moveSpeed : -moveSpeed,0);
-				  } else {
+				} else {
 					camGame.targetOffset.set(0,note.noteData == 1 ? moveSpeed : -moveSpeed);
-				  }
+				}
 			}
 		}
 	}
@@ -3503,7 +3502,6 @@ class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.soundRandom('badnoise', 1, 3), FlxG.random.float(0.2, 0.4));
 		}
 		if(ClientPrefs.data.camMovement) {
-			var resetCamera:FlxTimer = new FlxTimer();
 			if (!note.isSustainNote && SONG.notes[curSection].mustHitSection)  {
 				if (note.noteData == 0 || note.noteData == 3)
 				{
@@ -3648,8 +3646,8 @@ class PlayState extends MusicBeatState
 		if (generatedMusic)
 			notes.sort(FlxSort.byY, ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 
-		iconP1.scale.set(1.2, 1.2);
-		iconP2.scale.set(1.2, 1.2);
+		iconP1.scale.set(iconP1.defaultScale + 0.2, iconP1.defaultScale + 0.2);
+		iconP2.scale.set(iconP2.defaultScale + 0.2, iconP2.defaultScale + 0.2);
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -3661,7 +3659,7 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('curBeat', curBeat);
 		callOnScripts('onBeatHit');
-		if(curBeat % 2 == 0 && ClientPrefs.data.camMovement && SONG.notes[curSection] != null) {
+		if(curBeat % 1 == 0 && ClientPrefs.data.camMovement && SONG.notes[curSection] != null) {
 			if(!boyfriend.stunned && boyfriend.animation.name == 'idle' && SONG.notes[curSection].mustHitSection) {
 				resetCameraPos(0,0);
 			}
