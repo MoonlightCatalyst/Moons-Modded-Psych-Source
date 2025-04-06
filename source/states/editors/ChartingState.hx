@@ -285,9 +285,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		if(PlayState.SONG.player1.contains('pico')) {
 			lilgf.setPosition(20, 315);
 			lilbf.setPosition(30, 400);
-			lildad.setPosition(0, 556);
+			lildad.setPosition(-10, 556);
 			lilbf.setGraphicSize(Std.int(lilbf.width * 0.25));
-			lilgf.setGraphicSize(Std.int(lilgf.width * 0.45));
+			lilgf.setGraphicSize(Std.int(lilgf.width * 0.5));
 		} else {
 			lilgf.setPosition(50, 335);
 		}
@@ -2350,10 +2350,10 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 			var mustHitSection:Bool = (curSecData != null && curSecData.mustHitSection == true);
 
 			if(iconP1.char.contains('-pixel')) {
-				iconP1.scale.set(5, 5);
+				iconP1.scale.set(1.2, 1.2);
 			}
 			if(iconP2.char.contains('-pixel')) {
-				iconP2.scale.set(5, 5);
+				iconP2.scale.set(1.2, 1.2);
 			}
 			if (isGfSection)
 			{

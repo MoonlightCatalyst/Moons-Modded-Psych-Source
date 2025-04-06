@@ -283,6 +283,8 @@ class PlayState extends MusicBeatState
 	var waves:Bool = false;
 	var oneK:Bool = false;
 
+	public var canUpdateCam:Bool = true;
+
 	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
 	public var rateNames:Array<String> = [
 		'sick',
@@ -3617,6 +3619,11 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnScripts('curStep', curStep);
 		callOnScripts('onStepHit');
+
+		if (curStep % 2 == 0 && canUpdateCam) {
+			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
+				moveCameraSection();
+		}
 
 		if(ClientPrefs.data.advancedDiscord) {
 

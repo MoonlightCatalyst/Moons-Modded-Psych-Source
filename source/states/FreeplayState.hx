@@ -19,6 +19,9 @@ import haxe.Json;
 
 import flixel.util.FlxStringUtil;
 
+import flixel.group.FlxGroup;
+import flixel.graphics.FlxGraphic;
+
 class FreeplayState extends MusicBeatState
 {
 	var songs:Array<SongMetadata> = [];
@@ -53,6 +56,12 @@ class FreeplayState extends MusicBeatState
 	var bottomBG:FlxSprite;
 
 	var player:MusicPlayer;
+
+	var difficultySelectors:FlxGroup;
+	var sprDifficulty:FlxSprite;
+	var leftArrow:FlxSprite;
+	var rightArrow:FlxSprite;
+	var bf:FlxAnimate;
 
 	override function create()
 	{
@@ -152,6 +161,41 @@ class FreeplayState extends MusicBeatState
 		diffText.font = scoreText.font;
 		add(diffText);
 
+		if (!ClientPrefs.data.lowQuality) {
+			var ui_tex = Paths.getSparrowAtlas('freeplay/freeplaySelector');
+
+			difficultySelectors = new FlxGroup();
+			add(difficultySelectors);
+
+			leftArrow = new FlxSprite(850, 100);
+			leftArrow.antialiasing = ClientPrefs.data.antialiasing;
+			leftArrow.frames = ui_tex;
+			leftArrow.animation.addByPrefix('idle', "arrow pointer loop");
+			leftArrow.animation.play('idle');
+			difficultySelectors.add(leftArrow);
+			
+			sprDifficulty = new FlxSprite(0, leftArrow.y);
+			sprDifficulty.antialiasing = ClientPrefs.data.antialiasing;
+			difficultySelectors.add(sprDifficulty);
+
+			rightArrow = new FlxSprite(leftArrow.x + 376, leftArrow.y);
+			rightArrow.antialiasing = ClientPrefs.data.antialiasing;
+			rightArrow.frames = ui_tex;
+			rightArrow.animation.addByPrefix('idle', 'arrow pointer loop');
+			rightArrow.flipX = true;
+			rightArrow.animation.play('idle');
+			difficultySelectors.add(rightArrow);
+
+			bf = new FlxAnimate(1500, 400);
+			Paths.loadAnimateAtlas(bf, 'freeplay/boyfriend');
+			bf.anim.addBySymbol('intro', 'boyfriend dj intro', 24, false);
+			bf.anim.addBySymbol('idle', 'Boyfriend DJ\\', 24, true);
+			bf.anim.play('intro');
+			add(bf);
+
+			//diffText.visible = false;
+		}
+
 		add(scoreText);
 
 
@@ -243,10 +287,16 @@ class FreeplayState extends MusicBeatState
 		var shiftMult:Int = 1;
 		if(FlxG.keys.pressed.SHIFT) shiftMult = 3;
 
+		if (bf.anim.finished && bf.anim.curSymbol.name == 'boyfriend dj intro') {
+			bf.anim.play('idle');
+		}
+
 		if (!player.playingMusic)
 		{
 			scoreText.text = Language.getPhrase('personal_best', 'PERSONAL BEST: {1} ({2}%)', [FlxStringUtil.formatMoney(lerpScore, false), ratingSplit.join('.')]);
 			positionHighscore();
+
+			difficultySelectors.visible = true;
 			
 			if(songs.length > 1)
 			{
@@ -399,6 +449,7 @@ class FreeplayState extends MusicBeatState
 				player.curTime = 0;
 				player.switchPlayMusic();
 				player.pauseOrResume(true);
+				difficultySelectors.visible = false;
 			}
 			else if (instPlaying == curSelected && player.playingMusic)
 			{
@@ -502,6 +553,27 @@ class FreeplayState extends MusicBeatState
 
 		lastDifficultyName = Difficulty.getString(curDifficulty, false);
 		var displayDiff:String = Difficulty.getString(curDifficulty);
+		
+		var diff:String = Difficulty.getString(curDifficulty, false);
+		var newImage:FlxGraphic = Paths.image('freeplay/' + Paths.formatToSongPath(diff));
+		//trace(Mods.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
+
+		if(newImage == null) {
+			newImage = Paths.image('freeplay/unknown');
+		}
+
+		if(sprDifficulty.graphic != newImage)
+		{
+			sprDifficulty.loadGraphic(newImage);
+			sprDifficulty.x = leftArrow.x + 60;
+			sprDifficulty.x += (308 - sprDifficulty.width) / 3;
+			sprDifficulty.alpha = 0;
+			sprDifficulty.y = leftArrow.y - sprDifficulty.height + 50;
+
+			FlxTween.cancelTweensOf(sprDifficulty);
+			FlxTween.tween(sprDifficulty, {y: sprDifficulty.y + 30, alpha: 1}, 0.07);
+		}
+
 		if (Difficulty.list.length > 1)
 			diffText.text = '< ' + displayDiff.toUpperCase() + ' >';
 		else
