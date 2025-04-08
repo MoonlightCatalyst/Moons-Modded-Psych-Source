@@ -1,0 +1,23 @@
+{
+	"player1": "pico-playable",
+	"gfVersion": "nene",
+	"notes": [
+		{
+			"sectionBeats": 4,
+			"sectionNotes": [],
+			"mustHitSection": false
+		}
+	],
+	"events": [],
+	"player2": "dad",
+	"offset": 0,
+	"charter": "Fabs + Spazkid",
+	"song": "Dad Battle (Pico Mix)",
+	"needsVoices": true,
+	"generatedBy": "Psych Engine v1.0.4 - Chart Editor V-Slice Importer",
+	"stage": "backstage",
+	"bpm": 180,
+	"format": "psych_v1_convert",
+	"speed": 2.2,
+	"artist": "TeraVex (ft. Saruky)"
+}

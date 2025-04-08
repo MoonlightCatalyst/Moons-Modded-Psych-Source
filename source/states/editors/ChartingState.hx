@@ -261,46 +261,6 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		bg.scrollFactor.set();
 		add(bg);
 
-		var lilbox = new FlxSprite(157, 590).makeGraphic(100, 55, 0xFF2f4f4f);
-		lilbox.scrollFactor.set();
-		add(lilbox);
-
-		lilgf = new Character(0, 0, PlayState.SONG.player1.contains('pico') ? 'nene' : 'gf-nospeak', false); //50, 335
-		lilgf.scrollFactor.set();
-		lilgf.setGraphicSize(Std.int(lilgf.width * 0.4));
-        add(lilgf);
-
-		lilbf = new Character(100, 405, PlayState.SONG.player1.contains('pico') ? 'pico-playable' : 'bf', false); //"bf" 100, 405
-		lilbf.scrollFactor.set();
-		lilbf.setGraphicSize(Std.int(lilbf.width * 0.4));
-        add(lilbf);
-
-		lilbf.flipX = !lilbf.flipX;
-
-		lildad = new Character(50, 556, PlayState.SONG.player1.contains('pico') ? 'pico-pixel-opponent' : 'bf-pixel-opponent', false); //"bf-pixel-opponent"
-		lildad.scrollFactor.set();
-		lildad.setGraphicSize(Std.int(lilbf.width * 0.5));
-        add(lildad);
-
-		if(PlayState.SONG.player1.contains('pico')) {
-			lilgf.setPosition(20, 315);
-			lilbf.setPosition(30, 400);
-			lildad.setPosition(-10, 556);
-			lilbf.setGraphicSize(Std.int(lilbf.width * 0.25));
-			lilgf.setGraphicSize(Std.int(lilgf.width * 0.5));
-		} else {
-			lilgf.setPosition(50, 335);
-		}
-		
-		for (key in lilbf.animOffsets.keys()) {
-            lilbf.animOffsets[key][0] *= lilbf.scale.x;
-            lilbf.animOffsets[key][1] *= lilbf.scale.y;
-        }
-        for (keyt in lildad.animOffsets.keys()) {
-            lildad.animOffsets[keyt][0] *= lildad.scale.x;
-            lildad.animOffsets[keyt][1] *= lildad.scale.y;
-        }
-
 		if(chartEditorSave.data.autoSave != null) autoSaveCap = chartEditorSave.data.autoSave;
 		if(chartEditorSave.data.backupLimit != null) backupLimit = chartEditorSave.data.backupLimit;
 		if(chartEditorSave.data.vortex != null) vortexEnabled = chartEditorSave.data.vortex;
@@ -313,6 +273,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		
 		changeTheme(chartEditorSave.data.theme != null ? chartEditorSave.data.theme : DEFAULT, false);
 
+		createLilChars();
 		createGrids();
 
 		waveformSprite = new FlxSprite(gridBg.x + (SHOW_EVENT_COLUMN ? GRID_SIZE : 0), 0).makeGraphic(1, 1, 0x00FFFFFF);
@@ -382,6 +343,27 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		var iconY:Float = 50;
 		if(SHOW_EVENT_COLUMN)
 		{
+			/*
+			var eventNote:StrumNote = new StrumNote(startX + (GRID_SIZE), startY, GRID_COLUMNS_PER_PLAYER, 0);
+			eventNote.scrollFactor.set();
+			eventNote.texture = 'editors/eventStrum';
+			eventNote.animation.addByPrefix('static', 'Event', 24, false);
+			eventNote.animation.addByPrefix('confirm', 'ConfirmEvent', 24, false);
+
+			eventNote.playAnim('static');
+			eventNote.alpha = 0.4;
+			eventNote.updateHitbox();
+			if(eventNote.width > eventNote.height)
+				eventNote.setGraphicSize(GRID_SIZE);
+			else
+				eventNote.setGraphicSize(0, GRID_SIZE);
+	
+			eventNote.updateHitbox();
+			eventNote.x += GRID_SIZE/2 - eventNote.width/2;
+			eventNote.y += GRID_SIZE/2 - eventNote.height/2;
+			strumLineNotes.add(eventNote);
+			*/
+
 			eventIcon = new FlxSprite(0, iconY).loadGraphic(Paths.image('editors/eventIcon'));
 			eventIcon.antialiasing = ClientPrefs.data.antialiasing;
 			eventIcon.alpha = 0.6;
@@ -591,6 +573,68 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
 		FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, keyUp);
+	}
+
+	function createLilChars() {
+		if (PlayState.SONG == null) {
+			creategf('gf-nospeak');
+			createbf('bf');
+			createdad('bf-pixel-opponent');
+		} else {
+			creategf(PlayState.SONG.player1.contains('pico') ? 'nene' : 'gf-nospeak');
+			createbf(PlayState.SONG.player1.contains('pico') ? 'pico-playable' : 'bf');
+			createdad(PlayState.SONG.player1.contains('pico') ? 'pico-pixel-opponent' : 'bf-pixel-opponent');
+		}
+	}
+
+	function creategf(?name:String = 'gf') {
+		var lilbox = new FlxSprite(157, 590).makeGraphic(100, 55, 0xFF2f4f4f);
+		lilbox.scrollFactor.set();
+		add(lilbox);
+
+		lilgf = new Character(0, 0, name, false); //50, 335
+		lilgf.scrollFactor.set();
+		lilgf.setGraphicSize(Std.int(lilgf.width * 0.4));
+        add(lilgf);
+
+		if(PlayState.SONG != null && PlayState.SONG.player1.contains('pico')) {
+			lilgf.setPosition(20, 315);
+			lilgf.setGraphicSize(Std.int(lilgf.width * 0.5));
+		} else {
+			lilgf.setPosition(50, 335);
+		}
+	}
+
+	function createbf(?name:String = 'bf') {
+		lilbf = new Character(100, 405, name, false); //"bf" 100, 405
+		lilbf.scrollFactor.set();
+		lilbf.setGraphicSize(Std.int(lilbf.width * 0.4));
+        add(lilbf);
+
+		lilbf.flipX = !lilbf.flipX;
+
+		for (key in lilbf.animOffsets.keys()) {
+            lilbf.animOffsets[key][0] *= lilbf.scale.x;
+            lilbf.animOffsets[key][1] *= lilbf.scale.y;
+        }
+		if(PlayState.SONG != null && PlayState.SONG.player1.contains('pico')) {
+			lilbf.setPosition(30, 400);
+			lilbf.setGraphicSize(Std.int(lilbf.width * 0.25));
+		}
+	}
+
+	function createdad(?name:String = 'bf-pixel-opponent') {
+		lildad = new Character(50, 556, name, false); //"bf-pixel-opponent"
+		lildad.scrollFactor.set();
+		lildad.setGraphicSize(Std.int(lilbf.width * 0.5));
+        add(lildad);
+
+		if(PlayState.SONG != null && PlayState.SONG.player1.contains('pico')) {lildad.setPosition(-10, 556);}
+
+		for (keyt in lildad.animOffsets.keys()) {
+            lildad.animOffsets[keyt][0] *= lildad.scale.x;
+            lildad.animOffsets[keyt][1] *= lildad.scale.y;
+        }
 	}
 
 	var gridColors:Array<FlxColor>;
@@ -1522,7 +1566,7 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 
 		var lilchar:Character = !note.mustPress ? lildad : lilbf;
 		lilchar.playAnim(singAnimations[note.noteData % 4], true);
-		lilchar.holdTimer = -Math.max(Conductor.stepCrochet * 1.25, note.sustainLength) / 1000 / playbackRate / 3;
+		lilchar.holdTimer = -Math.max(Conductor.stepCrochet * 1.25, note.sustainLength) / 1000 / playbackRate;
 
 		if (canPlayHitSound) {
 			if(hitSoundPlayer && note.mustPress) {

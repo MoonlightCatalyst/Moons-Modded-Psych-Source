@@ -285,6 +285,11 @@ class PlayState extends MusicBeatState
 
 	public var canUpdateCam:Bool = true;
 
+	public var abot:ABotSpeaker;
+	public var abotPix:ABotSpeakerPixel;
+	var canUpdateAbot:Bool = false; //just in case gf is set to nene with change character mid song, this is to prevent abot functionalities from working
+	var canUpdateAbotPix:Bool = false; //just in case gf is set to nene with change character mid song, this is to prevent abot functionalities from working
+
 	// while most can be just .toLowerCase, i feel you can just change them yourself anyway
 	public var rateNames:Array<String> = [
 		'sick',
@@ -437,6 +442,8 @@ class PlayState extends MusicBeatState
 			case 'phillyErect': new states.stages.PhillyErect(); //Erect Week 3
 			case 'limoNight': new states.stages.LimoNight(); //Erect Week 4
 			case 'mallErect': new states.stages.MallErect(); //Erect Week 5
+			case 'schoolSunset': new states.stages.SchoolSunset(); //Erect Week 6
+			case 'schoolEvilErect': new states.stages.SchoolEvilErect(); //Erect Week 6
 		}
 		if(isPixelStage) introSoundsSuffix = '-pixel';
 
@@ -787,6 +794,48 @@ class PlayState extends MusicBeatState
 			}
 		}
 		healthBar.valueFunction = function() return smoothHealth;
+
+		//Nene abot shits
+		if ((gf.curCharacter == 'nene' || gf.curCharacter == 'nene-dark' || gf.curCharacter == 'nene-christmas') && (curStage != 'phillyStreets' || curStage != 'phillyBlazin'))
+		{
+			gfGroup.y -= 200;
+			abot = new ABotSpeaker(gfGroup.x - 50, gfGroup.y + 520, (gf.curCharacter == 'nene-dark' ? 'abot/dark' : 'abot/abotSystem'));
+			abot.scrollFactor.set(0.95, 0.95);
+			updateABotEye(true);
+			addBehindGF(abot);
+			canUpdateAbot = true;
+		}
+		if ((gf.curCharacter == 'nene-pixel') && (curStage != 'phillyStreets' || curStage != 'phillyBlazin')) {
+			abotPix = new ABotSpeakerPixel(gfGroup.x + 150, gfGroup.y + 220, 'abot/aBotPixel/aBotPixel');
+			abotPix.scrollFactor.set(0.95, 0.95);
+			updateABotEyePix(true);
+			addBehindGF(abotPix);
+			canUpdateAbotPix = true;
+		}
+	}
+
+	function updateABotEye(finishInstantly:Bool = false)
+	{
+		if (canUpdateAbot) {
+			if(SONG.notes[Std.int(FlxMath.bound(curSection, 0, SONG.notes.length - 1))].mustHitSection == true)
+				abot.lookRight();
+			else
+				abot.lookLeft();
+
+			if(finishInstantly) abot.eyes.anim.curFrame = abot.eyes.anim.length - 1;
+		}
+	}
+
+	function updateABotEyePix(finishInstantly:Bool = false)
+	{
+		if (canUpdateAbotPix) {
+			if(SONG.notes[Std.int(FlxMath.bound(curSection, 0, SONG.notes.length - 1))].mustHitSection == true)
+				abotPix.lookRight();
+			else
+				abotPix.lookLeft();
+
+			if(finishInstantly) abotPix.eyes.animation.play(SONG.notes[Std.int(FlxMath.bound(curSection, 0, SONG.notes.length - 1))].mustHitSection == true ? 'right' : 'left');
+		}
 	}
 
 	function set_songSpeed(value:Float):Float
@@ -1149,6 +1198,9 @@ class PlayState extends MusicBeatState
 			{
 				characterBopper(tmr.loopsLeft);
 
+				if (canUpdateAbot) {abot.beatHit();}
+				else if (canUpdateAbotPix) {abotPix.beatHit();}
+
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				var introImagesArray:Array<String> = switch(stageUI) {
 					case "pixel": ['pixelUI/prepare-pixel', 'pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel'];
@@ -1414,6 +1466,8 @@ class PlayState extends MusicBeatState
 		#end
 		setOnScripts('songLength', songLength);
 		callOnScripts('onSongStart');
+		if (canUpdateAbot) {abot.snd = FlxG.sound.music;}
+		else if (canUpdateAbotPix) {abotPix.snd = FlxG.sound.music;}
 	}
 
 	private var noteTypes:Array<String> = [];
@@ -2280,6 +2334,17 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	//event values
+	var currentCameraZoom:Float = 1.0;
+	var cameraBopMultiplier:Float = 1.0;
+	var defaultHUDCameraZoom:Float = 1.0 * 1.0;
+	var cameraBopIntensity:Float = 1.015;
+	var hudCameraZoomIntensity:Float = 0.015 * 2.0;
+	var cameraZoomRate:Int = 4;
+
+	var cameraFollowTween:FlxTween;
+	var cameraZoomTween:FlxTween;
+
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float) {
 		var flValue1:Null<Float> = Std.parseFloat(value1);
 		var flValue2:Null<Float> = Std.parseFloat(value2);
@@ -2351,6 +2416,56 @@ class PlayState extends MusicBeatState
 				{
 					char.playAnim(value1, true);
 					char.specialAnim = true;
+				}
+			
+			case 'PlayAnimation':
+				var char:Character = dad;
+				switch(value1.toLowerCase().trim()) {
+					case 'bf' | 'boyfriend' | 'player' | 'true':
+						char = boyfriend;
+					case 'gf' | 'girlfriend':
+						char = gf;
+					default:
+						if(flValue1 == null) flValue1 = 0;
+						switch(Math.round(flValue1)) {
+							case 1: char = boyfriend;
+							case 2: char = gf;
+						}
+				}
+
+				if (char != null)
+				{
+					char.playAnim(value2, true);
+					char.specialAnim = true;
+				}
+
+			case 'SetCameraBop' | 'Set Camera Bop':
+				var rate:Int = Std.parseInt(value1);
+				var intensity:Float = Std.parseFloat(value2);
+
+				cameraBopIntensity = 0.105 * intensity + 1.0;
+				hudCameraZoomIntensity = 0.105 * intensity * 2.0;
+				cameraZoomRate = rate;
+
+			case 'ZoomCamera' | 'Zoom Camera':
+				var args:Array<String> = value2.split(";");
+
+				var zoom:Float = Std.parseFloat(args[0]) ?? 1.0;
+				var duration:Float = Std.parseFloat(args[1]) ?? 4.0;
+				
+				var mode:String = args[2] ?? "direct";
+				var isDirectMode:Bool = mode == "direct";
+
+				if (value1 == "" || value1 == null)
+					value1 = "linear";
+
+				switch(value1)
+				{
+					case "INSTANT":
+						tweenCameraZoom(zoom, 0, isDirectMode);
+					default:
+						var durSeconds:Float = Conductor.stepCrochet * duration / 1000;
+						tweenCameraZoom(zoom, durSeconds, isDirectMode, LuaUtils.getTweenEaseByString(value1));
 				}
 
 			case 'Camera Follow Pos':
@@ -2527,6 +2642,46 @@ class PlayState extends MusicBeatState
 
 		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2, flValue1, flValue2, strumTime));
 		callOnScripts('onEvent', [eventName, value1, value2, strumTime]);
+	}
+
+	function cancelCameraFollowTween()
+	{
+		if (cameraFollowTween != null)
+			cameraFollowTween.cancel();
+	}
+	function tweenCameraZoom(?zoom:Float, ?duration:Float, ?direct:Bool, ?ease:Float->Float):Void
+	{
+		// Cancel the current tween if it's active.
+		cancelCameraZoomTween();
+
+		// Direct mode: Set zoom directly.
+		// Stage mode: Set zoom as a multiplier of the current stage's default zoom.
+		var targetZoom = zoom * (direct ? 1.0 : defaultCamZoom);
+
+		if (duration == 0)
+			// Instant zoom. No tween needed.
+			currentCameraZoom = targetZoom;
+		else
+			// Zoom tween! Caching it so we can cancel/pause it later if needed.
+			cameraZoomTween = FlxTween.num(
+				currentCameraZoom,
+				targetZoom,
+				duration,
+				{ease: ease},
+				(num:Float) -> currentCameraZoom = num
+			);
+	}
+
+	function cancelCameraZoomTween()
+	{
+		if (cameraZoomTween != null)
+			cameraZoomTween.cancel();
+	}
+
+	function cancelAllCameraTweens()
+	{
+		cancelCameraFollowTween();
+		cancelCameraZoomTween();
 	}
 
 	public function moveCameraSection(?sec:Null<Int>):Void {
@@ -3361,7 +3516,7 @@ class PlayState extends MusicBeatState
 		if(!note.noteSplashData.disabled && !note.isSustainNote && ClientPrefs.data.oppSplashes) spawnNoteSplashOnNoteOpp(note);
 
 		if(ClientPrefs.data.camMovement) {
-			if (!note.isSustainNote && !SONG.notes[curSection].mustHitSection)  {
+			if (!note.isSustainNote && !SONG.notes[curSection].mustHitSection && SONG.notes[curSection] != null)  {
 				if (note.noteData == 0 || note.noteData == 3)
 				{
 					camGame.targetOffset.set(note.noteData == 3 ? moveSpeed : -moveSpeed,0);
@@ -3504,7 +3659,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.play(Paths.soundRandom('badnoise', 1, 3), FlxG.random.float(0.2, 0.4));
 		}
 		if(ClientPrefs.data.camMovement) {
-			if (!note.isSustainNote && SONG.notes[curSection].mustHitSection)  {
+			if (!note.isSustainNote && SONG.notes[curSection].mustHitSection && SONG.notes[curSection] != null)  {
 				if (note.noteData == 0 || note.noteData == 3)
 				{
 					camGame.targetOffset.set(note.noteData == 3 ? moveSpeed : -moveSpeed,0);
@@ -3666,6 +3821,24 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('curBeat', curBeat);
 		callOnScripts('onBeatHit');
+
+		if (ClientPrefs.data.camZooms
+			&& FlxG.camera.zoom < 1.35
+			&& cameraZoomRate > 0
+			&& curBeat % cameraZoomRate == 0)
+		{
+			// Set zoom multiplier for camera bop.
+			cameraBopMultiplier = cameraBopIntensity;
+			// HUD camera zoom still uses old system. To change. (+3%)
+			camHUD.zoom += hudCameraZoomIntensity * defaultHUDCameraZoom / 5;
+		}
+		if (curBeat % 1 == 0) {
+			if (canUpdateAbot) {
+				abot.beatHit();
+			} else if (canUpdateAbotPix) {
+				abotPix.beatHit();
+			}
+		}
 		if(curBeat % 1 == 0 && ClientPrefs.data.camMovement && SONG.notes[curSection] != null) {
 			if(!boyfriend.stunned && boyfriend.animation.name == 'idle' && SONG.notes[curSection].mustHitSection) {
 				resetCameraPos(0,0);
@@ -3724,6 +3897,9 @@ class PlayState extends MusicBeatState
 
 		setOnScripts('curSection', curSection);
 		callOnScripts('onSectionHit');
+
+		if (canUpdateAbot) {updateABotEye();}
+		else if (canUpdateAbotPix) {updateABotEyePix();}
 	}
 
 	#if LUA_ALLOWED

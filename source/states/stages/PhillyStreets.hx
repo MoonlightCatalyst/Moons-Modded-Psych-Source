@@ -133,7 +133,7 @@ class PhillyStreets extends BaseStage
 			darkenable.push(picoFade);
 		}
 
-		abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550);
+		abot = new ABotSpeaker(gfGroup.x, gfGroup.y + 550, 'abot/abotSystem');
 		updateABotEye(true);
 		add(abot);
 		

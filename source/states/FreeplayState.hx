@@ -61,7 +61,9 @@ class FreeplayState extends MusicBeatState
 	var sprDifficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
+
 	var bf:FlxAnimate;
+	var startTimer:FlxTimer;
 
 	override function create()
 	{
@@ -74,7 +76,7 @@ class FreeplayState extends MusicBeatState
 
 		#if DISCORD_ALLOWED
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In Freeplay Menu", null);
 		#end
 
 		if(WeekData.weeksList.length < 1)
@@ -190,8 +192,13 @@ class FreeplayState extends MusicBeatState
 			Paths.loadAnimateAtlas(bf, 'freeplay/boyfriend');
 			bf.anim.addBySymbol('intro', 'boyfriend dj intro', 24, false);
 			bf.anim.addBySymbol('idle', 'Boyfriend DJ\\', 24, true);
-			bf.anim.play('intro');
+			//bf.anim.play('intro');
 			add(bf);
+
+			startTimer = new FlxTimer().start(0.5, function(tmr:FlxTimer)
+			{
+				bf.anim.play('intro');
+			});
 
 			//diffText.visible = false;
 		}

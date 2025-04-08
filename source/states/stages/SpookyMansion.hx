@@ -25,6 +25,10 @@ class SpookyMansion extends BaseStage
     //var rainShader = new RainShader();
     var solid:FlxSprite;
 
+	var bfChar:String = 'bf';
+	var gfChar:String = 'gf';
+	var dadChar:String = 'spooky';
+
 	override function create()
 	{
 
@@ -68,13 +72,17 @@ class SpookyMansion extends BaseStage
         	insert(members.indexOf(game.boyfriendGroup)+2, stairsLight);
 
 			//These ASSUME you're using Skid and Pump, Normal Boyfriend, and Normal Girlfriend. Sorry for the people who use reskin mods on this, until I find a solution.
-			bfClone = new Character(game.boyfriend.x, game.boyfriend.y, 'bf', true);
+			if (songName.toLowerCase().contains('pico')) {
+				bfChar = 'pico-playable';
+				gfChar = 'nene';
+			}
+			bfClone = new Character(game.boyfriend.x, game.boyfriend.y, bfChar, true);
 			insert(members.indexOf(game.boyfriendGroup), bfClone);
 
-			gfClone = new Character(game.gf.x, game.gf.y,'gf', false);
+			gfClone = new Character(game.gf.x, game.gf.y, gfChar, false);
 			insert(members.indexOf(game.gfGroup), gfClone);
 
-			dadClone = new Character(game.dad.x, game.dad.y, 'spooky', false); 
+			dadClone = new Character(game.dad.x, game.dad.y, dadChar, false); 
 			insert(members.indexOf(game.dadGroup), dadClone);
 
 			bfClone.alpha = 0;
@@ -85,11 +93,17 @@ class SpookyMansion extends BaseStage
     var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
 	var danced:Bool = false;
+	var checked:Bool = false;
 	override function beatHit()
 	{
 		if (FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)
 		{
 			lightningStrikeShit();
+			if (!checked) {
+				gfClone.x = gf.x;
+				gfClone.y = gf.y;
+				checked = true;
+			}
 		}
 		if(curBeat % 1 == 0 && !danced) 
 		{

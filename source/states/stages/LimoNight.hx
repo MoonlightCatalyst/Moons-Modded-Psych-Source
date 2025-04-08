@@ -146,6 +146,7 @@ class LimoNight extends BaseStage
 			game.boyfriend.shader = colorShader;
 			game.dad.shader = colorShader;
 			game.gf.shader = colorShader;
+			if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShader;}
 
 			for (sprite in grpLimoDancers) { sprite.shader = colorShader; }
 			limoCorpseTwo.shader = colorShader;

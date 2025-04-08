@@ -1,0 +1,34 @@
+{
+	"storyName": "hating simulator ft. moawling",
+	"hideFreeplay": false,
+	"weekBackground": "school",
+	"weekBefore": "week5",
+	"startUnlocked": true,
+	"weekCharacters": [
+		"senpai",
+		"bf",
+		"gf"
+	],
+	"songs": [
+		[
+			"Senpai (Pico Mix)",
+			"senpai-pixel",
+			[
+				255,
+				120,
+				191
+			]
+		],
+		[
+			"Roses (Pico Mix)",
+			"senpai-angry-pixel",
+			[
+				255,
+				120,
+				191
+			]
+		]
+	],
+	"hideStoryMode": true,
+	"weekName": "Week 6"
+}

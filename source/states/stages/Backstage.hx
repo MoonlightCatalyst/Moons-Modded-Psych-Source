@@ -89,6 +89,7 @@ class Backstage extends BaseStage
             game.boyfriend.shader = colorShaderBF;
             game.dad.shader = colorShaderDad;
             game.gf.shader = colorShaderGF;
+            if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShaderGF;}
 
             colorShaderBF.brightness.value = [-23];
             colorShaderBF.hue.value = [12];

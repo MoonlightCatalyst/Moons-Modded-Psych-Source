@@ -31,7 +31,7 @@ class ABotSpeaker extends FlxSpriteGroup
 		return snd;
 	}
 
-	public function new(x:Float = 0, y:Float = 0)
+	public function new(x:Float = 0, y:Float = 0, path:String = '')
 	{
 		super(x, y);
 
@@ -75,7 +75,7 @@ class ABotSpeaker extends FlxSpriteGroup
 		add(eyes);
 
 		speaker = new FlxAnimate(-65, -10);
-		Paths.loadAnimateAtlas(speaker, 'abot/abotSystem');
+		Paths.loadAnimateAtlas(speaker, path);
 		speaker.anim.addBySymbol('anim', 'Abot System', 24, false);
 		speaker.anim.play('anim', true);
 		speaker.anim.curFrame = speaker.anim.length - 1;

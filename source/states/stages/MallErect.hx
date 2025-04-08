@@ -53,6 +53,7 @@ class MallErect extends BaseStage
 			game.boyfriend.shader = colorShader;
 			game.dad.shader = colorShader;
 			game.gf.shader = colorShader;
+			if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShader;}
 			
 			santa.shader = colorShader;
 
