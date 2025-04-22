@@ -38,7 +38,7 @@ class ABotSpeakerPixel extends FlxSpriteGroup
 		var antialias:Bool = false;
 		var newScale:Float = 6;
 
-		bg = new FlxSprite(-60, 0).loadGraphic(Paths.image('abot/abotPixel/aBotPixelBack'));
+		bg = new FlxSprite(-70, 0).loadGraphic(Paths.image('abot/abotPixel/aBotPixelBack'));
 		bg.antialiasing = antialias;
 		add(bg);
 

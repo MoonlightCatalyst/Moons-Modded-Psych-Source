@@ -561,24 +561,26 @@ class FreeplayState extends MusicBeatState
 		lastDifficultyName = Difficulty.getString(curDifficulty, false);
 		var displayDiff:String = Difficulty.getString(curDifficulty);
 		
-		var diff:String = Difficulty.getString(curDifficulty, false);
-		var newImage:FlxGraphic = Paths.image('freeplay/' + Paths.formatToSongPath(diff));
-		//trace(Mods.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
+		if (!ClientPrefs.data.lowQuality) {
+			var diff:String = Difficulty.getString(curDifficulty, false);
+			var newImage:FlxGraphic = Paths.image('freeplay/' + Paths.formatToSongPath(diff));
+			//trace(Mods.currentModDirectory + ', menudifficulties/' + Paths.formatToSongPath(diff));
 
-		if(newImage == null) {
-			newImage = Paths.image('freeplay/unknown');
-		}
+			if(newImage == null) {
+				newImage = Paths.image('freeplay/unknown');
+			}
 
-		if(sprDifficulty.graphic != newImage)
-		{
-			sprDifficulty.loadGraphic(newImage);
-			sprDifficulty.x = leftArrow.x + 60;
-			sprDifficulty.x += (308 - sprDifficulty.width) / 3;
-			sprDifficulty.alpha = 0;
-			sprDifficulty.y = leftArrow.y - sprDifficulty.height + 50;
+			if(sprDifficulty.graphic != newImage)
+			{
+				sprDifficulty.loadGraphic(newImage);
+				sprDifficulty.x = leftArrow.x + 60;
+				sprDifficulty.x += (308 - sprDifficulty.width) / 3;
+				sprDifficulty.alpha = 0;
+				sprDifficulty.y = leftArrow.y - sprDifficulty.height + 50;
 
-			FlxTween.cancelTweensOf(sprDifficulty);
-			FlxTween.tween(sprDifficulty, {y: sprDifficulty.y + 30, alpha: 1}, 0.07);
+				FlxTween.cancelTweensOf(sprDifficulty);
+				FlxTween.tween(sprDifficulty, {y: sprDifficulty.y + 30, alpha: 1}, 0.07);
+			}
 		}
 
 		if (Difficulty.list.length > 1)

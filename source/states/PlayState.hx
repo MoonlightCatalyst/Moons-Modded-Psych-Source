@@ -568,7 +568,10 @@ class PlayState extends MusicBeatState
 
 		generateSong();
 
-		noteGroup.add(grpNoteSplashes);
+		if(ClientPrefs.data.splashSkin == 'Visualizer') {
+			noteGroup.insert(members.indexOf(strumLineNotes) - 1, grpNoteSplashes);
+		} else {noteGroup.add(grpNoteSplashes);}
+		
 		if(!isPixelStage || ClientPrefs.data.holdSplashAlpha != 0 || ClientPrefs.data.holdSplashVer != 'Off') {noteGroup.add(grpHoldCovers);}
 
 		camFollow = new FlxObject();
