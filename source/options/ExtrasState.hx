@@ -85,6 +85,12 @@ class ExtrasState extends BaseOptionsMenu
 			BOOL);
 		addOption(option);
 
+		var option:Option = new Option('Opponent Note Splashes',
+			"If checked, the opponent will have note splashes\njust like the player. (Transparency will be the same)",
+			'oppSplashes',
+			BOOL);
+		addOption(option);
+
 		/*
 		var option:Option = new Option('UI Version:',
 			"What do you want the UI to be?",
@@ -93,13 +99,6 @@ class ExtrasState extends BaseOptionsMenu
 			['Psych', 'Base', 'Dave', 'Forever', 'Gapple']);
 		addOption(option);
 		*/
-
-		var option:Option = new Option('Transition Style:',
-			"How do you want the menu Transitions to look?",
-			'selectedTransition',
-			STRING,
-			['Default', 'Diamond', 'Unholy Engine']);
-		addOption(option);
 
 		var option:Option = new Option('Hitsound Version:',
 			"How do you want the hitsounds to sound?\nRequires the hitsound volume option to be higher than 0",
@@ -126,7 +125,14 @@ class ExtrasState extends BaseOptionsMenu
 			"How do you want your ui to look?",
 			'ratingTex',
 			STRING,
-			['Default', 'MMPE', 'Kade', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D', 'Sonic.exe', 'Mario Madness', 'Neo']);
+			['Default', 'Kade', 'MMPE', 'Forever', 'Voiid', 'Dave and Bambi 3D', 'Golden Apple 3D', 'Sonic.exe', 'Mario Madness', 'Neo']);
+		addOption(option);
+
+		var option:Option = new Option('Icon Bounce:',
+			"How do you want the icons to bop?",
+			'iconBops',
+			STRING,
+			['Psych', 'None', 'OG', 'Dave and Bambi', 'Golden Apple', 'Stretchy', 'OS']);
 		addOption(option);
 		
 		super();

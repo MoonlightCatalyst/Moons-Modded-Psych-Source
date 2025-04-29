@@ -1,0 +1,209 @@
+{
+	"events": [
+		[
+			4200,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			9000,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			18600,
+			[
+				["PlayAnimation", "true", "hey"]
+			]
+		],
+		[
+			19050,
+			[
+				["SetCameraBop", "1", "0.6"]
+			]
+		],
+		[
+			28200,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			31275,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			33675,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			37275,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			37800,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			38250,
+			[
+				["SetCameraBop", "20", "0.6"]
+			]
+		],
+		[
+			38475,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			40650,
+			[
+				["SetCameraBop", "1", "0.7"]
+			]
+		],
+		[
+			42600,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			43275,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			45675,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			47400,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			57000,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			57450,
+			[
+				["SetCameraBop", "1", "0.6"]
+			]
+		],
+		[
+			58575,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			60075,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			62475,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			64650,
+			[
+				["SetCameraBop", "1", "0.4"]
+			]
+		],
+		[
+			64875,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			66600,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			67050,
+			[
+				["SetCameraBop", "1", "0.6"]
+			]
+		],
+		[
+			67275,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			69675,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			72075,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			74475,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			76200,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			76200,
+			[
+				["PlayAnimation", "bf", "hey"]
+			]
+		],
+		[
+			79275,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			79500,
+			[
+				["SetCameraBop", "10", "0.4"]
+			]
+		],
+		[
+			80100,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		]
+	],
+	"format": "psych_v1_convert"
+}

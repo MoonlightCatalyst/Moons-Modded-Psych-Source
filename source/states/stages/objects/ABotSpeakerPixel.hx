@@ -7,7 +7,7 @@ import funkin.vis.dsp.SpectralAnalyzer;
 class ABotSpeakerPixel extends FlxSpriteGroup
 {
 	final VIZ_MAX = 7; //ranges from viz1 to viz7
-	final VIZ_POS_X:Array<Float> = [0, 55, 55, 55, 55, 55, 55];
+	final VIZ_POS_X:Array<Float> = [0, 59, 56, 66, 54, 52, 51];
 	final VIZ_POS_Y:Array<Float> = [0, -8, -3.5, -0.4, 0.5, 4.7, 7];
 
 	public var bg:FlxSprite;
@@ -38,7 +38,7 @@ class ABotSpeakerPixel extends FlxSpriteGroup
 		var antialias:Bool = false;
 		var newScale:Float = 6;
 
-		bg = new FlxSprite(-45, 0).loadGraphic(Paths.image('abot/abotPixel/aBotPixelBack'));
+		bg = new FlxSprite(-70, 0).loadGraphic(Paths.image('abot/abotPixel/aBotPixelBack'));
 		bg.antialiasing = antialias;
 		add(bg);
 
@@ -50,7 +50,7 @@ class ABotSpeakerPixel extends FlxSpriteGroup
 			volumes.push(0.0);
 			vizX += VIZ_POS_X[i-1];
 			vizY += VIZ_POS_Y[i-1];
-			var viz:FlxSprite = new FlxSprite(vizX - 165, vizY + 34);
+			var viz:FlxSprite = new FlxSprite(vizX - 150, vizY + 34);
 			viz.frames = vizFrames;
 			viz.animation.addByPrefix('VIZ', 'viz$i', 0);
 			viz.animation.play('VIZ', true);

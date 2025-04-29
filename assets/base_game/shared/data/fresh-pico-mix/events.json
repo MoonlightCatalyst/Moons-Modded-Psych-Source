@@ -1,0 +1,107 @@
+{
+	"events": [
+		[
+			25075,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			28075,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			40062,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			44000,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			46312,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			48000,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			50312,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			51812,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			54312,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			56062,
+			[
+				["ZoomCamera", "expoOut", "8"]
+			]
+		],
+		[
+			57075,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			60075,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			68062,
+			[
+				["ZoomCamera", "16", "expoOut"]
+			]
+		],
+		[
+			70000,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			71000,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			71500,
+			[
+				["ZoomCamera", "expoOut", "16"]
+			]
+		],
+		[
+			72000,
+			[
+				["ZoomCamera", "circOut", "60"]
+			]
+		]
+	],
+	"format": "psych_v1_convert"
+}

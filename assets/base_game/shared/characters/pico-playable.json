@@ -124,7 +124,7 @@
 			"offsets": [39, -1],
 			"indices": [],
 			"fps": 24,
-			"anim": "burpShit",
+			"anim": "burp1",
 			"loop": false,
 			"name": "burpshit"
 		},
@@ -132,7 +132,7 @@
 			"offsets": [39, -1],
 			"indices": [],
 			"fps": 24,
-			"anim": "burpSmileLong",
+			"anim": "burp2",
 			"loop": false,
 			"name": "burpsmile"
 		},
