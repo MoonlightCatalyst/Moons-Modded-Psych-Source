@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="holdCover-pixel.png">
+	<SubTexture name="start0000" x="0" y="0" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0001" x="36" y="0" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0002" x="72" y="0" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0003" x="108" y="0" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0004" x="0" y="32" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0005" x="36" y="32" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0006" x="72" y="32" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="hold0007" x="108" y="32" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0000" x="0" y="64" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0001" x="36" y="64" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0002" x="72" y="64" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0003" x="108" y="64" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0004" x="0" y="96" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0005" x="36" y="96" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0006" x="72" y="96" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+	<SubTexture name="end0007" x="108" y="96" width="36" height="32" frameX="-56" frameY="-10" frameWidth="200" frameHeight="59" />
+</TextureAtlas>

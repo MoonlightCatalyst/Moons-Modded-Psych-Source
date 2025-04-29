@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="visSplash.png">
+<SubTexture name="splash instance 10000" x="263" y="0" width="263" height="164" frameX="-15" frameY="-10" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 10001" x="0" y="166" width="245" height="161" frameX="-23" frameY="-7" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 10002" x="0" y="327" width="257" height="142" frameX="-16" frameY="-34" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 10003" x="526" y="0" width="222" height="123" frameX="-33" frameY="-47" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 10004" x="526" y="246" width="202" height="85" frameX="-43" frameY="-88" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 20000" x="0" y="0" width="263" height="166" frameX="-15" frameY="-8" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 20001" x="245" y="166" width="245" height="161" frameX="-23" frameY="-7" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 20002" x="257" y="327" width="257" height="142" frameX="-16" frameY="-34" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 20003" x="526" y="123" width="222" height="123" frameX="-34" frameY="-46" frameWidth="295" frameHeight="188" />
+<SubTexture name="splash instance 20004" x="526" y="331" width="202" height="85" frameX="-43" frameY="-88" frameWidth="295" frameHeight="188" />
+</TextureAtlas>

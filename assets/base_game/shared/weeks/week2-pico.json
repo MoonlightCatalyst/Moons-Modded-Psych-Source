@@ -1,7 +1,7 @@
 {
 	"storyName": "Spooky Month",
 	"difficulties": "",
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "halloween",
 	"weekBefore": "week1",
 	"startUnlocked": true,

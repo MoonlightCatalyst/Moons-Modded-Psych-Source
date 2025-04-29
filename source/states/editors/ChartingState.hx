@@ -87,7 +87,9 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"]
+		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
+		['V-Slice Play Animation', "Plays an animation on a Character,\nonce the animation is completed,\nthe animation changes to Idle\n\nValue 1: Animation to play.\nValue 2: Character (Dad, BF, GF) or Force it (True or False)"],
+		['Focus Camera', "Who you want the camera to focus on\nValue 1: bf, dad, gf\nValue 2: Is forced? (True, False)"]
 	];
 	
 	public static var keysArray:Array<FlxKey> = [ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT]; //Used for Vortex Editor
@@ -612,15 +614,14 @@ class ChartingState extends MusicBeatState implements PsychUIEventHandler.PsychU
         add(lilbf);
 
 		lilbf.flipX = !lilbf.flipX;
-
-		for (key in lilbf.animOffsets.keys()) {
-            lilbf.animOffsets[key][0] *= lilbf.scale.x;
-            lilbf.animOffsets[key][1] *= lilbf.scale.y;
-        }
 		if(PlayState.SONG != null && PlayState.SONG.player1.contains('pico')) {
 			lilbf.setPosition(30, 400);
 			lilbf.setGraphicSize(Std.int(lilbf.width * 0.25));
 		}
+		for (key in lilbf.animOffsets.keys()) {
+            lilbf.animOffsets[key][0] *= lilbf.scale.x;
+            lilbf.animOffsets[key][1] *= lilbf.scale.y;
+        }
 	}
 
 	function createdad(?name:String = 'bf-pixel-opponent') {

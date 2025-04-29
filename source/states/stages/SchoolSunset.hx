@@ -6,6 +6,8 @@ import cutscenes.DialogueBox;
 
 import openfl.utils.Assets as OpenFlAssets;
 
+import shaders.AdjustColorShader;
+
 class SchoolSunset extends BaseStage
 {
 	override function create()
@@ -81,6 +83,23 @@ class SchoolSunset extends BaseStage
 			initDoof();
 			setStartCallback(schoolIntro);
 		}
+	}
+
+	override function createPost() {
+		super.createPost();
+        if(!ClientPrefs.data.lowQuality) {
+			var colorShader = new AdjustColorShader();
+
+            game.boyfriend.shader = colorShader;
+            game.dad.shader = colorShader;
+            game.gf.shader = colorShader;
+            if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShader;}
+
+            colorShader.brightness.value = [-30];
+            colorShader.hue.value = [-9];
+            colorShader.contrast.value = [-4];
+		    colorShader.saturation.value = [0];
+        }
 	}
 
 	var doof:DialogueBox = null;

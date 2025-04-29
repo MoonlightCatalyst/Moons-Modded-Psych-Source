@@ -27,7 +27,7 @@ class HoldCover extends FlxSprite {
 
   override function new():Void {
     super();
-    frames = Paths.getSparrowAtlas('holdCover');
+    frames = Paths.getSparrowAtlas(PlayState.isPixelStage ? 'holdCover-pixel' : 'holdCover');
     animation = new backend.animation.PsychAnimationController(this);
     animation.addByPrefix('start', 'start', 24, false);
     animation.addByPrefix('hold', 'hold');
@@ -64,8 +64,14 @@ class HoldCover extends FlxSprite {
     });
 
     animation.play('start');
-    offset.set(106.25, 110);
-    scale.set(0.8, 0.8);
+    if (PlayState.isPixelStage) {
+      offset.set(0, 0);
+      scale.set(4, 4);
+      antialiasing = false;
+    } else {
+      offset.set(106.25, 110);
+      scale.set(0.8, 0.8);
+    }
 
     animation.finishCallback = (n:String) -> {
       switch (n) {
