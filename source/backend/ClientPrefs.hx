@@ -88,9 +88,9 @@ import states.TitleState;
 	//public var iconBops:String = 'Psych';
 	public var menuSong:String = 'Default';
 	public var ratingTex:String = 'Default';
+	public var selectedTransition:String = 'Default';
 	public var hitsounds:String = 'Psych';
 
-	public var oppSplashes:Bool = false;
 	public var comboSprite:Bool = false;
 	public var smoothHealth:Bool = false;
 	public var darkMode:Bool = false;

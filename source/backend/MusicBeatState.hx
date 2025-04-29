@@ -34,7 +34,11 @@ class MusicBeatState extends FlxState
 		super.create();
 
 		if(!skip) {
-			openSubState(new CustomFadeTransition(0.5, true));
+			if (ClientPrefs.data.selectedTransition == 'Diamond') {
+				openSubState(new DiamondFadeTransition(0.5, true, 1.0));
+			} else {
+				openSubState(new CustomFadeTransition(0.5, true));
+			}
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 		timePassedOnState = 0;
@@ -156,11 +160,23 @@ class MusicBeatState extends FlxState
 		if(nextState == null)
 			nextState = FlxG.state;
 
-		FlxG.state.openSubState(new CustomFadeTransition(0.5, false));
-		if(nextState == FlxG.state)
-			CustomFadeTransition.finishCallback = function() FlxG.resetState();
-		else
-			CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
+		if (ClientPrefs.data.selectedTransition == 'Diamond') {
+			FlxG.state.openSubState(new DiamondFadeTransition(0.5, false, 1.0));
+		} else {
+			FlxG.state.openSubState(new CustomFadeTransition(0.5, false));
+		}
+
+		if (ClientPrefs.data.selectedTransition == 'Diamond') {
+			if(nextState == FlxG.state)
+				DiamondFadeTransition.finishCallback = function() FlxG.resetState();
+			else
+				DiamondFadeTransition.finishCallback = function() FlxG.switchState(nextState);
+		} else {
+			if(nextState == FlxG.state)
+				CustomFadeTransition.finishCallback = function() FlxG.resetState();
+			else
+				CustomFadeTransition.finishCallback = function() FlxG.switchState(nextState);
+		}
 	}
 
 	public static function getState():MusicBeatState {
