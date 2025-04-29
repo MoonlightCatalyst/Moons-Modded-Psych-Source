@@ -1,6 +1,6 @@
 {
 	"storyName": "RED SNOW",
-	"hideFreeplay": true,
+	"hideFreeplay": false,
 	"weekBackground": "christmas",
 	"weekBefore": "week4",
 	"startUnlocked": true,
