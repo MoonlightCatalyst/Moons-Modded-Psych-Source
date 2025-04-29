@@ -25,7 +25,9 @@ class TankmenBG extends FlxSprite
 		animation.curAnim.curFrame = FlxG.random.int(0, animation.curAnim.frames.length - 1);
 		antialiasing = ClientPrefs.data.antialiasing;
 
-		scale.set(0.8, 0.8);
+		if (PlayState.instance.gf.curCharacter == 'otis-speaker') {scale.set(1.1, 1.1);} 
+		else {scale.set(0.8, 0.8);}
+
 		updateHitbox();
 	}
 
@@ -43,7 +45,7 @@ class TankmenBG extends FlxSprite
 	{
 		super.update(elapsed);
 
-		visible = (x > -0.5 * FlxG.width && x < 1.2 * FlxG.width);
+		visible = (x > -1.5 * FlxG.width && x < 1.2 * FlxG.width);
 
 		if(animation.curAnim.name == "run")
 		{
@@ -51,7 +53,7 @@ class TankmenBG extends FlxSprite
 			if(goingRight)
 				x = (0.02 * FlxG.width - endingOffset) + speed;
 			else
-				x = (0.74 * FlxG.width + endingOffset) - speed;
+				x = (0.76 * FlxG.width + endingOffset) - speed;
 		}
 		else if(animation.curAnim.finished)
 		{

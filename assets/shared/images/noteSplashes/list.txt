@@ -5,3 +5,4 @@ Vanilla
 Forever
 Ralsi's Sparkles
 Sweet
+Visualizer

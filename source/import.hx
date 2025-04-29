@@ -27,6 +27,7 @@ import backend.CoolUtil;
 import backend.MusicBeatState;
 import backend.MusicBeatSubstate;
 import backend.CustomFadeTransition;
+import backend.DiamondFadeTransition;
 import backend.ClientPrefs;
 import backend.Conductor;
 import backend.BaseStage;

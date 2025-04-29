@@ -1,6 +1,6 @@
 {
 	"storyName": "hating simulator ft. moawling",
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "school",
 	"weekBefore": "week5",
 	"startUnlocked": true,

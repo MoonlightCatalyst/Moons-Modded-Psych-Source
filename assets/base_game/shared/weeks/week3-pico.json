@@ -1,6 +1,6 @@
 {
 	"storyName": "PICO",
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "philly",
 	"weekBefore": "week2",
 	"startUnlocked": true,
