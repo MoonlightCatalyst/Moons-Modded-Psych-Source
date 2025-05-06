@@ -3,7 +3,12 @@ package states.stages;
 import states.stages.objects.*;
 import cutscenes.CutsceneHandler;
 import shaders.AdjustColorShader;
+import shaders.DropShadowShader;
 import objects.Character;
+
+#if (!flash && sys)
+import flixel.addons.display.FlxRuntimeShader;
+#end
 
 class TankErect extends BaseStage
 {
@@ -23,6 +28,10 @@ class TankErect extends BaseStage
 		sniper = new BGSprite('erect/sniper', -300, 229, 1, 1, ['Tankmanidlebaked instance 1', 'tanksippingBaked instance 1'], false);
 		sniper.animation.play('idle', true, false, 0);
 		sniper.scale.set(1.15, 1.15);
+		sniper.animation.finishCallback = function(name:String){
+			if (name == 'tanksippingBaked instance 1')
+				drinking = false;
+		}
 		add(sniper);
 
 		guy = new BGSprite('erect/guy', 1298, 287, 1, 1, ['BLTank2 instance 1'], false);
@@ -42,21 +51,74 @@ class TankErect extends BaseStage
 	{
 		if(!ClientPrefs.data.lowQuality)
 		{
-			game.boyfriend.shader = colorShader;
-			//game.dad.shader = colorShader;
-			game.gf.shader = colorShader;
-			if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShader;}
+			if (ClientPrefs.data.shaders) {
+				for (char in [boyfriend, dad, gf]) {
+					var newShader:DropShadowShader = new DropShadowShader();
+					char.shader = newShader;
 
-			colorShader.brightness.value = [-30];
-			colorShader.hue.value = [-30];
-			colorShader.contrast.value = [0];
-			colorShader.saturation.value = [-20];
+					newShader.hue.value = [-38];
+					newShader.saturation.value = [-20];
+					newShader.contrast.value = [-25];
+					newShader.brightness.value = [-46];
+	
+					newShader.str.value = [1];
+					newShader.dist.value = [15];
+					newShader.thr.value = [0.1];
+	
+					newShader.aa_stages.value = [2];
+					newShader.dropColor.value = [223 / 255, 239 / 255, 60 / 255];
+
+					if (char == dad) {
+						newShader.thr.value = [0.3];
+						newShader.ang.value = [135 * Math.PI / 180];
+					} else {
+						newShader.ang.value = [90 * Math.PI / 180];
+					}				
+
+					char.animation.callback = function(name, frameNum, frameIdx) {
+						var frame = char.frame;
+						newShader.uFrameBounds.value = [frame.uv.x, frame.uv.y, frame.uv.width, frame.uv.height];
+						newShader.angOffset.value = [frame.angle * Math.PI / 180];
+					}
+
+
+					var newImage = char.imageFile.split('/');
+					if (FileSystem.exists('erect/masks/${newImage}_mask.png')) {
+						newShader.altMask.input = Paths.image('erect/masks/' + newImage + '_mask').bitmap;
+						newShader.thr2.value = [1];
+						newShader.useMask.value = [true];
+					} else {
+						newShader.useMask.value = [false];
+					}
+	
+					if (gf.curCharacter == 'gf-tankmen') {
+						newShader.thr2.value = [0.4];
+					}
+				}
+			}
+
+				/* //Color shader shit
+				game.boyfriend.shader = colorShader;
+				game.gf.shader = colorShader;
+				if (PlayState.instance.abot != null) {PlayState.instance.abot.shader = colorShader;}
+
+				colorShader.brightness.value = [-30];
+				colorShader.hue.value = [-30];
+				colorShader.contrast.value = [0];
+				colorShader.saturation.value = [-20];
+				*/
+			}
 
 			for (daGf in gfGroup)
 			{
 				var gf:Character = cast daGf;
 				if(gf.curCharacter == 'pico-speaker' || gf.curCharacter == 'otis-speaker')
 				{
+					if (gf.curCharacter == 'otis-speaker'){
+						gf.animation.finishCallback = function(name){
+							if (name.contains('shoot')) gfCanIdle = true;
+						}
+					}
 					var firstTank:TankmenBG = new TankmenBG(-20, 500, true);
 					firstTank.resetShit(20, 1500, true);
 					firstTank.strumTime = 10;
@@ -75,7 +137,6 @@ class TankErect extends BaseStage
 						}
 					}
 					break;
-				}
 			}
 		}
 	}
@@ -92,10 +153,10 @@ class TankErect extends BaseStage
 	override function beatHit() {
 		if (curBeat % 1 == 0) {
 			guy.animation.play('BLTank2 instance 1', true, false, 0);
-			if (!drinking) {sniper.animation.play('Tankmanidlebaked instance 1', true, false, 0);}
+			if (!drinking) sniper.animation.play('Tankmanidlebaked instance 1', true, false, 0);
 		}
 		if (gfCanIdle && curBeat % 2 == 0) {
-			gf.dance();
+			gf.playAnim('idle', true, false, 0);
 		}
 		if (FlxG.random.bool(2) && !drinking) {
 			sniper.animation.play('tanksippingBaked instance 1', true, false, 0);
@@ -105,15 +166,6 @@ class TankErect extends BaseStage
 
 	override public function update(elapsed) {
 		super.update(elapsed);
-		if (sniper.animation.finished && sniper.animation.name == 'tanksippingBaked instance 1') {
-			sniper.animation.play('Tankmanidlebaked instance 1', true, false, 0);
-			drinking = false;
-		}
-		if (gf.curCharacter == 'otis-speaker') {
-			if (gf.animation.finished && gf.animation.name.contains('shoot')) {
-				gfCanIdle = true;
-			}
-		}
 	}
 
 	// Cutscenes

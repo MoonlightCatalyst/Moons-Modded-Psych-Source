@@ -21,6 +21,8 @@ import haxe.Json;
 
 import cutscenes.DialogueBoxPsych;
 
+import flixel.system.FlxAssets.FlxShader;
+
 import states.StoryMenuState;
 import states.FreeplayState;
 import states.editors.ChartingState;
@@ -172,6 +174,7 @@ class PlayState extends MusicBeatState
 
 	public var camZooming:Bool = false;
 	public var camZoomingMult:Float = 1;
+	public var camZoomingFrequency:Float = 4;
 	public var camZoomingDecay:Float = 1;
 	private var curSong:String = "";
 
@@ -2365,6 +2368,7 @@ class PlayState extends MusicBeatState
 	public function triggerEvent(eventName:String, value1:String, value2:String, strumTime:Float) {
 		var flValue1:Null<Float> = Std.parseFloat(value1);
 		var flValue2:Null<Float> = Std.parseFloat(value2);
+
 		if(Math.isNaN(flValue1)) flValue1 = null;
 		if(Math.isNaN(flValue2)) flValue2 = null;
 
@@ -2508,11 +2512,16 @@ class PlayState extends MusicBeatState
 							if(!boyfriendMap.exists(value2)) {
 								addCharacterToList(value2, charType);
 							}
+							var lastShader:FlxShader = boyfriend.shader;
+							boyfriend.shader = null;
 
 							var lastAlpha:Float = boyfriend.alpha;
 							boyfriend.alpha = 0.00001;
 							boyfriend = boyfriendMap.get(value2);
 							boyfriend.alpha = lastAlpha;
+
+							boyfriend.shader = lastShader;
+
 							iconP1.changeIcon(boyfriend.healthIcon);
 						}
 						setOnScripts('boyfriendName', boyfriend.curCharacter);
@@ -2525,6 +2534,10 @@ class PlayState extends MusicBeatState
 
 							var wasGf:Bool = dad.curCharacter.startsWith('gf-') || dad.curCharacter == 'gf';
 							var lastAlpha:Float = dad.alpha;
+
+							var lastShader:FlxShader = dad.shader;
+							dad.shader = null;
+
 							dad.alpha = 0.00001;
 							dad = dadMap.get(value2);
 							if(!dad.curCharacter.startsWith('gf-') && dad.curCharacter != 'gf') {
@@ -2536,6 +2549,7 @@ class PlayState extends MusicBeatState
 							}
 							dad.alpha = lastAlpha;
 							iconP2.changeIcon(dad.healthIcon);
+							dad.shader = lastShader;
 						}
 						setOnScripts('dadName', dad.curCharacter);
 
@@ -2548,10 +2562,13 @@ class PlayState extends MusicBeatState
 									addCharacterToList(value2, charType);
 								}
 
+								var lastShader:FlxShader = gf.shader;
+								gf.shader = null;
 								var lastAlpha:Float = gf.alpha;
 								gf.alpha = 0.00001;
 								gf = gfMap.get(value2);
 								gf.alpha = lastAlpha;
+								gf.shader = lastShader;
 							}
 							setOnScripts('gfName', gf.curCharacter);
 						}
@@ -2667,6 +2684,22 @@ class PlayState extends MusicBeatState
 					cameraTwn = null;
 				}});
 				*/
+			case 'Set Camera Bop' | 'SetCameraBop': //P-slice event notes
+				var val1 = Std.parseFloat(value1);
+				var val2 = Std.parseFloat(value2);
+				camZoomingMult = !Math.isNaN(val2) ? val2 : 1;
+				camZoomingFrequency = !Math.isNaN(val1) ? val1 : 4;
+			case 'Change Icon' | 'SetHealthIcon':
+				var selChar:HealthIcon;
+				switch(value1.toLowerCase().trim()) {
+					case 'bf' | 'boyfriend' | 'player' | '0':
+						selChar = iconP1;
+					case 'dad' | 'opponent' | '1':
+						selChar = iconP2;
+					default:
+						selChar = iconP1;
+				}
+				selChar.changeIcon(value2.toLowerCase());
 		}
 
 		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2, flValue1, flValue2, strumTime));
@@ -3852,7 +3885,7 @@ class PlayState extends MusicBeatState
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 				moveCameraSection();
 
-			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms)
+			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms && (curBeat % camZoomingFrequency) == 0)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;

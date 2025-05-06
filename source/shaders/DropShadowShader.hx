@@ -36,7 +36,7 @@ class DropShadowShader extends FlxShader
       uniform float brightness;
       uniform float contrast;
 
-      uniform float AA_STAGES;
+      uniform float aa_stages;
 
       const vec3 grayscaleValues = vec3(0.3098039215686275, 0.607843137254902, 0.0823529411764706);
 		  const float e = 2.718281828459045;
@@ -115,11 +115,11 @@ class DropShadowShader extends FlxShader
       float antialias(vec2 fragCoord, float curThreshold, bool useMask) {
 
         // In GLSL 100, we need to use constant loop bounds
-        // Well assume a reasonable maximum for AA_STAGES and use a fixed loop
+        // Well assume a reasonable maximum for aa_stages and use a fixed loop
         // The actual number of iterations will be controlled by a condition inside
         const int MAX_AA = 8; // This should be large enough for most uses
 
-        float AA_TOTAL_PASSES = AA_STAGES * AA_STAGES + 1.0;
+        float AA_TOTAL_PASSES = aa_stages * aa_stages + 1.0;
         const float AA_JITTER = 0.5;
 
         // Run the shader multiple times with a random subpixel offset each time and average the results
@@ -129,8 +129,8 @@ class DropShadowShader extends FlxShader
           int x = i / MAX_AA;
           int y = i - (MAX_AA * int(i/MAX_AA)); // poor mans modulus
 
-          // Skip iterations beyond our desired AA_STAGES
-          if (float(x) >= AA_STAGES || float(y) >= AA_STAGES) {
+          // Skip iterations beyond our desired aa_stages
+          if (float(x) >= aa_stages || float(y) >= aa_stages) {
             continue;
           }
 

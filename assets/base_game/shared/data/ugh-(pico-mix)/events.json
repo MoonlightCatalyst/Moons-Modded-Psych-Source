@@ -117,7 +117,7 @@
 		[
 			37500,
 			[
-				["Play Animation", "dad", "ugh"]
+				["Play Animation", "ugh", "dad"]
 			]
 		],
 		[
@@ -171,13 +171,13 @@
 		[
 			49500,
 			[
-				["Play Animation", "dad", "augh"]
+				["Play Animation", "augh", "ad"]
 			]
 		],
 		[
 			50203,
 			[
-				["Play Animation", "dad", "beat it"]
+				["Play Animation", "beat it", "dad"]
 			]
 		],
 		[
