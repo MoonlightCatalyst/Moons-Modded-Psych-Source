@@ -3933,7 +3933,7 @@
 		"player3": null,
 		"song": "Ugh Erect",
 		"needsVoices": true,
-		"stage": "tank",
+		"stage": "tankErect",
 		"bpm": 170,
 		"speed": 2.8
 	}

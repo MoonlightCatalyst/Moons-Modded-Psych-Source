@@ -9,7 +9,7 @@
 		[
 			6000,
 			[
-				["PlayAnimation", "bf", "true"]
+				["Play Animation", "cheer", "boyfriend"]
 			]
 		],
 		[
@@ -21,7 +21,7 @@
 		[
 			15600,
 			[
-				["PlayAnimation", "cheer", "true"]
+				["Play Animation", "cheer", "boyfriend"]
 			]
 		],
 		[
@@ -33,7 +33,7 @@
 		[
 			18800,
 			[
-				["PlayAnimation", "boyfriend", "cheer"]
+				["Play Animation", "cheer", "boyfriend"]
 			]
 		],
 		[
@@ -81,7 +81,7 @@
 		[
 			41200,
 			[
-				["PlayAnimation", "cheer", "true"]
+				["Play Animation", "cheer", "boyfriend"]
 			]
 		],
 		[
@@ -93,7 +93,7 @@
 		[
 			44400,
 			[
-				["PlayAnimation", "true", "cheer"]
+				["Play Animation", "cheer", "boyfriend"]
 			]
 		],
 		[

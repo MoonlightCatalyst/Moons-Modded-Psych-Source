@@ -1,8 +1,8 @@
 {
 	"song": {
-		"player1": "bf",
+		"player1": "bf-dark",
 		"events": [],
-		"gfVersion": "gf",
+		"gfVersion": "gf-dark",
 		"notes": [
 			{
 				"lengthInSteps": 16,
@@ -4380,11 +4380,11 @@
 				"mustHitSection": true
 			}
 		],
-		"player2": "spooky",
+		"player2": "spooky-dark",
 		"player3": null,
 		"song": "South Erect",
 		"needsVoices": true,
-		"stage": "spooky",
+		"stage": "spookyMansion",
 		"bpm": 177,
 		"speed": 2.7
 	}

@@ -76,7 +76,7 @@ class Backstage extends BaseStage
         insert(5, audience);
         insert(20, stageFront);
         insert(30, server);
-        insert(4000, light);
+        insert(4999, light);
         insert(80, orangeLight);
         insert(40, lightgreen);
         insert(40, lightred);

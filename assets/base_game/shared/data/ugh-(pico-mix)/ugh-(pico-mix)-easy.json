@@ -1,14 +1,9 @@
 {
-	"generatedBy": "Psych Engine v1.0.4 - Chart Editor V-Slice Importer",
-	"charter": "Fabs + Spazkid",
-	"artist": "tsuyunoshi (ft. Saruky)",
-	"speed": 2.2,
-	"stage": "tankmanBattlefieldErect",
 	"player1": "pico-playable",
-	"player2": "tankman",
-	"events": [],
+	"gfVersion": "nene",
 	"notes": [
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[0, 4, 0],
 				[187.5, 4, 0],
@@ -20,21 +15,21 @@
 				[1125, 7, 0],
 				[1406.25, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[1500, 2, 0],
 				[1687.5, 0, 0],
 				[2062.5, 2, 0],
 				[2250, 2, 0],
-				[2625, 0, 117.1875]
+				[2625, 0, 140.625]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[3000, 4, 0],
 				[3187.5, 4, 0],
@@ -43,12 +38,12 @@
 				[3750, 6, 0],
 				[3937.5, 4, 0],
 				[4125, 7, 0],
-				[4312.5, 1, 117.1875]
+				[4312.5, 1, 140.625]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[4500, 3, 0],
 				[4500, 4, 0],
@@ -58,10 +53,10 @@
 				[5250, 7, 328.125],
 				[5625, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[6000, 3, 0],
 				[6000.5, 4, 0],
@@ -75,10 +70,10 @@
 				[7125, 0, 281.25],
 				[7125, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[7500, 3, 0],
 				[7500, 5, 0],
@@ -92,10 +87,10 @@
 				[8812.5, 3, 0],
 				[8812.5, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[9000, 0, 0],
 				[9000, 7, 0],
@@ -111,20 +106,20 @@
 				[10312.5, 0, 0],
 				[10406.25, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[10875, 2, 0],
 				[11062.5, 2, 0],
 				[11250, 0, 187.5],
 				[11625, 2, 328.125]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[12000, 7, 0],
 				[12187.5, 5, 0],
@@ -133,10 +128,10 @@
 				[12750, 7, 0],
 				[13125, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[13500, 6, 0],
 				[13687.5, 5, 0],
@@ -146,13 +141,13 @@
 				[14062.5, 6, 0],
 				[14249.5, 7, 0],
 				[14250, 1, 140.625],
-				[14625, 3, 203.124999999999],
+				[14625, 3, 187.5],
 				[14625, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[15000, 1, 187.5],
 				[15000, 4, 0],
@@ -163,10 +158,10 @@
 				[16125, 4, 0],
 				[16312.5, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[16500, 7, 0],
 				[16687.5, 6, 0],
@@ -184,10 +179,10 @@
 				[17812.5, 1, 0],
 				[17812.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[18000, 3, 0],
 				[18000, 7, 0],
@@ -199,10 +194,10 @@
 				[19125, 5, 234.375],
 				[19312.5, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[19500, 3, 0],
 				[19687.5, 7, 0],
@@ -213,10 +208,10 @@
 				[20625, 0, 0],
 				[20812.5, 1, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[21000, 3, 0],
 				[21000, 4, 0],
@@ -231,10 +226,10 @@
 				[22125, 1, 0],
 				[22312.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[22500, 6, 0],
 				[22500, 0, 0],
@@ -249,10 +244,10 @@
 				[23625, 2, 0],
 				[23812.5, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[24000, 4, 0],
 				[24187.5, 7, 0],
@@ -267,10 +262,10 @@
 				[25312.5, 0, 0],
 				[25312.5, 7, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[25500, 4, 0],
 				[25687.5, 7, 0],
@@ -285,10 +280,10 @@
 				[26812.5, 6, 0],
 				[26812.5, 2, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[27000, 5, 281.25],
 				[27375, 7, 281.25],
@@ -299,25 +294,25 @@
 				[28125, 5, 328.125],
 				[28312.5, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[28500, 7, 328.125],
 				[28687.5, 0, 0],
 				[28875, 0, 0],
 				[28875, 5, 328.125],
 				[29062.5, 1, 0],
-				[29250, 0, 210.9375],
+				[29250, 0, 234.375],
 				[29250, 4, 328.125],
 				[29625, 3, 281.25],
 				[29625, 6, 328.125]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[30000, 5, 0],
 				[30187.5, 7, 0],
@@ -332,10 +327,10 @@
 				[31125, 4, 0],
 				[31313, 7, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[31500, 0, 234.375],
 				[31500, 4, 0],
@@ -350,10 +345,10 @@
 				[32625, 4, 0],
 				[32812.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[33000, 4, 0],
 				[33187.5, 5, 0],
@@ -367,10 +362,10 @@
 				[34125, 2, 140.625],
 				[34125, 5, 328.125]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[34500, 0, 140.625],
 				[34500, 4, 328.125],
@@ -384,10 +379,10 @@
 				[35625, 6, 328.125],
 				[35812.5, 3, 93.75]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[36000, 4, 0],
 				[36187.5, 4, 0],
@@ -400,10 +395,10 @@
 				[37312.5, 6, 0],
 				[37406.25, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[37687.5, 2, 0],
 				[37875, 2, 0],
@@ -412,10 +407,10 @@
 				[38625, 0, 281.25],
 				[38812.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[39000, 3, 0],
 				[39000, 5, 0],
@@ -430,10 +425,10 @@
 				[40125, 5, 328.125],
 				[40125, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[40500, 0, 0],
 				[40500, 4, 0],
@@ -446,10 +441,10 @@
 				[41625, 0, 140.625],
 				[41625, 7, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[42000, 3, 93.75],
 				[42000, 4, 0],
@@ -459,10 +454,10 @@
 				[42937.5, 1, 0],
 				[43125, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[43500, 3, 0],
 				[43875, 1, 0],
@@ -471,10 +466,10 @@
 				[44625, 3, 281.25],
 				[44812.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[45000, 4, 0],
 				[45000, 0, 0],
@@ -492,10 +487,10 @@
 				[46312.5, 3, 140.625],
 				[46312.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[46687.5, 3, 0],
 				[46687.5, 5, 0],
@@ -509,10 +504,10 @@
 				[47437.5, 7, 140.625],
 				[47625, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[48000, 4, 0],
 				[48093.75, 7, 0],
@@ -527,10 +522,10 @@
 				[48937.5, 2, 140.625],
 				[48937.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[49875, 5, 0],
 				[50062.5, 7, 0],
@@ -540,10 +535,10 @@
 				[50812.5, 0, 0],
 				[50812.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[51000, 7, 0],
 				[51187.5, 5, 0],
@@ -561,10 +556,10 @@
 				[52312.5, 1, 0],
 				[52312.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[52500, 5, 0],
 				[52687.5, 7, 0],
@@ -577,10 +572,10 @@
 				[53625, 4, 0],
 				[53812.5, 7, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[54000, 1, 0],
 				[54000, 4, 328.125],
@@ -593,10 +588,10 @@
 				[55125, 2, 187.5],
 				[55125, 7, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[55500, 2, 0],
 				[55500, 4, 0],
@@ -612,10 +607,10 @@
 				[56812.5, 4, 0],
 				[56906.25, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[57000, 0, 0],
 				[57000, 7, 140.625],
@@ -626,10 +621,10 @@
 				[57937.5, 1, 0],
 				[58125, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[58500, 0, 187.5],
 				[58875, 2, 187.5],
@@ -637,10 +632,10 @@
 				[59625, 1, 0],
 				[59812.5, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[60000, 7, 0],
 				[60187.5, 2, 93.75],
@@ -656,10 +651,10 @@
 				[61125, 7, 0],
 				[61312.5, 5, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[61500, 1, 0],
 				[61500, 6, 0],
@@ -673,10 +668,10 @@
 				[62624.5, 7, 0],
 				[62812.5, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[63000, 4, 0],
 				[63187.5, 2, 0],
@@ -693,10 +688,10 @@
 				[64125, 4, 0],
 				[64312.5, 6, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[64500, 1, 0],
 				[64500, 7, 0],
@@ -713,24 +708,24 @@
 				[65625, 6, 0],
 				[65812.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[66000, 2, 0],
 				[66000, 7, 234.375],
-				[66375, 1, 203.124999999996],
+				[66375, 1, 187.5],
 				[66750, 6, 140.625],
 				[66750, 3, 0],
 				[67125, 0, 0],
 				[67125, 6, 140.625],
 				[67312.5, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[67500, 2, 0],
 				[67500, 4, 140.625],
@@ -743,10 +738,10 @@
 				[68625, 2, 0],
 				[68625, 4, 140.625]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[69000, 2, 0],
 				[69375, 3, 0],
@@ -757,10 +752,10 @@
 				[70125, 7, 140.625],
 				[70312.5, 0, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[70500, 1, 140.625],
 				[70500, 4, 140.625],
@@ -773,16 +768,16 @@
 				[71625, 7, 0],
 				[71812.5, 2, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": true
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[72000, 1, 0],
 				[72000, 4, 0],
 				[72187.5, 1, 0],
 				[72187.5, 4, 0],
-				[72375, 2, 164.0625],
+				[72375, 2, 187.5],
 				[72375, 6, 0],
 				[72562.5, 4, 0],
 				[72750, 1, 0],
@@ -792,10 +787,10 @@
 				[73125, 6, 0],
 				[73312.5, 4, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[73500, 0, 0],
 				[73500, 7, 0],
@@ -811,10 +806,10 @@
 				[74625, 4, 281.25],
 				[74812.5, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[75000, 0, 0],
 				[75000, 7, 0],
@@ -828,10 +823,10 @@
 				[76125, 3, 0],
 				[76125, 4, 328.125]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[76500, 1, 140.625],
 				[76500, 7, 0],
@@ -843,26 +838,26 @@
 				[77250, 4, 328.125],
 				[77625, 2, 281.25]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[78000, 3, 375],
 				[78562.5, 2, 281.25]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[79500, 0, 328.125],
 				[80062.5, 1, 375]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[81000, 2, 281.25],
 				[81562.5, 0, 281.25],
@@ -870,10 +865,10 @@
 				[82125, 0, 0],
 				[82312.5, 3, 0]
 			],
-			"sectionBeats": 4,
 			"mustHitSection": false
 		},
 		{
+			"sectionBeats": 4,
 			"sectionNotes": [
 				[82500, 0, 0],
 				[82687.5, 0, 0],
@@ -881,16 +876,39 @@
 				[83250, 1, 0],
 				[83625, 3, 0],
 				[83812.5, 3, 0],
-				[84000, 0, 281.25]
+				[83999.999999, 0, 281.25]
 			],
+			"mustHitSection": false
+		},
+		{
+			"gfSection": false,
+			"altAnim": false,
+			"sectionNotes": [],
+			"bpm": 160,
 			"sectionBeats": 4,
+			"changeBPM": false,
+			"mustHitSection": false
+		},
+		{
+			"gfSection": false,
+			"altAnim": false,
+			"sectionNotes": [],
+			"bpm": 160,
+			"sectionBeats": 4,
+			"changeBPM": false,
 			"mustHitSection": false
 		}
 	],
-	"gfVersion": "nene",
-	"format": "psych_v1_convert",
-	"bpm": 160,
-	"needsVoices": true,
+	"events": [],
+	"player2": "tankman",
+	"offset": 0,
+	"charter": "Fabs + Spazkid",
 	"song": "Ugh (Pico Mix)",
-	"offset": 0
+	"needsVoices": true,
+	"generatedBy": "Psych Engine v1.0.4 - Chart Editor V-Slice Importer",
+	"stage": "tankErect",
+	"bpm": 160,
+	"format": "psych_v1_convert",
+	"speed": 2.2,
+	"artist": "tsuyunoshi (ft. Saruky)"
 }

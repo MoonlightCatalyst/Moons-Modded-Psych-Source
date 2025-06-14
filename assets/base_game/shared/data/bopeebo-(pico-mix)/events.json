@@ -3,19 +3,19 @@
 		[
 			4200,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
 			9000,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
 			18600,
 			[
-				["PlayAnimation", "true", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -27,7 +27,7 @@
 		[
 			28200,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -51,7 +51,7 @@
 		[
 			37800,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -75,7 +75,7 @@
 		[
 			42600,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -93,13 +93,13 @@
 		[
 			47400,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
 			57000,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -141,7 +141,7 @@
 		[
 			66600,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[
@@ -183,7 +183,7 @@
 		[
 			76200,
 			[
-				["PlayAnimation", "bf", "hey"]
+				["Play Animation", "hey", "bf"]
 			]
 		],
 		[

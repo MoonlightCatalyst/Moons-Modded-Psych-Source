@@ -3,7 +3,7 @@
 	"charter": "Fabs + Spazkid",
 	"artist": "ThatAndyGuy (feat. Saruky)",
 	"speed": 1.5,
-	"stage": "mainStageErect",
+	"stage": "backstage",
 	"player1": "pico-playable",
 	"player2": "dad",
 	"events": [],

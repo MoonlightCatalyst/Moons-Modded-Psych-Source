@@ -3524,7 +3524,8 @@ class PlayState extends MusicBeatState
 		//strumPlayAnim(true, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 		if(!ClientPrefs.data.oldHold) {
 			if (note.isSustainNote) {
-				dad.holdTimer = 0;
+				var char = note.gfNote ? gf : dad;
+				char.holdTimer = 0;
 				var spr = opponentStrums.members[note.noteData];
 				if(note.animation.curAnim.name.endsWith('end')) {
 					spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;
@@ -3623,7 +3624,8 @@ class PlayState extends MusicBeatState
 					if (spr != null && spr.animation.name != 'confirm') spr.playAnim('confirm', true);
 				} else {
 					if (note.isSustainNote) {
-						boyfriend.holdTimer = 0;
+						var char = note.gfNote ? gf : boyfriend;
+						char.holdTimer = 0;
 						var spr = playerStrums.members[note.noteData];
 						if(note.animation.curAnim.name.endsWith('end')) {
 							spr.resetAnim = note.height / .45 / songSpeed / note.multSpeed / playbackRate * .001;

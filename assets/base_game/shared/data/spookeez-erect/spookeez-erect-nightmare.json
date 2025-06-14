@@ -1,7 +1,7 @@
 {
 	"song": {
-		"player1": "bf",
-		"player2": "spooky",
+		"player1": "bf-dark",
+		"player2": "spooky-dark",
 		"notes": [
 			{
 				"sectionNotes": [
@@ -6836,11 +6836,11 @@
 				"bpm": 166
 			}
 		],
-		"gfVersion": "gf",
+		"gfVersion": "gf-dark",
 		"events": [],
 		"player3": null,
 		"song": "Spookeez Erect",
-		"stage": "spooky",
+		"stage": "spookyMansion",
 		"needsVoices": true,
 		"speed": 2.7,
 		"bpm": 166

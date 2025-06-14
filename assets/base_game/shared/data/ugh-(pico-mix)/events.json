@@ -13,15 +13,27 @@
 			]
 		],
 		[
+			1467.1875,
+			[
+				["Change Character", "dad", "tankman-anims"]
+			]
+		],
+		[
 			1500,
 			[
 				["Play Animation", "augh", "dad"]
 			]
 		],
 		[
+			2250,
+			[
+				["Change Character", "dad", "tankman"]
+			]
+		],
+		[
 			5625,
 			[
-				["Play Animation", "ugh", "dad"]
+				["Play Animation", "singUP-alt", "dad"]
 			]
 		],
 		[
@@ -43,6 +55,12 @@
 			]
 		],
 		[
+			10450.78125,
+			[
+				["Change Character", "dad", "tankman-anims"]
+			]
+		],
+		[
 			10500,
 			[
 				["Play Animation", "laugh", "dad"]
@@ -52,6 +70,12 @@
 			10546,
 			[
 				["ZoomCamera", "expoOut", "32"]
+			]
+		],
+		[
+			11250,
+			[
+				["Change Character", "dad", "tankman"]
 			]
 		],
 		[
@@ -117,7 +141,7 @@
 		[
 			37500,
 			[
-				["Play Animation", "ugh", "dad"]
+				["Play Animation", "singUP-alt", "dad"]
 			]
 		],
 		[
@@ -165,13 +189,26 @@
 		[
 			49453,
 			[
-				["ZoomCamera", "expoOut", "32"]
+				["ZoomCamera", "expoOut", "32"],
+				["Change Character", "dad", "tankman-anims"]
 			]
 		],
 		[
 			49500,
 			[
 				["Play Animation", "augh", "ad"]
+			]
+		],
+		[
+			49875,
+			[
+				["Change Character", "dad", "tankman"]
+			]
+		],
+		[
+			50186.71875,
+			[
+				["Change Character", "dad", "tankman-anims"]
 			]
 		],
 		[
@@ -184,6 +221,12 @@
 			50250,
 			[
 				["ZoomCamera", "expoOut", "32"]
+			]
+		],
+		[
+			50625,
+			[
+				["Change Character", "dad", "tankman"]
 			]
 		],
 		[
@@ -303,7 +346,7 @@
 		[
 			77625,
 			[
-				["Play Animation", "ugh", "dad"]
+				["Play Animation", "singUP-alt", "dad"]
 			]
 		],
 		[
@@ -337,5 +380,5 @@
 			]
 		]
 	],
-	"format": "psych_v1_convert"
+	"format": "psych_v1"
 }

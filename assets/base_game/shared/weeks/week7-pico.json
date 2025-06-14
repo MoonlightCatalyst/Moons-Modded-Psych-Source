@@ -1,6 +1,6 @@
 {
 	"storyName": "Tankman",
-	"hideFreeplay": false,
+	"hideFreeplay": true,
 	"weekBackground": "tank",
 	"weekBefore": "week6",
 	"freeplayColor": [

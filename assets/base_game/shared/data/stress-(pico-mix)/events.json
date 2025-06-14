@@ -253,6 +253,12 @@
 			]
 		],
 		[
+			64213.4831460674,
+			[
+				["Focus Camera", "dad", "true"]
+			]
+		],
+		[
 			64500,
 			[
 				["SetHealthIcon", "1", "tankman-bloody"]
@@ -262,6 +268,12 @@
 			64634.7191011236,
 			[
 				["SetCameraBop", "1", "0.8"]
+			]
+		],
+		[
+			64719.1011235955,
+			[
+				["Focus Camera", "dad", "false"]
 			]
 		],
 		[
@@ -553,5 +565,5 @@
 			]
 		]
 	],
-	"format": "psych_v1_convert"
+	"format": "psych_v1"
 }

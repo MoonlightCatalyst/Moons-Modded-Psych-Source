@@ -15,7 +15,7 @@
 		[
 			9689.875,
 			[
-				["Play Animation", "burpSmileLong", "bf"]
+				["Play Animation", "burpSmile", "bf"]
 			]
 		],
 		[
@@ -403,5 +403,5 @@
 			]
 		]
 	],
-	"format": "psych_v1_convert"
+	"format": "psych_v1"
 }

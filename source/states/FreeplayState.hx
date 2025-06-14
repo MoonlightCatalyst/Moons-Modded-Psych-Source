@@ -65,6 +65,8 @@ class FreeplayState extends MusicBeatState
 	var bf:FlxAnimate;
 	var startTimer:FlxTimer;
 
+	var allowInputs:Bool = true;
+
 	override function create()
 	{
 		//Paths.clearStoredMemory();
@@ -296,6 +298,12 @@ class FreeplayState extends MusicBeatState
 
 		if (bf.anim.finished && bf.anim.curSymbol.name == 'boyfriend dj intro') {
 			bf.anim.play('idle');
+		}
+
+		if (FlxG.keys.pressed.TAB && allowInputs) {
+			allowInputs = false;
+            MusicBeatState.switchState(new CharacterSelectState());
+            FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
 		if (!player.playingMusic)
