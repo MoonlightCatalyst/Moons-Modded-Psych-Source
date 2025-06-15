@@ -762,40 +762,7 @@ class PlayState extends MusicBeatState
 
 		//non base psych stuff
 		if(ClientPrefs.data.ldm) {
-			var newCam = new FlxCamera();
-	    	newCam.bgColor = 0x00000000;
-
-        	FlxG.cameras.add(newCam,false); 
-			FlxG.cameras.remove(camGame,false);
-			FlxG.cameras.remove(camHUD,false);
-			FlxG.cameras.remove(camOther,false);
-
-			//healthBar.cameras = [newCam];
-			//healthBar.bg.cameras = [newCam];
-			timeTxt.cameras = [newCam];
-			scoreTxt.cameras = [newCam];
-
-			iconP1.visible = false;
-			iconP2.visible = false;
-			timeBar.visible = false;
-			timeBar.bg.visible = false;
-			grpNoteSplashes.visible = false;
 			camGame.visible = false;
-			camHUD.visible = false;
-
-        	for (i in 0...8) strumLineNotes.members[i].cameras = [newCam];
-        	grpNoteSplashes.cameras = [newCam];
-        	for (note in unspawnNotes) 
-        	{
-        	    note.cameras = [newCam];
-        	    if (note.isSustainNote) note.cameras = [newCam];
-        	};
-			for (strumsz in opponentStrums) {
-				strumsz.x -= 90000; //just generally offscreen
-			}
-			for (strums in playerStrums) {
-				strums.x -= 315;
-			}
 		}
 		if(isPixelStage) {
 			camGame.pixelPerfectRender = true;
@@ -1353,7 +1320,7 @@ class PlayState extends MusicBeatState
 			return;
 
 		updateScoreText();
-		if (!miss && !cpuControlled && scoreBop)
+		if (!miss && !cpuControlled && !ClientPrefs.data.ldm && scoreBop)
 			doScoreBop();
 
 		callOnScripts('onUpdateScore', [miss]);
@@ -2135,13 +2102,6 @@ class PlayState extends MusicBeatState
 				updateAnims(false, gf);
 			}
 		}
-
-		if(ClientPrefs.data.ldm) {
-			camHUD.zoom = 1;
-			camHUD.angle = 1;
-			scoreTxt.scale.x = 1;
-			scoreTxt.scale.y = 1;
-		}
 		if (jackass) {
 			for (note in notes.members) {
 				if (! cpuControlled) {
@@ -2406,7 +2366,7 @@ class PlayState extends MusicBeatState
 				gfSpeed = Math.round(flValue1);
 
 			case 'Add Camera Zoom':
-				if(ClientPrefs.data.camZooms && FlxG.camera.zoom < 1.35) {
+				if(ClientPrefs.data.camZooms && !ClientPrefs.data.ldm && FlxG.camera.zoom < 1.35) {
 					if(flValue1 == null) flValue1 = 0.015;
 					if(flValue2 == null) flValue2 = 0.03;
 
@@ -2684,11 +2644,13 @@ class PlayState extends MusicBeatState
 					cameraTwn = null;
 				}});
 				*/
-			case 'Set Camera Bop' | 'SetCameraBop': //P-slice event notes
-				var val1 = Std.parseFloat(value1);
-				var val2 = Std.parseFloat(value2);
-				camZoomingMult = !Math.isNaN(val2) ? val2 : 1;
-				camZoomingFrequency = !Math.isNaN(val1) ? val1 : 4;
+			case 'Set Camera Bop' | 'SetCameraBop':
+				if (!ClientPrefs.data.ldm) {
+					var val1 = Std.parseFloat(value1);
+					var val2 = Std.parseFloat(value2);
+					camZoomingMult = !Math.isNaN(val2) ? val2 : 1;
+					camZoomingFrequency = !Math.isNaN(val1) ? val1 : 4;
+				}
 			case 'Change Icon' | 'SetHealthIcon':
 				var selChar:HealthIcon;
 				switch(value1.toLowerCase().trim()) {
@@ -2986,7 +2948,7 @@ class PlayState extends MusicBeatState
 		note.rating = daRating.name;
 		score = daRating.score;
 
-		if(daRating.noteSplash && !note.noteSplashData.disabled)
+		if(daRating.noteSplash && !note.noteSplashData.disabled && !ClientPrefs.data.ldm)
 			spawnNoteSplashOnNote(note);
 
 		if(!cpuControlled && !jackass) {
@@ -3414,71 +3376,73 @@ class PlayState extends MusicBeatState
 
 		fcIcon.kill();
 
-		if(lastCombo > 5) {
-			var broke:FlxSprite = new FlxSprite().loadGraphic(Paths.image(PlayState.isPixelStage ? 'pixelUI/comboBroke-pixel' : 'comboBroke'));
-			broke.screenCenter();
-			broke.x = FlxG.width * 0.35 - 40;
-			broke.y -= 60;
-			broke.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-			broke.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-			broke.visible = (!ClientPrefs.data.hideHud && showCombo);
-			broke.x += ClientPrefs.data.comboOffset[0] - 50;
-			broke.y -= ClientPrefs.data.comboOffset[1];
-			broke.antialiasing = false;
-			//broke.y += 60;
-			broke.velocity.x += FlxG.random.int(1, 10) * playbackRate;
-			comboGroup.add(broke);
-			FlxTween.tween(broke, {alpha: 0}, 0.2 / playbackRate, {
-				onComplete: tween -> broke.destroy(),
-				startDelay: Conductor.crochet * 0.002 / playbackRate
-			});
-			if (ClientPrefs.data.ratingType == 'Invisible') {
-				broke.visible = false;
+		if (!ClientPrefs.data.ldm) {
+			if(lastCombo > 5) {
+				var broke:FlxSprite = new FlxSprite().loadGraphic(Paths.image(PlayState.isPixelStage ? 'pixelUI/comboBroke-pixel' : 'comboBroke'));
+				broke.screenCenter();
+				broke.x = FlxG.width * 0.35 - 40;
+				broke.y -= 60;
+				broke.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
+				broke.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+				broke.visible = (!ClientPrefs.data.hideHud && showCombo);
+				broke.x += ClientPrefs.data.comboOffset[0] - 50;
+				broke.y -= ClientPrefs.data.comboOffset[1];
+				broke.antialiasing = false;
+				//broke.y += 60;
+				broke.velocity.x += FlxG.random.int(1, 10) * playbackRate;
+				comboGroup.add(broke);
+				FlxTween.tween(broke, {alpha: 0}, 0.2 / playbackRate, {
+					onComplete: tween -> broke.destroy(),
+					startDelay: Conductor.crochet * 0.002 / playbackRate
+				});
+				if (ClientPrefs.data.ratingType == 'Invisible') {
+					broke.visible = false;
+				}
+				else {
+					broke.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
+				}
+				if (!PlayState.isPixelStage)
+				{
+					broke.setGraphicSize(Std.int(broke.width * 0.7));
+				}
+				else
+				{
+					broke.setGraphicSize(Std.int(broke.width * daPixelZoom * 0.75));
+				}
 			}
 			else {
-				broke.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
-			}
-			if (!PlayState.isPixelStage)
-			{
-				broke.setGraphicSize(Std.int(broke.width * 0.7));
-			}
-			else
-			{
-				broke.setGraphicSize(Std.int(broke.width * daPixelZoom * 0.75));
-			}
-		}
-		else {
-		
-			var missSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(PlayState.isPixelStage ? 'pixelUI/miss-pixel' : 'miss'));
-			missSpr.screenCenter();
-			missSpr.x = FlxG.width * 0.35 - 40;
-			missSpr.y -= 60;
-			missSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
-			missSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-			missSpr.visible = (!ClientPrefs.data.hideHud && showCombo);
-			missSpr.x += ClientPrefs.data.comboOffset[0] - 50;
-			missSpr.y -= ClientPrefs.data.comboOffset[1];
-			missSpr.antialiasing = false;
-			//missSpr.y += 60;
-			missSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
-			comboGroup.add(missSpr);
-			FlxTween.tween(missSpr, {alpha: 0}, 0.2 / playbackRate, {
-				onComplete: tween -> missSpr.destroy(),
-				startDelay: Conductor.crochet * 0.002 / playbackRate
-			});
-			if (ClientPrefs.data.ratingType == 'Invisible') {
-				missSpr.visible = false;
-			}
-			else {
-				missSpr.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
-			}
-			if (!PlayState.isPixelStage)
-			{
-				missSpr.setGraphicSize(Std.int(missSpr.width * 0.7));
-			}
-			else
-			{
-				missSpr.setGraphicSize(Std.int(missSpr.width * daPixelZoom * 0.1));
+			
+				var missSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(PlayState.isPixelStage ? 'pixelUI/miss-pixel' : 'miss'));
+				missSpr.screenCenter();
+				missSpr.x = FlxG.width * 0.35 - 40;
+				missSpr.y -= 60;
+				missSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
+				missSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
+				missSpr.visible = (!ClientPrefs.data.hideHud && showCombo);
+				missSpr.x += ClientPrefs.data.comboOffset[0] - 50;
+				missSpr.y -= ClientPrefs.data.comboOffset[1];
+				missSpr.antialiasing = false;
+				//missSpr.y += 60;
+				missSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
+				comboGroup.add(missSpr);
+				FlxTween.tween(missSpr, {alpha: 0}, 0.2 / playbackRate, {
+					onComplete: tween -> missSpr.destroy(),
+					startDelay: Conductor.crochet * 0.002 / playbackRate
+				});
+				if (ClientPrefs.data.ratingType == 'Invisible') {
+					missSpr.visible = false;
+				}
+				else {
+					missSpr.cameras = [LuaUtils.cameraFromString(ClientPrefs.data.ratingType)];
+				}
+				if (!PlayState.isPixelStage)
+				{
+					missSpr.setGraphicSize(Std.int(missSpr.width * 0.7));
+				}
+				else
+				{
+					missSpr.setGraphicSize(Std.int(missSpr.width * daPixelZoom * 0.1));
+				}
 			}
 		}
 	}
@@ -3538,7 +3502,7 @@ class PlayState extends MusicBeatState
 		}
 		note.hitByOpponent = true;
 		
-		if(ClientPrefs.data.holdSplashAlpha != 0 && ClientPrefs.data.holdSplashVer != 'Off') spawnHoldCoverOnNote(note);
+		if(ClientPrefs.data.holdSplashAlpha != 0 && ClientPrefs.data.holdSplashVer != 'Off' && !ClientPrefs.data.ldm) spawnHoldCoverOnNote(note);
 
 		stagesFunc(function(stage:BaseStage) stage.opponentNoteHit(note));
 		var result:Dynamic = callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
@@ -3648,13 +3612,13 @@ class PlayState extends MusicBeatState
 			{
 				combo++;
 				if(combo > 9999) combo = 9999;
-				popUpScore(note);
+			 	popUpScore(note);
 			}
 			var gainHealth:Bool = true; // prevent health gain, *if* sustains are treated as a singular note
 			if (guitarHeroSustains && note.isSustainNote) gainHealth = false;
 			if (gainHealth) health += note.hitHealth * healthGain;
 
-			if(ClientPrefs.data.holdSplashAlpha != 0 && ClientPrefs.data.holdSplashVer != 'Off') spawnHoldCoverOnNote(note);
+			if(ClientPrefs.data.holdSplashAlpha != 0 && ClientPrefs.data.holdSplashVer != 'Off' && !ClientPrefs.data.ldm) spawnHoldCoverOnNote(note);
 
 		}
 		else //Notes that count as a miss if you hit them (Hurt notes for example)
@@ -3673,7 +3637,7 @@ class PlayState extends MusicBeatState
 			}
 
 			noteMiss(note);
-			if(!note.noteSplashData.disabled && !note.isSustainNote) spawnNoteSplashOnNote(note);
+			if(!note.noteSplashData.disabled && !note.isSustainNote && !ClientPrefs.data.ldm) spawnNoteSplashOnNote(note);
 		}
 
 		stagesFunc(function(stage:BaseStage) stage.goodNoteHit(note));
@@ -3887,7 +3851,7 @@ class PlayState extends MusicBeatState
 			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
 				moveCameraSection();
 
-			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms && (curBeat % camZoomingFrequency) == 0)
+			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms && !ClientPrefs.data.ldm && (curBeat % camZoomingFrequency) == 0)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
 				camHUD.zoom += 0.03 * camZoomingMult;
