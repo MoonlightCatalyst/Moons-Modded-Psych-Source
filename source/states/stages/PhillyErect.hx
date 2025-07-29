@@ -127,7 +127,7 @@ class PhillyErect extends BaseStage
 						if(phillyGlowGradient.visible)
 						{
 							doFlash();
-							if(ClientPrefs.data.camZooms)
+							if(ClientPrefs.data.camZooms && !ClientPrefs.data.ldm)
 							{
 								FlxG.camera.zoom += 0.5;
 								camHUD.zoom += 0.1;
@@ -153,7 +153,7 @@ class PhillyErect extends BaseStage
 						if(!phillyGlowGradient.visible)
 						{
 							doFlash();
-							if(ClientPrefs.data.camZooms)
+							if(ClientPrefs.data.camZooms && !ClientPrefs.data.ldm)
 							{
 								FlxG.camera.zoom += 0.5;
 								camHUD.zoom += 0.1;
@@ -221,7 +221,7 @@ class PhillyErect extends BaseStage
 
 	override function createPost() {
         super.createPost();
-        if(!ClientPrefs.data.lowQuality) {
+        if(ClientPrefs.data.shaders && !ClientPrefs.data.lowQuality) {
             game.boyfriend.shader = colorShader;
             game.dad.shader = colorShader;
             game.gf.shader = colorShader;

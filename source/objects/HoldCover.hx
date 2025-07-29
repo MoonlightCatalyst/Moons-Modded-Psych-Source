@@ -27,7 +27,7 @@ class HoldCover extends FlxSprite {
 
   override function new():Void {
     super();
-    frames = Paths.getSparrowAtlas('holdCover');
+    frames = Paths.getSparrowAtlas('noteCovers/' + (ClientPrefs.data.splashSkin == 'Visualizer' ? 'visCover' : 'holdCover'));
     animation = new backend.animation.PsychAnimationController(this);
     animation.addByPrefix('start', 'start', 24, false);
     animation.addByPrefix('hold', 'hold');
@@ -58,13 +58,20 @@ class HoldCover extends FlxSprite {
       parentEnd.visible = false;
       if (!parentEnd.mustPress || ClientPrefs.data.holdSplashVer == 'Hold Only') return kill();
       animation.play('end', true, false, 2);
+      if (ClientPrefs.data.splashSkin == 'Visualizer') {
+        offset.set(65, 3);
+      }
       if(ClientPrefs.data.holdSplashVer == 'Full and Sound') FlxG.sound.play(Paths.sound('hitsoundTail'), 1);
       copyAlpha = false;
       alpha = ClientPrefs.data.holdSplashAlpha * parentStrum.alpha;
     });
 
     animation.play('start');
-    offset.set(106.25, 110);
+    if (ClientPrefs.data.splashSkin == 'Visualizer') {
+      offset.set(40, -10);
+    } else {
+      offset.set(106.25, 110);
+    }
     scale.set(0.8, 0.8);
 
     animation.finishCallback = (n:String) -> {

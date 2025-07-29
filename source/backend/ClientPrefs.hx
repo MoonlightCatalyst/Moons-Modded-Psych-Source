@@ -85,7 +85,6 @@ import states.TitleState;
 	public var holdSplashAlpha:Float = 0.6;
 
 	public var ratingType:String = 'camHUD';
-	//public var iconBops:String = 'Psych';
 	public var menuSong:String = 'Default';
 	public var ratingTex:String = 'Default';
 	public var selectedTransition:String = 'Default';
@@ -101,12 +100,6 @@ import states.TitleState;
 	public var ldm:Bool = false;
 	public var missSounds:Bool = false;
 	public var badSounds:Bool = false;
-
-	//public var songIntroScript:Bool = false;
-	//public var uilook:String = 'Psych';
-	//public var menuButtons:String = 'Middle'; 
-	//public var watermark:Bool = false;
-	//public var randomMenuThings:Bool = false;
 }
 
 class ClientPrefs {

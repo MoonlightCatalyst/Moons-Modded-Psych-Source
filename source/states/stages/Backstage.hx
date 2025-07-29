@@ -85,7 +85,7 @@ class Backstage extends BaseStage
 
     override function createPost() {
         super.createPost();
-        if(!ClientPrefs.data.lowQuality) {
+        if(ClientPrefs.data.shaders && !ClientPrefs.data.lowQuality) {
             game.boyfriend.shader = colorShaderBF;
             game.dad.shader = colorShaderDad;
             game.gf.shader = colorShaderGF;

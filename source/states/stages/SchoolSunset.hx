@@ -87,7 +87,7 @@ class SchoolSunset extends BaseStage
 
 	override function createPost() {
 		super.createPost();
-        if(!ClientPrefs.data.lowQuality) {
+        if(ClientPrefs.data.shaders && !ClientPrefs.data.lowQuality) {
 			var colorShader = new AdjustColorShader();
 
             game.boyfriend.shader = colorShader;

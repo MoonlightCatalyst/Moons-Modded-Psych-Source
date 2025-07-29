@@ -142,7 +142,7 @@ class LimoNight extends BaseStage
 		var limo:BGSprite = new BGSprite('limo/erect/limoDrive', -120, 550, 1, 1, ['Limo stage'], true);
 		addBehindDad(limo); //Shitty layering but whatev it works LOL
 
-		if(!ClientPrefs.data.lowQuality) {
+		if(ClientPrefs.data.shaders && !ClientPrefs.data.lowQuality) {
 			game.boyfriend.shader = colorShader;
 			game.dad.shader = colorShader;
 			game.gf.shader = colorShader;

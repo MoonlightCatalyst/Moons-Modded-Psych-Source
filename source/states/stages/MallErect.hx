@@ -49,7 +49,7 @@ class MallErect extends BaseStage
 			setEndCallback(eggnogEndCutscene);
 	}
 	override function createPost() {
-		if(!ClientPrefs.data.lowQuality) {
+		if(ClientPrefs.data.shaders && !ClientPrefs.data.lowQuality) {
 			game.boyfriend.shader = colorShader;
 			game.dad.shader = colorShader;
 			game.gf.shader = colorShader;

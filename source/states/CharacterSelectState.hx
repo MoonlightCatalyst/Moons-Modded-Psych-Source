@@ -21,6 +21,7 @@ class CharacterSelectState extends MusicBeatState
     var backingBlur:FlxSprite;
     var backing:FlxSprite;
     var choose:FlxSprite;
+    var cursor:FlxSprite;
 
     var crowd:FlxAnimate;
     var barThing:FlxAnimate;
@@ -31,6 +32,18 @@ class CharacterSelectState extends MusicBeatState
     var pico:FlxAnimate;
     var nene:FlxAnimate;
     var template:FlxAnimate;
+
+    var grpIcons:FlxSpriteGroup;
+    var matrixFilter:Array<Float> = [
+        1, 1, 1,
+        1, 1, 1,
+        1, 1, 1
+    ];
+
+    var currentX:Int = 1; //the default X position. Starts it in the Center. Change the value to 0 to start it at the far left, or 2 to start it at the far right.
+    var currentY:Int = 1; //the default Y position. Starts it in the Center. Change the value to 0 to start it at the bottom, or 2 to start it at the top.
+    var grpXSpread:Int = 107;
+    var grpYSpread:Int = 127;
 
     var imagePath:String = "charSelect/";
 
@@ -143,6 +156,12 @@ class CharacterSelectState extends MusicBeatState
         backing.scrollFactor.set();
         choose.scrollFactor.set();
 
+        cursor = new FlxSprite(0, 0).loadGraphic(Paths.image(imagePath + 'charSelector'));
+        cursor.scrollFactor.set(0, 0);
+        cursor.screenCenter();
+        add(cursor);
+        FlxTween.color(cursor, 0.2, 0xFFFFFF00, 0xFFFFCC00, {type: PINGPONG});
+
         backspace = new FlxSprite(0, 560);
         backspace.frames = Paths.getSparrowAtlas('gallery/ui/backspace');
         backspace.animation.addByPrefix('white', "backspace to exit white0", 24);
@@ -153,7 +172,39 @@ class CharacterSelectState extends MusicBeatState
 
         FlxG.sound.playMusic(Paths.music('charSelect/stayFunky'), 0);
         FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
+
+        createLocks();
+
         super.create();
+    }
+
+    function createLocks() {
+        grpIcons = new FlxSpriteGroup();
+        add(grpIcons);
+
+        for (i in 0...9) {
+            var icons = new FlxSprite(0, 0).loadGraphic('auto');
+            icons.setGraphicSize(128, 128);
+            icons.updateHitbox();
+            icons.ID = i;
+            grpIcons.add(icons);
+        }
+        updateIconPositions();
+    }
+
+    function updateIconPositions() {
+        grpIcons.x = 450;
+        grpIcons.y = 120;
+        for (index => member in grpIcons.members) {
+            var posX:Float = (index % 3);
+            var posY:Float = Math.floor(index / 3);
+
+            member.x = posX * grpXSpread;
+            member.y = posY * grpYSpread;
+
+            member.x += grpIcons.x;
+            member.y += grpIcons.y;
+        }
     }
 
     override function update(elapsed:Float):Void {
@@ -163,7 +214,35 @@ class CharacterSelectState extends MusicBeatState
             FlxG.sound.play(Paths.sound('cancelMenu'));
             backspace.animation.play('exit');
         }
+
+        if (allowInputs) {
+            if ((controls.UI_LEFT_P || controls.UI_RIGHT_P)) {
+                changeSelection('x', controls.UI_LEFT_P ? -1 : controls.UI_RIGHT_P ? 1 : 0);
+            }
+            if ((controls.UI_DOWN_P || controls.UI_UP_P)) {
+                changeSelection('y', controls.UI_DOWN_P ? -1 : controls.UI_UP_P ? 1 : 0);
+            }
+            if (currentX == -1 || currentX == 3) {
+                currentX = 1;
+            }
+            if (currentY == -1 || currentY == 3) {
+                currentY = 1;
+            }
+        }
+
         super.update(elapsed);
+    }
+
+    function changeSelection(direction:String, value:Int) {
+        if (direction == 'x' && (currentX >= 0 && currentX <= 2)) {
+            currentX += value;
+            FlxG.sound.play(Paths.sound('charSelect/CS_select'));
+        }
+        if (direction == 'y' && (currentY >= 0 && currentY <= 2)) {
+            currentY += value;
+            FlxG.sound.play(Paths.sound('charSelect/CS_select'));
+        }
+        trace('X Position: ' + currentX + ' Y Position: ' + currentY);
     }
 
     override function destroy():Void

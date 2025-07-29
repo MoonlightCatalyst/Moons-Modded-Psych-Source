@@ -163,6 +163,9 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 
 		if(ClientPrefs.data.cacheOnGPU) Paths.clearUnusedMemory();
 
+		FlxG.sound.playMusic(Paths.music('chartEditorLoop'), 0);
+        FlxTween.tween(FlxG.sound.music, {volume: 1}, 1);
+
 		super.create();
 	}
 
@@ -1050,6 +1053,7 @@ class CharacterEditorState extends MusicBeatState implements PsychUIEventHandler
 		}
 		else if(FlxG.keys.justPressed.ESCAPE)
 		{
+			FlxG.sound.music.stop();
 			if(!_goToPlayState)
 			{
 				if(!unsavedProgress)

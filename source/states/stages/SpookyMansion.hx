@@ -191,7 +191,7 @@ class SpookyMansion extends BaseStage
 			gf.playAnim('scared', true);
 		}
 
-        if(ClientPrefs.data.camZooms) {
+        if(ClientPrefs.data.camZooms && !ClientPrefs.data.ldm) {
 			FlxG.camera.zoom += 0.015;
 			camHUD.zoom += 0.03;
 

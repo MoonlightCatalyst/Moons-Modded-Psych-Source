@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="vis_cover.png">
+<SubTexture name="start0000" x="0" y="206" width="174" height="82" frameX="-6" frameY="-28" frameWidth="190" frameHeight="138" />
+<SubTexture name="start0001" x="0" y="0" width="165" height="117" frameX="-11" frameY="-8" frameWidth="190" frameHeight="138" />
+<SubTexture name="end0000" x="165" y="0" width="173" height="96" frameX="-36" frameY="-5" frameWidth="251" frameHeight="111" />
+<SubTexture name="end0001" x="0" y="117" width="181" height="89" frameX="-33" frameY="-9" frameWidth="251" frameHeight="111" />
+<SubTexture name="end0002" x="338" y="0" width="187" height="82" frameX="-30" frameY="-12" frameWidth="251" frameHeight="111" />
+<SubTexture name="end0003" x="0" y="288" width="206" height="57" frameX="-21" frameY="-25" frameWidth="251" frameHeight="111" />
+<SubTexture name="end0004" x="175" y="345" width="223" height="50" frameX="-12" frameY="-30" frameWidth="251" frameHeight="111" />
+<SubTexture name="hold0000" x="338" y="82" width="173" height="63" frameX="-8" frameY="-1" frameWidth="193" frameHeight="74" />
+<SubTexture name="hold0001" x="338" y="145" width="169" height="62" frameX="-10" frameY="-3" frameWidth="193" frameHeight="74" />
+<SubTexture name="hold0002" x="0" y="345" width="175" height="52" frameX="-7" frameY="-8" frameWidth="193" frameHeight="74" />
+<SubTexture name="hold0003" x="206" y="288" width="175" height="56" frameX="-7" frameY="-5" frameWidth="193" frameHeight="74" />
+<SubTexture name="hold0004" x="338" y="207" width="173" height="60" frameX="-8" frameY="-4" frameWidth="193" frameHeight="74" />
+</TextureAtlas>
